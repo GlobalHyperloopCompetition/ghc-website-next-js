@@ -5,6 +5,7 @@ import "./globals.css";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "@/utils/queryClient";
 import Providers from "./Provider";
+import SessionWraper from "@/Components/SessionWraper";
 const inter = Inter({ subsets: ["latin"] });
 
 
@@ -21,9 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <SessionWraper>
+
       <Providers>
           {children}
         </Providers>
+      </SessionWraper>
 
 
         </body>
