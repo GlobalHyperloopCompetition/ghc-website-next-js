@@ -16,9 +16,8 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import useGetTeam from "@/utils/useGetTeam";
+
 export default function HomeHero() {
-  const [team] = useGetTeam();
   return (
     <Container maxW={"7xl"} px={{ base: 4, md: 6 }} overflow={"hidden"}>
       <Stack

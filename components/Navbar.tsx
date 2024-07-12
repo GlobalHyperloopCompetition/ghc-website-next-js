@@ -31,16 +31,21 @@ import { useRouter } from "next/navigation";
 import useGetTeam from "../utils/useGetTeam";
 import { FaChevronDown, FaUser } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { signOut, useSession } from "next-auth/react";
+import { Loading } from "@/app/dashboard/page";
+import { RiDashboard3Fill } from "react-icons/ri";
+import { IoMdLogOut } from "react-icons/io";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   const { colorMode, toggleColorMode } = useColorMode();
   const navigate = useRouter();
+  const spacing_bk = useBreakpointValue({ sm: 1, md: 4 });
+  const { data: session } = useSession();
+  const [team, isLoading] = useGetTeam();
 
-  const [team] = useGetTeam();
-
-  function handleLogout() {
-    localStorage.removeItem("qid");
+  async function handleLogout() {
+    await signOut({ redirect: false });
     navigate.push("/login");
   }
 
@@ -100,40 +105,86 @@ export default function WithSubnavigation() {
           flex={{ base: 1, md: 0 }}
           justify={"flex-end"}
           direction={"row"}
-          spacing={useBreakpointValue({ sm: 1, md: 4 })}
+          spacing={spacing_bk}
           align={"center"}
         >
           <>
             <Button onClick={toggleColorMode}>
               {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
             </Button>
-            <Link href={"/signup"}>
-              <motion.div
-                whileTap={{ scale: 0.95 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <Button
-                  fontSize={"sm"}
-                  rounded={"full"}
-                  // display={{ base: 'none', md: 'inline-flex' }}
-                  fontWeight={600}
-                  colorScheme={"red"}
-                  bg={"red.400"}
-                  _hover={{
-                    bg: "red.500",
-                  }}
-                  rightIcon={<FaUser />}
-                >
-                  Sign Up
-                </Button>
-              </motion.div>
-            </Link>
+            {isLoading ? (
+              <Text>...</Text>
+            ) : (
+              <>
+                {session?.user ? (
+                  <>
+                    <Link href={"/dashboard"}>
+                      <motion.div
+                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        <Button
+                          fontSize={"sm"}
+                          rounded={"full"}
+                          // display={{ base: 'none', md: 'inline-flex' }}
+                          fontWeight={600}
+                          colorScheme={"red"}
+                          bg={"red.400"}
+                          _hover={{
+                            bg: "red.500",
+                          }}
+                          rightIcon={<RiDashboard3Fill fontSize={"20"} />}
+                        >
+                          Dashboard
+                        </Button>
+                      </motion.div>
+                    </Link>
+                    <motion.div
+                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <Button
+                        fontSize={"sm"}
+                        rounded={"full"}
+                        display={{ base: "none", md: "inline-flex" }}
+                        fontWeight={600}
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </Button>
+                    </motion.div>
+                  </>
+                ) : (
+                  <Link href={"/signup"}>
+                    <motion.div
+                      whileTap={{ scale: 0.95 }}
+                      whileHover={{ scale: 1.05 }}
+                    >
+                      <Button
+                        fontSize={"sm"}
+                        rounded={"full"}
+                        // display={{ base: 'none', md: 'inline-flex' }}
+                        fontWeight={600}
+                        colorScheme={"red"}
+                        bg={"red.400"}
+                        _hover={{
+                          bg: "red.500",
+                        }}
+                        rightIcon={<FaUser />}
+                      >
+                        Sign Up
+                      </Button>
+                    </motion.div>
+                  </Link>
+                )}
+              </>
+            )}
           </>
         </Stack>
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
-        <MobileNav team={team} />
+        <MobileNav handleLogout={handleLogout} />
       </Collapse>
     </Box>
   );
@@ -144,14 +195,6 @@ const DesktopNav: React.FC<any> = () => {
   const linkHoverColor = useColorModeValue("gray.800", "white");
   const bgHoverColor = useColorModeValue("gray.200", "gray.700");
   const popoverContentBgColor = useColorModeValue("white", "gray.900");
-
-  const handleDownload = () => {
-    window.open(
-      "https://ghc-document.s3.ap-south-1.amazonaws.com/GHC+2025+Track+%26+Tube+Documentation.pdf",
-      "_blank",
-      "noopener noreferrer"
-    );
-  };
 
   return (
     <>
@@ -245,7 +288,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
   );
 };
 
-const MobileNav = ({ team }: any) => {
+const MobileNav = ({ handleLogout }: any) => {
   return (
     <>
       <Stack
@@ -257,6 +300,15 @@ const MobileNav = ({ team }: any) => {
         {NAV_ITEMS.map((navItem) => (
           <MobileNavItem key={navItem.label} {...navItem} />
         ))}
+        <Button
+          fontSize={"sm"}
+          rounded={"full"}
+          fontWeight={600}
+          rightIcon={<IoMdLogOut />}
+          onClick={handleLogout}
+        >
+          Logout
+        </Button>
       </Stack>
     </>
   );

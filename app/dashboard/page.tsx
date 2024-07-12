@@ -44,8 +44,8 @@ import useGetTeam from "../../utils/useGetTeam";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePresence, motion } from "framer-motion";
-import { useRef, useEffect } from "react";
-import { signOut } from "next-auth/react";
+import { useRef, useEffect, useState } from "react";
+import { signOut, useSession } from "next-auth/react";
 
 interface LinkItemProps {
   name: string;
@@ -139,9 +139,10 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
   const navigate = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
+  const { data: session } = useSession();
 
   function handleLogout() {
-    signOut();
+    signOut({ redirect: false });
     navigate.push("/login");
   }
 
@@ -201,12 +202,7 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
               _focus={{ boxShadow: "none" }}
             >
               <HStack>
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
+                <Avatar size={"sm"} src={session?.user?.image!} />
                 <VStack
                   display={{ base: "none", md: "flex" }}
                   alignItems="flex-start"
@@ -244,7 +240,7 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
   );
 };
 
-const Loading = () => {
+export const Loading = () => {
   const ref = useRef(null);
   const [isPresent, safeToRemove] = usePresence();
   const [isLoading] = useGetTeam();
@@ -321,11 +317,16 @@ const Detail = ({ label, value }: { label: string; value: string }) => {
 const SidebarWithHeader = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [team, isLoading] = useGetTeam();
+  const [loading, setLoading] = useState<boolean>(true);
   const cardBgColor = useColorModeValue("white", "gray.800");
+
+  useEffect(() => {
+    setLoading(isLoading);
+  }, [isLoading, window.location.pathname]);
 
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
-      {isLoading ? (
+      {loading ? (
         <Loading />
       ) : (
         <>
@@ -363,17 +364,10 @@ const SidebarWithHeader = () => {
               borderRadius={"lg"}
               textAlign={"left"}
             >
-              <HStack spacing={4} w={"full"}>
-                <Image
-                  src={team?.teamlogo}
-                  alt={`${team?.teamname} logo`}
-                  height={"24"}
-                  mr={6}
-                />
-                <Heading fontSize={{ base: "2xl", md: "5xl" }}>
-                  {team?.officialteamname}
-                </Heading>
-              </HStack>
+              <Heading fontSize={{ base: "2xl", md: "5xl" }}>
+                {team?.officialteamname}
+              </Heading>
+
               <VStack textAlign={"left"} w={"full"} alignItems={"baseline"}>
                 <Detail label="University" value={team?.homeUniversity} />
                 <Detail label="Active members" value={team?.activemembers} />

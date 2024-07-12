@@ -5,31 +5,38 @@ import { useSession } from "next-auth/react";
 
 const useGetTeam = () => {
   const [email, setEmail] = useState<string>("");
+  const [team, setTeam] = useState<any>(undefined);
   const { data: session } = useSession();
 
   useEffect(() => {
-    if (session) {
-      setEmail(session.user?.email!);
+    if (session && session.user?.email) {
+      setEmail(session.user.email);
     }
   }, [session]);
 
   const { data, isLoading, isError } = useQuery(
     ["me", email],
     async () => {
-      const data = await me(email!);
-      return data;
+      if (email) {
+        const data = await me(email);
+        setTeam(data.team);
+        return data;
+      }
+      return null;
     },
     {
+      enabled: !!email, // Only enable the query if email is set
       refetchOnWindowFocus: false,
       refetchOnMount: false,
     }
   );
 
-  const team: any = data?.team;
+  const resArray: [any, boolean, boolean] = [team, isLoading, isError];
 
-  const resArray: any = [team, isLoading, isError];
-
-  return useMemo<any>(() => resArray, [resArray, email, isLoading, isError, team]);
+  return useMemo<[any, boolean, boolean]>(
+    () => resArray,
+    [team, isLoading, isError]
+  );
 };
 
 export default useGetTeam;
