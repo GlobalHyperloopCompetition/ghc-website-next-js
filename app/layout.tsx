@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { QueryClientProvider } from "react-query";
-import { queryClient } from "@/utils/queryClient";
 import Providers from "./Provider";
-import SessionWraper from "@/Components/SessionWraper";
+import SessionWraper from "../components/SessionWraper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
