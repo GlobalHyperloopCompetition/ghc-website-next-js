@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 
 import {
   Container,
@@ -25,7 +24,7 @@ export default function HomeHero() {
       <Stack
         align={"center"}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 12, md: 24 }}
+        py={{ base: 12, md: 16, xl: 20 }}
         direction={{ base: "column", md: "row" }}
       >
         <Stack flex={1} spacing={{ base: 6 }}>

@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 
 import {
   Box,
@@ -17,12 +16,6 @@ import {
   useBreakpointValue,
   useDisclosure,
   useColorMode,
-  Avatar,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
   Image,
 } from "@chakra-ui/react";
 import {
@@ -35,11 +28,9 @@ import {
 } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { BsPencilSquare } from "react-icons/bs";
 import useGetTeam from "../utils/useGetTeam";
+import { FaChevronDown, FaUser } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { FaChevronDown } from "react-icons/fa";
-import { RxOpenInNewWindow } from "react-icons/rx";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
@@ -50,7 +41,7 @@ export default function WithSubnavigation() {
 
   function handleLogout() {
     localStorage.removeItem("qid");
-    navigate.push('/login')
+    navigate.push("/login");
   }
 
   return (
@@ -116,7 +107,7 @@ export default function WithSubnavigation() {
             <Button onClick={toggleColorMode}>
               {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
             </Button>
-            {/* <Link to={"/"}>
+            <Link href={"/signup"}>
               <motion.div
                 whileTap={{ scale: 0.95 }}
                 whileHover={{ scale: 1.05 }}
@@ -131,12 +122,12 @@ export default function WithSubnavigation() {
                   _hover={{
                     bg: "red.500",
                   }}
-                  rightIcon={<RxOpenInNewWindow />}
+                  rightIcon={<FaUser />}
                 >
-                  Interest Form
+                  Sign Up
                 </Button>
               </motion.div>
-            </Link> */}
+            </Link>
           </>
         </Stack>
       </Flex>
@@ -164,15 +155,15 @@ const DesktopNav: React.FC<any> = () => {
 
   return (
     <>
-      <Stack direction={"row"} alignItems={"center"} spacing={4}>
+      <Stack direction={"row"} alignItems={"center"} spacing={2}>
         {NAV_ITEMS.map((navItem) => (
           <Box key={navItem.label}>
             <Popover trigger={"hover"} placement={"bottom-start"}>
               <PopoverTrigger>
                 <Link href={navItem.href ?? "#"}>
                   <Box
-                    p={2}
-                    px={50}
+                    px={4}
+                    py={2}
                     fontSize={"m"}
                     fontWeight={"medium"}
                     color={linkColor}
@@ -212,21 +203,6 @@ const DesktopNav: React.FC<any> = () => {
           </Box>
         ))}
       </Stack>
-      <div className="App">
-        <Button
-          padding={5}
-          rounded={"full"}
-          size={"lg"}
-          fontWeight={"bold"}
-          colorScheme={"red"}
-          bg={"red.400"}
-          marginLeft={4}
-          _hover={{ bg: "red.500" }}
-          onClick={handleDownload}
-        >
-          Track&Tube Info
-        </Button>
-      </div>
     </>
   );
 };
@@ -270,13 +246,6 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 };
 
 const MobileNav = ({ team }: any) => {
-  const handleDownload = () => {
-    window.open(
-      "https://drive.google.com/drive/u/1/folders/1iVzoQsk9yQ1LQ4vAfU7wRwYVHcbwtA_q",
-      "_blank",
-      "noopener noreferrer"
-    );
-  };
   return (
     <>
       <Stack
@@ -288,21 +257,6 @@ const MobileNav = ({ team }: any) => {
         {NAV_ITEMS.map((navItem) => (
           <MobileNavItem key={navItem.label} {...navItem} />
         ))}
-        <div className="App">
-          <Button
-            padding={2}
-            rounded={"full"}
-            marginTop={2}
-            size={"lg"}
-            fontWeight={"bold"}
-            colorScheme={"red"}
-            bg={"red.400"}
-            _hover={{ bg: "red.500" }}
-            onClick={handleDownload}
-          >
-            Track&Tube Info
-          </Button>
-        </div>
       </Stack>
     </>
   );
@@ -411,5 +365,9 @@ const NAV_ITEMS: Array<NavItem> = [
   {
     label: "Contact Us",
     href: "/contact",
+  },
+  {
+    label: "Documents",
+    href: "/documents",
   },
 ];
