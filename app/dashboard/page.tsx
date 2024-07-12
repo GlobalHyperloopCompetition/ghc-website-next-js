@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   IconButton,
@@ -240,7 +240,7 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
   );
 };
 
-export const Loading = () => {
+export const Loading: React.FC<any> = (props: any) => {
   const ref = useRef(null);
   const [isPresent, safeToRemove] = usePresence();
   const [isLoading] = useGetTeam();
@@ -322,7 +322,7 @@ const SidebarWithHeader = () => {
 
   useEffect(() => {
     setLoading(isLoading);
-  }, [isLoading, window.location.pathname]);
+  }, [isLoading]);
 
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
