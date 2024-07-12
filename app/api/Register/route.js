@@ -37,7 +37,7 @@ export async function POST(request) {
         {
           success: false,
           message:
-            "Sign Up completed, if you want to edit your details please login.",
+            "Sign Up completed, to edit your details please login.",
         },
         { status: 400 }
       );
