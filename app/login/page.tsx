@@ -34,7 +34,7 @@ export default function SimpleCard() {
     try {
       await signIn("google", { callbackUrl: "/dashboard" });
     } catch (error) {
-      setError("Failed to sign in with Google");
+      setError("Failed to sign in with Oauth provider Google");
     } finally {
       setIsLoading(false);
     }
