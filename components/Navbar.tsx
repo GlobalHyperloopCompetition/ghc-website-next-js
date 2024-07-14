@@ -93,6 +93,7 @@ export default function WithSubnavigation() {
             <Image
               src={useColorModeValue("/GHC-LOGO-BLACK.png", "/GHC-logo.png")}
               h={6}
+              alt={"Global Hyperloop Competition logo"}
             />
           </Link>
 

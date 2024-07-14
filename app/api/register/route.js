@@ -1,6 +1,13 @@
 import { db } from "../../../firebase/config";
 import { NextResponse } from "next/server";
-import { collection, query, where, getDocs, doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 
 export async function POST(request) {
   const body = await request.json();
@@ -12,12 +19,11 @@ export async function POST(request) {
     attendeventmembers,
     teamrepresentetive,
     emailrepresentetive,
-    numberrepresentetive,
-    officialteamname,
-    teamaddress,
     country,
     postalcode,
     category,
+    phone,
+    emailUpdates,
   } = body;
 
   try {
@@ -36,8 +42,7 @@ export async function POST(request) {
       return NextResponse.json(
         {
           success: false,
-          message:
-            "Sign Up completed, to edit your details please login.",
+          message: "Sign Up completed, to edit your details please login.",
         },
         { status: 400 }
       );
@@ -58,12 +63,11 @@ export async function POST(request) {
           attendeventmembers: attendeventmembers,
           teamrepresentetive: teamrepresentetive,
           emailrepresentetive: emailrepresentetive,
-          numberrepresentetive: numberrepresentetive,
-          officialteamname: officialteamname,
-          teamaddress: teamaddress,
           country: country,
           postalcode: postalcode,
           category: category,
+          phone: phone,
+          emailUpdates: emailUpdates,
         },
         { merge: true }
       ); // Merge to update existing fields without overwriting the entire document
@@ -74,7 +78,8 @@ export async function POST(request) {
       );
     }
   } catch (error) {
-    console.error(error);
+    /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+    console.warn(error);
     return NextResponse.json(
       { success: false, message: "Internal Server Error" },
       { status: 500 }

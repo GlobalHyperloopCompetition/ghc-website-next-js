@@ -18,9 +18,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/favicon.jpg" />
-      </head>
       <body className={inter.className}>
         <SessionWraper>
           <Providers>{children}</Providers>

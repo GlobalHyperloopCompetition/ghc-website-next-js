@@ -29,6 +29,7 @@ import {
   FormControl,
   Input,
   FormLabel,
+  useToast,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -71,7 +72,7 @@ interface SidebarProps extends BoxProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: FiHome, url: "/dashboard" },
+  { name: "Team Details", icon: FiHome, url: "/dashboard" },
   { name: "Explore", icon: FiCompass, url: "/about/activity" },
   { name: "Settings", icon: FiSettings, url: "/dashboard/settings" },
   { name: "Profile", icon: FiUser, url: "/dashboard/profile" },
@@ -94,6 +95,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           <Image
             src={useColorModeValue("/GHC-LOGO-gray.900.png", "/GHC-logo.png")}
             h={6}
+            alt="Ghc_logo"
           />
         </Link>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
@@ -142,10 +144,11 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
   const navigate = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
+  const { data: session } = useSession();
 
   function handleLogout() {
     signOut({ redirect: false });
-    navigate.push("/login");
+    navigate.push("/");
   }
 
   return (
@@ -179,6 +182,7 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
           display={{ base: "flex", md: "none" }}
           src={useColorModeValue("/GHC-LOGO-BLACK.png", "/GHC-logo.png")}
           h={6}
+          alt="GHC_Logo"
         />
       </Link>
 
@@ -204,7 +208,7 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
               _focus={{ boxShadow: "none" }}
             >
               <HStack>
-                <Avatar size={"sm"} />
+                <Avatar size={"sm"} src={session?.user?.image!} />
                 <VStack
                   display={{ base: "none", md: "flex" }}
                   alignItems="flex-start"
@@ -213,7 +217,7 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
                 >
                   <Text fontSize="sm">{headName}</Text>
                   <Text fontSize="xs" color="gray.600">
-                    Team Head
+                    Team Rep
                   </Text>
                 </VStack>
                 <Box display={{ base: "none", md: "flex" }}>
@@ -304,7 +308,22 @@ const ProfilePage = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const { data: session } = useSession();
-  console.log(email);
+  const toast = useToast();
+  const toastShown = useRef(false);
+
+  useEffect(() => {
+    if (!toastShown.current) {
+      toast({
+        title: "Website Under Development",
+        description:
+          "This website is currently under development. Features may be incomplete.",
+        status: "info",
+        duration: 2500,
+        isClosable: true,
+      });
+      toastShown.current = true;
+    }
+  }, [toast]);
 
   const bgColor = useColorModeValue("white", "gray.900");
 

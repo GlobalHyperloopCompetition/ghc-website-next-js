@@ -17,6 +17,8 @@ import {
   Icon,
   Select,
   FormLabel,
+  CheckboxGroup,
+  Checkbox,
 } from "@chakra-ui/react";
 import { Link as ChakraLink } from "@chakra-ui/react";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -95,7 +97,7 @@ const Form1 = ({ handleChange, input }: any) => {
         <Heading color="black" fontSize={"medium"}>
           {session
             ? "Proceed to the next step to complete your registration"
-            : "To SignUp please use your Google Account"}
+            : "To Sign Up please use your team’s official Google Account"}
         </Heading>
         {!session ? (
           <Button
@@ -148,22 +150,36 @@ const Form2 = ({ handleChange, input }: any) => {
         placeholder="Ex: Loid hyperloop"
         type="text"
       />
-      <SignUpField
-        onChange={handleChange}
-        value={input.officialteamname}
-        id="officialteamname"
-        label="Official Team Name"
-        placeholder="Ex: Loid HyperloopOne"
-        type="text"
-      />
+
       <SignUpField
         onChange={handleChange}
         value={input.homeUniversity}
         id="homeUniversity"
         label="Home University"
-        placeholder="IIT Madras"
+        placeholder="Ex: MIT"
         type="text"
       />
+      <Stack display={"flex"} flexDirection={"row"} spacing={2}>
+        <SignUpField
+          onChange={handleChange}
+          value={input.country}
+          id="country"
+          label="Country"
+          placeholder="Ex: India"
+          type="text"
+        />
+        <SignUpField
+          onChange={handleChange}
+          value={input.postalcode}
+          id="postalcode"
+          label="Postal Code"
+          placeholder="Ex: 540056"
+          type="text"
+        />
+      </Stack>
+      <Text color={"gray.600"} fontSize={"sm"}>
+        *The above details cannot be changed once submitted
+      </Text>
     </>
   );
 };
@@ -191,10 +207,10 @@ const Form3 = ({ handleChange, input }: any) => {
       </Stack>
       <SignUpField
         onChange={handleChange}
-        value={input.numberrepresentetive}
-        id="numberrepresentetive"
-        label="No.of Reps"
-        placeholder="2"
+        value={input.phone}
+        id="phone"
+        label="WhatsApp Number (with country code)"
+        placeholder="Ex: +91 9876543210"
         type="number"
       />
 
@@ -216,11 +232,15 @@ const Form3 = ({ handleChange, input }: any) => {
           type="email"
         />
       </Stack>
+      <Text color={"gray.600"} fontSize={"sm"}>
+        *Team details entered here are not final, and can be edited later.
+      </Text>
     </>
   );
 };
 
-const Form4 = ({ handleImageChange, handleChange, input }: any) => {
+const Form4 = ({ setInput, handleImageChange, handleChange, input }: any) => {
+  console.log(input);
   return (
     <>
       {/* <SignUpField
@@ -232,51 +252,35 @@ const Form4 = ({ handleImageChange, handleChange, input }: any) => {
         type="file"
       /> */}
       <FormLabel color={"gray.600"}>Choose competetion type</FormLabel>
-      <Select
-        textColor={"gray.600"}
-        bg={"gray.100"}
-        border={0}
-        color={"gray.800"}
-        placeholder="Select category"
-        focusBorderColor="red.400"
+      <CheckboxGroup
+        colorScheme="purple"
         value={input.category}
-        name="category"
-        onChange={(e) => handleChange(e)}
+        onChange={(values) =>
+          setInput((prevFormData: any) => ({
+            ...prevFormData,
+            category: values as string[],
+          }))
+        }
       >
-        <option value="Pod/subsystem demonstration">
-          Pod/subsystem demonstration
-        </option>
-        <option value="Design x Blueprint competition">
-          Design x Blueprint competition
-        </option>
-        <option value="Hyperloop Innoquest">Hyperloop Innoquest</option>
-      </Select>
-      <SignUpField
+        <Stack textColor={"gray.600"} spacing={[1, 5]} direction={["column"]}>
+          <Checkbox value="Demonstration">Demonstration</Checkbox>
+          <Checkbox value="Hyperloop Blueprint Competition">
+            Hyperloop Blueprint Competition
+          </Checkbox>
+          <Checkbox value="Hyperloop Innoquest">Hyperloop Innoquest</Checkbox>
+        </Stack>
+      </CheckboxGroup>
+
+      <Checkbox
+        textColor={"gray.600"}
+        colorScheme="red"
+        checked={input.emailUpdates}
         onChange={handleChange}
-        value={input.teamaddress}
-        id="teamaddress"
-        label="Team Address"
-        placeholder="Jane street, Northumberland Rd"
-        type="text"
-      />
-      <Stack display={"flex"} flexDirection={"row"} spacing={2}>
-        <SignUpField
-          onChange={handleChange}
-          value={input.country}
-          id="country"
-          label="Country"
-          placeholder="Ex: India"
-          type="text"
-        />
-        <SignUpField
-          onChange={handleChange}
-          value={input.postalcode}
-          id="postalcode"
-          label="Postal Code"
-          placeholder="Ex: 540056"
-          type="text"
-        />
-      </Stack>
+        defaultChecked
+        mt={2}
+      >
+        Receive updates about GHC (recommended)
+      </Checkbox>
     </>
   );
 };
@@ -292,12 +296,11 @@ export default function JoinOurTeam() {
     attendeventmembers: undefined,
     teamrepresentetive: "",
     emailrepresentetive: "",
-    numberrepresentetive: undefined,
-    officialteamname: "",
-    teamaddress: "",
+    phone: undefined,
     country: "",
     postalcode: undefined,
-    category: "",
+    category: [],
+    emailUpdates: true,
   });
   const [error, setError] = useState<string | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -335,7 +338,26 @@ export default function JoinOurTeam() {
 
   async function handleSubmit() {
     setLoading(true);
-    // console.log(input)
+    console.log(input);
+
+    // Add check to see if all fields are filled
+    if (
+      !input.email ||
+      !input.teamname ||
+      !input.homeUniversity ||
+      !input.activemembers ||
+      !input.attendeventmembers ||
+      !input.teamrepresentetive ||
+      !input.emailrepresentetive ||
+      !input.phone ||
+      !input.country ||
+      !input.postalcode ||
+      !input.category.length
+    ) {
+      setError("Please fill all the fields");
+      setLoading(false);
+      return;
+    }
 
     const response = await mutation.mutateAsync(input);
     console.log(response);
@@ -377,7 +399,7 @@ export default function JoinOurTeam() {
             lineHeight={1.1}
             fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
           >
-            Register Now for Hyperloop Innovation Challenge{" "}
+            Compete at GHC 2025: Sign Up Today!{" "}
             <Text
               as={"span"}
               bgGradient="linear(to-r, red.400,purple.400)"
@@ -450,7 +472,7 @@ export default function JoinOurTeam() {
           spacing={{ base: 0 }}
           maxW={{ lg: "lg" }}
         >
-          <Stack spacing={4}>
+          <Stack spacing={2}>
             <Heading
               color={"gray.800"}
               lineHeight={1.1}
@@ -466,7 +488,7 @@ export default function JoinOurTeam() {
               </Text>
             </Heading>
           </Stack>
-          <Box as={"form"} mt={8}>
+          <Box as={"form"} mt={6}>
             <Stack key={step} spacing={2}>
               {step === 1 ? (
                 <Form1 handleChange={handleChange} input={input} />
@@ -478,6 +500,7 @@ export default function JoinOurTeam() {
                 <Form4
                   handleChange={handleChange}
                   //   handleImageChange={handleImageChange}
+                  setInput={setInput}
                   input={input}
                 />
               )}
@@ -490,7 +513,7 @@ export default function JoinOurTeam() {
               <Stack display={"flex"} flexDirection={"row"} spacing={4}>
                 <Button
                   fontFamily={"heading"}
-                  mt={8}
+                  mt={4}
                   w={"full"}
                   variant={"outline"}
                   colorScheme={"red"}
@@ -506,7 +529,7 @@ export default function JoinOurTeam() {
                 <Button
                   onClick={handleSubmit}
                   fontFamily={"heading"}
-                  mt={8}
+                  mt={4}
                   w={"full"}
                   bgGradient="linear(to-r, red.400,purple.400)"
                   color={"white"}
@@ -523,7 +546,7 @@ export default function JoinOurTeam() {
               <Stack display={"flex"} flexDirection={"row"} spacing={4}>
                 <Button
                   fontFamily={"heading"}
-                  mt={8}
+                  mt={4}
                   w={"full"}
                   variant={"outline"}
                   colorScheme={"red"}
@@ -539,7 +562,7 @@ export default function JoinOurTeam() {
                 </Button>
                 <Button
                   fontFamily={"heading"}
-                  mt={8}
+                  mt={4}
                   w={"full"}
                   bgGradient="linear(to-r, red.400,purple.400)"
                   color={"white"}

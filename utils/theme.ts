@@ -30,6 +30,19 @@ const theme = extendTheme({
       900: "rgb(36,196,186,0.4)",
     },
   },
+  components: {
+    Checkbox: {
+      baseStyle: {
+        control: {
+          borderColor: "gray.400", // Customize the border color
+          borderWidth: "2px", // Customize the border width
+          _hover: {
+            borderColor: "gray.600", // Border color on hover
+          },
+        },
+      },
+    },
+  },
 });
 
 export default theme;

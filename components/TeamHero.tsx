@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Container,
@@ -96,7 +96,7 @@ export default function TeamHero() {
                   elmntToView?.scrollIntoView();
                 }}
               >
-                Team Heads
+                Team Reps
               </Button>
               {/* </Link> */}
             </motion.div>
@@ -144,7 +144,7 @@ export default function TeamHero() {
               align={"center"}
               w={"100%"}
               h={"100%"}
-              src={'/OIG.jpg'}
+              src={"/OIG.jpg"}
             />
           </Box>
         </Flex>

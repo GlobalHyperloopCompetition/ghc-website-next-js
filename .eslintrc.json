@@ -5,6 +5,6 @@
     "@next/next/no-page-custom-font": "off",
     "semi": "off", // Disable semicolon rule
     "@typescript-eslint/explicit-module-boundary-types": "off", // Disable explicit return types
-    "no-console": "warn" // Change severity to warning for console.log
+    "no-console": "off" // Disable console.log rule
   }
 }
