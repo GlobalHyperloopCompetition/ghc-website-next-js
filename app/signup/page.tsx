@@ -30,6 +30,7 @@ import signup from "../../utils/mutations/signup";
 // import { useNavigate, Link as ReactLink } from "react-router-dom"
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import useGetTeam from "@/utils/useGetTeam";
 
 const avatars = [
   {
@@ -305,6 +306,7 @@ export default function JoinOurTeam() {
   const [error, setError] = useState<string | undefined>();
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useRouter();
+  const [team, teamLoading, isError] = useGetTeam();
 
   const mutation = useMutation(signup);
 
@@ -379,6 +381,29 @@ export default function JoinOurTeam() {
       }));
     }
   }, [session]);
+
+  useEffect(() => {
+    if (!teamLoading && !isError && team) {
+      if (
+        !team.email ||
+        !team.teamname ||
+        !team.homeUniversity ||
+        !team.activemembers ||
+        !team.attendeventmembers ||
+        !team.teamrepresentetive ||
+        !team.emailrepresentetive ||
+        !team.phone ||
+        !team.country ||
+        !team.postalcode ||
+        !team.category.length
+      ) {
+        // Stay on the same page
+        return;
+      } else {
+        navigate.push("/dashboard");
+      }
+    }
+  }, [team, teamLoading, isError, navigate]);
 
   return (
     <Box

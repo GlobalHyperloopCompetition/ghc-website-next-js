@@ -140,7 +140,7 @@ const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
 const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
   const navigate = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
-  const { data: session } = useSession();
+  const [team, isLoading] = useGetTeam();
 
   function handleLogout() {
     signOut({ redirect: false });
@@ -197,45 +197,49 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
           icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
         />
         <Flex alignItems={"center"}>
-          <Menu>
-            <MenuButton
-              py={2}
-              transition="all 0.3s"
-              _focus={{ boxShadow: "none" }}
-            >
-              <HStack>
-                <Avatar size={"sm"} src={session?.user?.image!} />
-                <VStack
-                  display={{ base: "none", md: "flex" }}
-                  alignItems="flex-start"
-                  spacing="1px"
-                  ml="2"
-                >
-                  <Text fontSize="sm">{headName}</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Team Rep
-                  </Text>
-                </VStack>
-                <Box display={{ base: "none", md: "flex" }}>
-                  <FiChevronDown />
-                </Box>
-              </HStack>
-            </MenuButton>
-            <MenuList
-            // bg={useColorModeValue('white', 'gray.900')}
-            // borderColor={useColorModeValue('gray.200', 'gray.700')}
-            >
-              <Link href={"/dashboard/profile"}>
-                <MenuItem>Profile</MenuItem>
-              </Link>
-              <Link href={"/dashboard/settings"}>
-                <MenuItem>Settings</MenuItem>
-              </Link>
+          {isLoading ? (
+            <>...</>
+          ) : (
+            <Menu>
+              <MenuButton
+                py={2}
+                transition="all 0.3s"
+                _focus={{ boxShadow: "none" }}
+              >
+                <HStack>
+                  <Avatar size={"sm"} src={team?.profilePictureUrl!} />
+                  <VStack
+                    display={{ base: "none", md: "flex" }}
+                    alignItems="flex-start"
+                    spacing="1px"
+                    ml="2"
+                  >
+                    <Text fontSize="sm">{headName}</Text>
+                    <Text fontSize="xs" color="gray.600">
+                      Team Rep
+                    </Text>
+                  </VStack>
+                  <Box display={{ base: "none", md: "flex" }}>
+                    <FiChevronDown />
+                  </Box>
+                </HStack>
+              </MenuButton>
+              <MenuList
+              // bg={useColorModeValue('white', 'gray.900')}
+              // borderColor={useColorModeValue('gray.200', 'gray.700')}
+              >
+                <Link href={"/dashboard/profile"}>
+                  <MenuItem>Profile</MenuItem>
+                </Link>
+                <Link href={"/dashboard/settings"}>
+                  <MenuItem>Settings</MenuItem>
+                </Link>
 
-              <MenuDivider />
-              <MenuItem onClick={handleLogout}>Sign out</MenuItem>
-            </MenuList>
-          </Menu>
+                <MenuDivider />
+                <MenuItem onClick={handleLogout}>Sign out</MenuItem>
+              </MenuList>
+            </Menu>
+          )}
         </Flex>
       </HStack>
     </Flex>
@@ -245,7 +249,7 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
 export const Loading: React.FC<any> = (props: any) => {
   const ref = useRef(null);
   const [isPresent, safeToRemove] = usePresence();
-  const [isLoading] = useGetTeam();
+  const [team, isLoading] = useGetTeam();
 
   const show = {
     opacity: 1,

@@ -13,6 +13,7 @@ import {
   createIcon,
   IconProps,
   useColorModeValue,
+  AspectRatio,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -38,7 +39,7 @@ export default function HomeHero() {
               _after={{
                 content: "''",
                 width: "full",
-                height: "20%",
+                height: "10%",
                 position: "absolute",
                 bottom: 1,
                 left: 0,
@@ -63,7 +64,7 @@ export default function HomeHero() {
             direction={{ base: "column", sm: "row" }}
           >
             <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.05 }}>
-              <Link href={"/events/ghc1.0"}>
+              <Link href={"/signup"}>
                 <Button
                   rounded={"full"}
                   size={"lg"}
@@ -93,6 +94,7 @@ export default function HomeHero() {
             </motion.div>
           </Stack>
         </Stack>
+
         <Flex
           flex={1}
           justify={"center"}
@@ -106,37 +108,24 @@ export default function HomeHero() {
             position={"absolute"}
             top={"-25%"}
             left={0}
-            zIndex={-1}
+            zIndex={0}
             color={useColorModeValue("red.300", "red.400")}
           />
           <Box
             position={"relative"}
-            height={"300px"}
+            height={{ base: "200px", md: "300px" }}
             rounded={"2xl"}
             boxShadow={"2xl"}
             width={"full"}
             overflow={"hidden"}
           >
-            {/* <IconButton
-                            aria-label={'Play Button'}
-                            variant={'ghost'}
-                            _hover={{ bg: 'transparent' }}
-                            icon={<PlayIcon w={12} h={12} />}
-                            size={'lg'}
-                            color={'white'}
-                            position={'absolute'}
-                            left={'50%'}
-                            top={'50%'}
-                            transform={'translateX(-50%) translateY(-50%)'}
-                        /> */}
-            <Image
-              alt={"Hero Image"}
-              fit={"cover"}
-              align={"center"}
-              w={"100%"}
-              h={"100%"}
-              src={"/home-hero.jpeg"}
-            />
+            <AspectRatio h={"100%"} w={"100%"} ratio={1}>
+              <iframe
+                title="GHC Introduction"
+                src="https://www.youtube.com/embed/tzBII1qi8yY?si=dsENRZAWLOBLONzZ"
+                allowFullScreen
+              />
+            </AspectRatio>
           </Box>
         </Flex>
       </Stack>
