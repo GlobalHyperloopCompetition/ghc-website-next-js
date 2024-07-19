@@ -1,14 +1,13 @@
-'use client'
+"use client";
 
-import React from 'react';
-import { Box, IconButton, useBreakpointValue } from '@chakra-ui/react';
+import React from "react";
+import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
 
-import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
+import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const settings = {
   dots: true,
@@ -23,24 +22,28 @@ const settings = {
 };
 
 export default function Carousel() {
-
   const [slider, setSlider] = React.useState<Slider | null>(null);
 
-  const top = useBreakpointValue({ base: '90%', md: '50%' });
-  const side = useBreakpointValue({ base: '30%', md: '10px' });
+  const top = useBreakpointValue({ base: "90%", md: "50%" });
+  const side = useBreakpointValue({ base: "30%", md: "10px" });
 
   // These are the images used in the slide
   const cards = [
-    'DSC_0105.JPG',
-    'DSC_0367.JPG',
-    'DSC_0313.JPG',
-    'DSC_0251.JPG',
-    'DSC_0212.JPG',
-    'DSC_0097.JPG',
+    "/DSC_0105.JPG",
+    "/DSC_0367.JPG",
+    "/DSC_0313.JPG",
+    "/DSC_0251.JPG",
+    "/DSC_0212.JPG",
+    "/DSC_0097.JPG",
   ];
 
   return (
-    <Box position={'relative'} height={'1000px'} width={'full'} overflow={'hidden'}>
+    <Box
+      position={"relative"}
+      height={"1000px"}
+      width={"full"}
+      overflow={"hidden"}
+    >
       {/* Left Icon */}
       <IconButton
         aria-label="left-arrow"
@@ -49,7 +52,7 @@ export default function Carousel() {
         position="absolute"
         left={side}
         top={top}
-        transform={'translate(0%, -50%)'}
+        transform={"translate(0%, -50%)"}
         zIndex={2}
         onClick={() => slider?.slickPrev()}
       >
@@ -63,7 +66,7 @@ export default function Carousel() {
         position="absolute"
         right={side}
         top={top}
-        transform={'translate(0%, -50%)'}
+        transform={"translate(0%, -50%)"}
         zIndex={2}
         onClick={() => slider?.slickNext()}
       >
@@ -74,7 +77,7 @@ export default function Carousel() {
         {cards.map((url, index) => (
           <Box
             key={index}
-            height={'6xl'}
+            height={"6xl"}
             position="relative"
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
@@ -86,6 +89,5 @@ export default function Carousel() {
     </Box>
   );
 }
-
 
 //Temp Caption for testing
