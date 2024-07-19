@@ -16,32 +16,6 @@ const GHC1 = () => {
     <Container maxW="7xl" px={0}>
       <Navbar />
       <Hero />
-      <Box
-        py={{ base: 4, md: 20, xl: 30 }}
-        px={{ base: 6, md: 8 }}
-        color={useColorModeValue("gray.800", "gray.400")}
-        maxW="7xl"
-      >
-        <Text fontSize="xl" mt={4}>
-          With a 400m tube on the edge, we have a vision to conduct a global
-          competition to foster innovation, collaboration, and technological
-          advancement on a worldwide scale. The conference will be the first
-          stepping stone to it.
-          <br />
-          <Text
-            as="span"
-            bgGradient="linear(to-r, red.500, purple.300)"
-            bgClip="text"
-            fontSize="2xl"
-            fontWeight="bold"
-            mt={4}
-            display="block"
-          >
-            Stay tuned for more updates!
-          </Text>
-        </Text>
-      </Box>
-
       <Carousel />
 
       <Box
@@ -49,7 +23,7 @@ const GHC1 = () => {
         py={8}
         px={{ base: 4, md: 8 }}
       >
-        <Text fontSize="2xl" fontWeight="bold" color="blue.500" mb={4}>
+        <Text fontSize="2xl" fontWeight="bold" color="red.400" mb={4}>
           Day 0
         </Text>
         <Text fontSize="xl" mt={2}>
@@ -101,7 +75,7 @@ const GHC1 = () => {
         py={8}
         px={{ base: 4, md: 8 }}
       >
-        <Text fontSize="2xl" fontWeight="bold" color="blue.500" mb={4}>
+        <Text fontSize="2xl" fontWeight="bold" color="red.500" mb={4}>
           Day 2
         </Text>
         <Text fontSize="xl" mt={2}>
@@ -120,8 +94,6 @@ const GHC1 = () => {
           a reality!
         </Text>
       </Box>
-
- 
 
       <Footer />
     </Container>

@@ -1,13 +1,14 @@
-"use client";
+'use client'
 
-import React from "react";
-import { Box, IconButton, useBreakpointValue } from "@chakra-ui/react";
+import React from 'react';
+import { Box, IconButton, useBreakpointValue } from '@chakra-ui/react';
 
-import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
+import { BiLeftArrowAlt, BiRightArrowAlt } from 'react-icons/bi';
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 
 const settings = {
   dots: true,
@@ -23,12 +24,16 @@ const settings = {
 
 export default function Carousel() {
   const [slider, setSlider] = React.useState<Slider | null>(null);
-
   const top = useBreakpointValue({ base: "90%", md: "50%" });
   const side = useBreakpointValue({ base: "30%", md: "10px" });
 
-  // These are the images used in the slide
   const cards = [
+    "DSC_0105.JPG",
+    "DSC_0367.JPG",
+    "DSC_0313.JPG",
+    "DSC_0251.JPG",
+    "DSC_0212.JPG",
+    "DSC_0097.JPG",
     "/DSC_0105.JPG",
     "/DSC_0367.JPG",
     "/DSC_0313.JPG",
@@ -40,14 +45,15 @@ export default function Carousel() {
   return (
     <Box
       position={"relative"}
-      height={"1000px"}
+      height={"lg"}
       width={"full"}
       overflow={"hidden"}
+      my={4}
     >
       {/* Left Icon */}
       <IconButton
         aria-label="left-arrow"
-        colorScheme="messenger"
+        colorScheme="red"
         borderRadius="full"
         position="absolute"
         left={side}
@@ -61,7 +67,7 @@ export default function Carousel() {
       {/* Right Icon */}
       <IconButton
         aria-label="right-arrow"
-        colorScheme="messenger"
+        colorScheme="red"
         borderRadius="full"
         position="absolute"
         right={side}
@@ -82,6 +88,7 @@ export default function Carousel() {
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
+            height={"lg"}
             backgroundImage={`url(${url})`}
           />
         ))}
