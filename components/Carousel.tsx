@@ -28,7 +28,7 @@ export default function Carousel() {
 
   const cards = [
     "/carousel-1.jpg",
-    "/carousel-2.jpg",
+    "/carousel-2.jpeg",
     "/carousel-3.jpg",
     "/carousel-4.jpg",
     "/carousel-5.jpg",
