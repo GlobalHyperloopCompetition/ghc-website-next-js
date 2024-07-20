@@ -1,6 +1,6 @@
 // route to news letter subscription
 
-import { db } from "../../../Firebase Connection/page";
+import { db } from "../../../firebase/config";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
