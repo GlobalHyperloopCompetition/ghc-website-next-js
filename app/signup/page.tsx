@@ -34,24 +34,16 @@ import useGetTeam from "@/utils/useGetTeam";
 
 const avatars = [
   {
-    name: "Ryan Florence",
-    url: "https://bit.ly/ryan-florence",
+    name: "IIT Madras",
+    url: "/iitm.png",
   },
   {
-    name: "Segun Adebayo",
-    url: "https://bit.ly/sage-adebayo",
+    name: "GHC",
+    url: "/favicon.ico",
   },
   {
-    name: "Kent Dodds",
-    url: "https://bit.ly/kent-c-dodds",
-  },
-  {
-    name: "Prosper Otemuyiwa",
-    url: "https://bit.ly/prosper-baba",
-  },
-  {
-    name: "Christian Nwamba",
-    url: "https://bit.ly/code-beast",
+    name: "SAE INDIA",
+    url: "/SAE.png",
   },
 ];
 
@@ -98,7 +90,7 @@ const Form1 = ({ handleChange, input }: any) => {
         <Heading color="black" fontSize={"medium"}>
           {session
             ? "Proceed to the next step to complete your registration"
-            : "To Sign Up please use your team’s official Google Account"}
+            : "To Register please use your team’s official Google Account"}
         </Heading>
         {!session ? (
           <Button
@@ -424,7 +416,7 @@ export default function JoinOurTeam() {
             lineHeight={1.1}
             fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
           >
-            Compete at GHC 2025: Sign Up Today!{" "}
+            Compete at GHC 2025: Register Now!
             <Text
               as={"span"}
               bgGradient="linear(to-r, red.400,purple.400)"
@@ -434,14 +426,14 @@ export default function JoinOurTeam() {
             </Text>
           </Heading>
           <Stack direction={"row"} spacing={4} align={"center"}>
-            <AvatarGroup>
+            <AvatarGroup gap={6}>
               {avatars.map((avatar) => (
                 <Avatar
                   key={avatar.name}
                   name={avatar.name}
                   src={avatar.url}
                   // eslint-disable-next-line react-hooks/rules-of-hooks
-                  size={useBreakpointValue({ base: "md", md: "lg" })}
+                  size={useBreakpointValue({ base: "lg", md: "xl" })}
                   position={"relative"}
                   zIndex={2}
                   _before={{
