@@ -25,6 +25,7 @@ import { IoAnalyticsSharp, IoSearchSharp } from "react-icons/io5";
 import { ReactElement, useState } from "react";
 import Link from "next/link";
 import { RiFlashlightLine } from "react-icons/ri";
+import NewsLetter from "../components/Newsletter";
 
 interface FeatureProps {
   text: string;
@@ -70,7 +71,8 @@ export default function FollowWAChannel() {
   const qrCode = useColorModeValue("/wachannel.png", "/wa-dark.png");
 
   return (
-    <Container maxW={"7xl"} py={8} px={8}>
+    <Container maxW={"7xl"} py={12} px={8}>
+    {/* <Container maxW={"7xl"} py={8} px={8}> */}
       
       <SimpleGrid
         columns={{ base: 1, md: 2 }}
@@ -91,6 +93,7 @@ export default function FollowWAChannel() {
           >
             REGULAR UPDATES
           </Text>
+          <Heading>Join the club!</Heading>
           <Heading>Join our community</Heading>
           <Text color={"gray.500"} fontSize={"lg"}>
             We are here to collaborate and learn about every aspect of the
@@ -119,6 +122,9 @@ export default function FollowWAChannel() {
             />
           </Stack>
         </Stack>
+        <Flex>
+          <NewsLetter />
+          </Flex>
         <Flex justify="center">
           <Link target="_blank" href={"https://whatsapp.com/channel/0029VaE3RWbBKfhuWzwy8E1H"}>
             <Image

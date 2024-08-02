@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
-import NewsLetter from "../components/NewsLetter"
+import NewsLetter from "../components/Newsletter"
 import Subscribe from "../components/Subscribe";
 import HeroSection from "../components/HomeHero";
 import Footer from "../components/Footer";

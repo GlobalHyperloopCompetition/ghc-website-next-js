@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Box,
@@ -26,7 +26,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { BsPerson } from "react-icons/bs";
-import { MdEmail, MdMailOutline, MdPhone } from "react-icons/md";
+import { MdEmail, MdMailOutline } from "react-icons/md";
 import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
@@ -64,8 +64,6 @@ function useQuery() {
 
 function ContactFormWithSocialButtons() {
   const { hasCopied, onCopy } = useClipboard("ghc@smail.iitm.ac.in");
-  const { hasCopied: hasPhoneCopied, onCopy: onPhoneCopy } =
-    useClipboard("+91 8437655909");
   const mutation = useMutation(contact);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -170,6 +168,7 @@ function ContactFormWithSocialButtons() {
                 base: "4xl",
                 md: "5xl",
               }}
+              textAlign={"center"}
             >
               Get in Touch
             </Heading>
@@ -201,30 +200,6 @@ function ContactFormWithSocialButtons() {
                     isRound
                   />
                 </Tooltip>
-                <Tooltip
-                  label={
-                    hasPhoneCopied
-                      ? "Phone number Copied!"
-                      : "Copy Phone number"
-                  }
-                  closeOnClick={false}
-                  hasArrow
-                >
-                  <IconButton
-                    aria-label="phone"
-                    variant="ghost"
-                    size="lg"
-                    fontSize="3xl"
-                    icon={<MdPhone />}
-                    _hover={{
-                      bg: "red.500",
-                      color: useColorModeValue("white", "gray.700"),
-                    }}
-                    onClick={onPhoneCopy}
-                    isRound
-                  />
-                </Tooltip>
-
                 <Box
                   as="a"
                   href="https://www.instagram.com/ghc_india/"
@@ -335,13 +310,6 @@ function ContactFormWithSocialButtons() {
                       onChange={handleChange}
                     />
                   </FormControl>
-
-                  {error && (
-                    <Text align={"center"} color={"red.600"} pt={2}>
-                      {error}
-                    </Text>
-                  )}
-
                   <motion.div
                     whileTap={{ scale: 0.95 }}
                     whileHover={{ scale: 1.05 }}
@@ -361,6 +329,12 @@ function ContactFormWithSocialButtons() {
                       Send Message
                     </Button>
                   </motion.div>
+
+                  {error && (
+                    <Text align={"left"} style={{ color: "red" }} pt={2}>
+                      {error}
+                    </Text>
+                  )}
                 </VStack>
               </Box>
             </Stack>

@@ -28,12 +28,12 @@ export default function Carousel() {
   const side = useBreakpointValue({ base: "30%", md: "10px" });
 
   const cards = [
-    "/DSC_0105.JPG",
-    "/DSC_0367.JPG",
-    "/DSC_0313.JPG",
-    "/DSC_0251.JPG",
-    "/DSC_0212.JPG",
-    "/DSC_0097.JPG",
+    "/carousel-1.jpg",
+    "/carousel-2.jpeg",
+    "/carousel-3.jpg",
+    "/carousel-4.jpg",
+    "/carousel-5.jpg",
+    "/carousel-6.jpg",
   ];
 
   return (
