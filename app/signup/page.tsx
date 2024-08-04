@@ -39,13 +39,12 @@ const avatars = [
   },
   {
     name: "GHC",
-    url: "/Ghc.ico",
+    url: "/favicon.jpg",
   },
   {
     name: "SAE INDIA",
     url: "/SAE.png",
   },
-  
 ];
 
 const Blur = (props: IconProps) => {
@@ -417,7 +416,7 @@ export default function JoinOurTeam() {
             lineHeight={1.1}
             fontSize={{ base: "3xl", sm: "4xl", md: "5xl", lg: "6xl" }}
           >
-            Compete at GHC 2025: Register Today!{" "}
+            Compete at GHC 2025: Register Now!
             <Text
               as={"span"}
               bgGradient="linear(to-r, red.400,purple.400)"
@@ -426,41 +425,33 @@ export default function JoinOurTeam() {
               !
             </Text>
           </Heading>
-          <Stack  direction={"row"} spacing={4} align={"center"}>
-            <AvatarGroup gap={5}>
+          <Stack direction={"row"} spacing={4} align={"center"}>
+            <AvatarGroup gap={6}>
               {avatars.map((avatar) => (
                 <Avatar
                   key={avatar.name}
                   name={avatar.name}
                   src={avatar.url}
                   // eslint-disable-next-line react-hooks/rules-of-hooks
-                  size={useBreakpointValue({ base: "lg", md: "lg" })}
+                  size={useBreakpointValue({ base: "lg", md: "xl" })}
                   position={"relative"}
                   zIndex={2}
-                  width={"8rem"}
-                  height={"8rem"}
-                  //add gap between avatars
-                  // gap={8}
-
-
-                  // paddingRight={"10px"}
-                  // marginRight={"20rem"}
-                  // _before={{
-                  //   content: '""',
-                  //   width: "full",
-                  //   height: "full",
-                  //   // rounded: "full",
-                  //   transform: "scale(1.125)",
-                  //   bgGradient: "linear(to-bl, red.400,purple.400)",
-                  //   position: "absolute",
-                  //   zIndex: -1,
-                  //   top: 0,
-                  //   left: 0,
-                  // }}
+                  _before={{
+                    content: '""',
+                    width: "full",
+                    height: "full",
+                    rounded: "full",
+                    transform: "scale(1.125)",
+                    bgGradient: "linear(to-bl, red.400,purple.400)",
+                    position: "absolute",
+                    zIndex: -1,
+                    top: 0,
+                    left: 0,
+                  }}
                 />
               ))}
             </AvatarGroup>
-            {/* <Text fontFamily={"heading"} fontSize={{ base: "4xl", md: "6xl" }}>
+            <Text fontFamily={"heading"} fontSize={{ base: "4xl", md: "6xl" }}>
               +
             </Text>
             <Flex
@@ -488,7 +479,7 @@ export default function JoinOurTeam() {
               }}
             >
               YOU
-            </Flex> */}
+            </Flex>
           </Stack>
         </Stack>
         <Stack

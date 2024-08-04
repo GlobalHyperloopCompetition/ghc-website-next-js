@@ -22,7 +22,7 @@ const Home: React.FC<any> = () => {
         <HeroSection />
         <Business />
         {/* <SplitWithImage /> */}
-        <NewsLetter />
+       
         <Subscribe />
         <FAQ />
         <Footer />
