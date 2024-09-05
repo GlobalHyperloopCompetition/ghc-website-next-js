@@ -85,7 +85,7 @@ const Documents = () => {
               </Box>
               <Heading size="md" my={2}>
                 <LinkOverlay
-                  href="https://ghc-document.s3.ap-south-1.amazonaws.com/GHC+2025+R%26R+Version+1.0.pdf"
+                  href="https://ghc-document.s3.ap-south-1.amazonaws.com/GHC+2025+R%26R+Version+1.0+22-08.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
