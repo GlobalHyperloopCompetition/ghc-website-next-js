@@ -11,7 +11,7 @@ const admin = () => {
     }, [])
 
     const fetchdata = async () => {
-        const response = await fetch('/api/getAll', {
+        const response = await fetch('/api/register', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
