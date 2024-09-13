@@ -50,6 +50,7 @@ import { usePresence, motion } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { MdBuild } from "react-icons/md";
 import { signOut, useSession } from "next-auth/react";
+import { TbListDetails } from "react-icons/tb";
 
 interface LinkItemProps {
   name: string;
@@ -72,9 +73,10 @@ interface SidebarProps extends BoxProps {
 }
 
 const LinkItems: Array<LinkItemProps> = [
-  { name: "Team Details", icon: FiHome, url: "/dashboard" },
-  { name: "Explore", icon: FiCompass, url: "/about/activity" },
-  { name: "Settings", icon: FiSettings, url: "/dashboard/settings" },
+  { name: "Home", icon: FiHome, url: "/" },
+  { name: "Team Details", icon: TbListDetails, url: "/dashboard" },
+  // { name: "Explore", icon: FiCompass, url: "/about/activity" },
+  // { name: "Settings", icon: FiSettings, url: "/dashboard/settings" },
   { name: "Profile", icon: FiUser, url: "/dashboard/profile" },
 ];
 
@@ -403,7 +405,7 @@ const ProfilePage = () => {
                 </Button>
               </Stack>
 
-              <VStack
+              {/* <VStack
                 mt={10}
                 w={"full"}
                 alignItems={"flex-start"}
@@ -506,7 +508,7 @@ const ProfilePage = () => {
                     </Button>
                   </HStack>
                 </VStack>
-              </VStack>
+              </VStack> */}
             </VStack>
           </Stack>
         </>
