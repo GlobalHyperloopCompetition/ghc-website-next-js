@@ -106,13 +106,21 @@ function ContactFormWithSocialButtons() {
     onClose();
     setError(null);
     setLoading(true);
-    const res = await mutation.mutateAsync(values);
-    if (res.success) {
+    const res = await fetch(`/api/contact`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(input),
+    });
+    // const res = await mutation.mutateAsync(values);
+    const json=await res.json()
+    if (json.success) {
       onOpen();
       setLoading(false);
       setError("Message Sent!");
     } else {
-      setError(res.message);
+      setError(json.message);
       setLoading(false);
     }
   };

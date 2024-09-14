@@ -2,7 +2,7 @@ import { db } from "@/firebase/config";
 import { collection, getDocs } from "firebase/firestore";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
-import * as XLSX from "xlsx";
+// import * as XLSX from "xlsx";
 
 export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
   const dataCollection = collection(db, "users");
@@ -12,7 +12,7 @@ export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
     id: doc.id, // Add document ID if needed
     ...doc.data(), // Spread the document fields
   }));
-  console.log(data);
+
 
 //   // Generate Excel from data
 //   const worksheet = XLSX.utils.json_to_sheet(data);
