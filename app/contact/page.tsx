@@ -107,7 +107,7 @@ function ContactFormWithSocialButtons() {
     setError(null);
     setLoading(true);
     const res = await mutation.mutateAsync(values);
-    if (res.message === "Message sent!") {
+    if (res.success) {
       onOpen();
       setLoading(false);
       setError("Message Sent!");
