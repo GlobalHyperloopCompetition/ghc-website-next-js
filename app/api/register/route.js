@@ -1,5 +1,6 @@
 import { db } from "../../../firebase/config";
 import { NextResponse } from "next/server";
+
 import {
   collection,
   query,
@@ -8,6 +9,9 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
+
+
+// post request for registering data
 
 export async function POST(request) {
   const body = await request.json();
@@ -42,7 +46,7 @@ export async function POST(request) {
       return NextResponse.json(
         {
           success: false,
-          message: "Registration completed, to edit your details please login.",
+          message: "Sign Up completed, to edit your details please login.",
         },
         { status: 400 }
       );
@@ -86,3 +90,27 @@ export async function POST(request) {
     );
   }
 }
+
+
+// get request for fetching data (registrations)
+
+
+export async function GET(request) {
+
+  try {
+    const collectionRef = collection(db, "users");
+    const snapshot = await getDocs(collectionRef);
+    const documents = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data() 
+    }));
+    return NextResponse.json({success:true,data:documents})
+} catch (error) {
+    console.error("Error fetching documents: ", error);
+}
+}
+
+
+
+  
+

@@ -263,17 +263,9 @@ const Form4 = ({ setInput, handleImageChange, handleChange, input }: any) => {
           <Checkbox value="Hyperloop Innoquest">Hyperloop Innoquest</Checkbox>
         </Stack>
       </CheckboxGroup>
-
-      <Checkbox
-        textColor={"gray.600"}
-        colorScheme="red"
-        checked={input.emailUpdates}
-        onChange={handleChange}
-        defaultChecked
-        mt={2}
-      >
-        Receive updates about GHC (recommended)
-      </Checkbox>
+      <Text mt={2} color={"gray.600"} fontSize={"sm"}>
+        *You can select multiple options
+      </Text>
     </>
   );
 };
@@ -390,6 +382,7 @@ export default function JoinOurTeam() {
         !team.category.length
       ) {
         // Stay on the same page
+        setStep(2);
         return;
       } else {
         navigate.push("/dashboard");
@@ -593,14 +586,6 @@ export default function JoinOurTeam() {
                   Next
                 </Button>
               </Stack>
-            )}
-            {step === 1 && (
-              <Text pt={8} align={"center"} color="gray.700">
-                Already a user?{" "}
-                <ChakraLink as={NextLink} color={"red.400"} href="/login">
-                  Login
-                </ChakraLink>
-              </Text>
             )}
           </Box>
         </Stack>

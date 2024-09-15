@@ -25,3 +25,11 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 export { db };
+
+
+
+// # firebase
+
+
+// # Next auth jwt secret
+// NEXTAUTH_SECRET= ghc@india_iitm_2024
