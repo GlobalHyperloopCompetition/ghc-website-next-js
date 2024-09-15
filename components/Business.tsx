@@ -159,7 +159,7 @@ export default function SplitWithImage() {
         </SimpleGrid>
       </Container>
 
-      <Stack
+      {/* <Stack
         spacing={4}
         as={Container}
         maxW={"7xl"}
@@ -201,7 +201,7 @@ export default function SplitWithImage() {
             href={"#"}
           />
         </Flex>
-      </Container>
+      </Container> */}
 
       <Stack
         spacing={4}

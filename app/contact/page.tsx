@@ -24,7 +24,11 @@ import {
   AlertTitle,
   CloseButton,
   useDisclosure,
+  ButtonGroup,
+  Divider,
+  Image,
 } from "@chakra-ui/react";
+import { Card, CardHeader, CardBody, CardFooter } from "@chakra-ui/react";
 import { BsPerson } from "react-icons/bs";
 import { MdEmail, MdMailOutline } from "react-icons/md";
 import { FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
@@ -38,6 +42,7 @@ import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { useMemo } from "react";
 import React from "react";
+import Link from "next/link";
 
 const confetti = {
   light: {
@@ -106,7 +111,7 @@ function ContactFormWithSocialButtons() {
     onClose();
     setError(null);
     setLoading(true);
-    const res = await mutation.mutateAsync(values);
+    const res: any = await mutation.mutateAsync(values);
     if (res.message === "Message sent!") {
       onOpen();
       setLoading(false);
@@ -172,6 +177,120 @@ function ContactFormWithSocialButtons() {
             >
               Get in Touch
             </Heading>
+            <Stack direction={{ base: "column", md: "row" }} spacing={4}>
+              <Card maxW="sm" mx="auto">
+                <CardBody>
+                  <Image
+                    mx="auto"
+                    height="200px"
+                    width="200px"
+                    objectFit="cover"
+                    src="/harsha.jpg"
+                    alt="Harsha"
+                    borderRadius="lg"
+                  />
+
+                  <Stack mt="6" spacing="3" textAlign="center" align="center">
+                    <Heading size="lg" fontWeight="bold">
+                      Harsha
+                    </Heading>
+                    <Text fontWeight="medium" color="gray.600">
+                      GHC Head, IIT Madras
+                    </Text>
+                    <Text color="blue.500" fontSize="xl" >
+                      Conatact - +91 97408 71617
+                    </Text>
+                  </Stack>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <ButtonGroup spacing="2">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Button colorScheme="teal">LinkedIn</Button>
+                    </motion.div>
+                  </ButtonGroup>
+                </CardFooter>
+              </Card>
+
+              <Card maxW="sm" mx="auto" px={2}>
+                <CardBody>
+                  <Image
+                    mx="auto"
+                    height="200px"
+                    width="200px"
+                    objectFit="cover"
+                    src="/sayan.jpg"
+                    alt="Sayan"
+                    borderRadius="lg"
+                  />
+
+                  <Stack mt="6" spacing="3" textAlign="center" align="center">
+                    <Heading size="lg" fontWeight="bold">
+                      Sayan Majumder
+                    </Heading>
+                    <Text fontWeight="medium" color="gray.600">
+                      GHC Head, IIT Madras
+                    </Text>
+                    <Text color="blue.500" fontSize="xl">
+                      Contact - +91 81489 00761
+                    </Text>
+                  </Stack>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <ButtonGroup spacing="2">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Button colorScheme="teal">LinkedIn</Button>
+                    </motion.div>
+                  </ButtonGroup>
+                </CardFooter>
+              </Card>
+
+              <Card maxW="sm" mx="auto">
+                <CardBody>
+                  <Image
+                    mx="auto"
+                    height="200px"
+                    width="200px"
+                    objectFit="cover"
+                    src="/pranav.jpg"
+                    alt="Pranav"
+                    borderRadius="lg"
+                  />
+
+                  <Stack mt="6" spacing="3" textAlign="center" align="center">
+                    <Heading size="lg" fontWeight="bold">
+                      Pranav Singhal
+                    </Heading>
+                    <Text fontWeight="medium" color="gray.600">
+                      GHC Head, IIT Madras
+                    </Text>
+                    <Text color="blue.500" fontSize="xl">
+                      Contact - +91 99270 32865
+                    </Text>
+                  </Stack>
+                </CardBody>
+                <Divider />
+                <CardFooter>
+                  <ButtonGroup spacing="2">
+                    <Link href="https://www.linkedin.com/in/pranav-singhal-81ba30223/">
+                    <motion.div
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Button colorScheme="teal">LinkedIn</Button>
+                    </motion.div>
+                    </Link> 
+                  </ButtonGroup>
+                </CardFooter>
+              </Card>
+            </Stack>
             <Stack
               spacing={{ base: 4, md: 8, lg: 20 }}
               direction={{ base: "column", md: "row" }}

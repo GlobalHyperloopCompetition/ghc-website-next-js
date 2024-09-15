@@ -419,6 +419,10 @@ const NAV_ITEMS: Array<NavItem> = [
     label: "Contact Us",
     href: "/contact",
   },
+  // {
+  //   label: "Categories",
+  //   "href"
+  // },
   {
     label: "Documents",
     href: "/documents",

@@ -189,7 +189,7 @@ import {
   
         <Advisors />
   
-        <Stack
+        {/* <Stack
           mx={{ xl: "auto" }}
           direction={{ base: "column-reverse", md: "row" }}
           maxW="5xl"
@@ -235,7 +235,7 @@ import {
             w={300}
             alt={"/arpit.jpg"}
           />
-        </Stack>
+        </Stack> */}
   
         <OurTeam />
         <Box width={"full"}>
