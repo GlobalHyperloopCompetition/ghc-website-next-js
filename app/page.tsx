@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect } from "react";
+
+import React from "react";
 import Navbar from "../components/Navbar";
 // import NewsLetter from "../components/Newsletter"
 import Subscribe from "../components/Subscribe";
@@ -8,17 +9,15 @@ import HeroSection from "../components/HomeHero";
 import Footer from "../components/Footer";
 import Business from "../components/Business";
 import FAQ from "../components/FAQ";
+// import { Box, Text } from "@chakra-ui/react";
+// import useGetTeam from "../utils/useGetTeam";
+// import { AnimatePresence, motion, usePresence } from "framer-motion";
+// import { gsap } from "gsap";
+// import SplitWithImage from "../components/SplitWithImage";
 
-import { Box, Text } from "@chakra-ui/react";
-import useGetTeam from "../utils/useGetTeam";
-import { AnimatePresence, motion, usePresence } from "framer-motion";
-import { gsap } from "gsap";
-import SplitWithImage from "../components/SplitWithImage";
+import { Box } from "@chakra-ui/react";
+import { AnimatePresence } from "framer-motion";
 
-// import { Box } from "@chakra-ui/react";
-// import { AnimatePresence } from "framer-motion";
-import { exportDataToExcel } from "@/firebase/FirestoreToExcel";
-import NewsLetter from "@/components/Newsletter";
 
 const Home: React.FC<any> = () => {
   return (
