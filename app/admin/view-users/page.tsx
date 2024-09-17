@@ -25,7 +25,10 @@ const AdminViewUsers = () => {
 
   // Fetch users with react-query
   const { data, error, isLoading } = useQuery("users", async () => {
-    const response = await fetch("/api/user/getAll");
+    const response = await fetch("/api/user/getAll",{
+      method: "GET",
+      cache: "no-cache",
+    });
     if (!response.ok) {
       throw new Error("Failed to fetch users");
     }

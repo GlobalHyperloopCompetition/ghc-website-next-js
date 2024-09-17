@@ -78,19 +78,52 @@ const Documents = () => {
             >
               <Box
                 as="time"
-                dateTime="2024-06-03T15:30:00Z"
+                dateTime="2024-09-17T12:22:00Z"
                 color={useColorModeValue("gray.500", "gray.400")}
               >
-                {timeDifference("2024-06-25T15:30:00Z")}
+                {timeDifference("2024-09-17T12:22:00Z")}
               </Box>
               <Heading size="md" my={2}>
                 <LinkOverlay
-                  href="https://ghc-document.s3.ap-south-1.amazonaws.com/GHC+2025+R%26R+Version+1.0+22-08.pdf"
+                  href="https://ghc-document.s3.ap-south-1.amazonaws.com/GHC+2025+DPS+v1.0.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
                 >
-                  Rules and Regulation Version 1.0{" "}
+                  DPS V1.0
+                </LinkOverlay>
+              </Heading>
+              <Text color={useColorModeValue("gray.600", "gray.300")}>
+                GLOBAL HYPERLOOP COMPETITION 2025
+              </Text>
+            </LinkBox>
+
+            <LinkBox
+              as="article"
+              maxW="sm"
+              p={5}
+              borderWidth={10}
+              rounded="lg"
+              shadow="md"
+              bg={useColorModeValue("white", "gray.700")}
+              transition="transform 0.2s"
+              _hover={{ transform: "scale(1.05)" }}
+            >
+              <Box
+                as="time"
+                dateTime="2024-09-17T12:22:00Z"
+                color={useColorModeValue("gray.500", "gray.400")}
+              >
+                {timeDifference("2024-09-17T12:22:00Z")}
+              </Box>
+              <Heading size="md" my={2}>
+                <LinkOverlay
+                  href="https://ghc-document.s3.ap-south-1.amazonaws.com/GHC+2025+Competition+Framework+v1.0.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  color={useColorModeValue("teal.500", "teal.300")}
+                >
+                  Competition Framework
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>

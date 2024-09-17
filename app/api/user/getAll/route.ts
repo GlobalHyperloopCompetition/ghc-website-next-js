@@ -13,14 +13,15 @@ export const GET = async (req: NextApiRequest, res: NextApiResponse) => {
     ...doc.data(), // Spread the document fields
   }));
 
+  //   // Generate Excel from data
+  //   const worksheet = XLSX.utils.json_to_sheet(data);
+  //   const workbook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
 
-//   // Generate Excel from data
-//   const worksheet = XLSX.utils.json_to_sheet(data);
-//   const workbook = XLSX.utils.book_new();
-//   XLSX.utils.book_append_sheet(workbook, worksheet, "Data");
+  //   // Download the Excel file
+  //   XLSX.writeFile(workbook, "FirestoreData.xlsx");
 
-//   // Download the Excel file
-//   XLSX.writeFile(workbook, "FirestoreData.xlsx");
-
-  return NextResponse.json(data);
+  const response = NextResponse.json(data);
+  response.headers.set("Cache-Control", "no-store");
+  return response;
 };
