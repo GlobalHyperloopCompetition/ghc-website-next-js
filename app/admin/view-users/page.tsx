@@ -164,7 +164,32 @@ interface User {
 }
 
 const AdminViewUsers = () => {
-  const [entries, setentries] = useState<User[]>([]);
+  const [users, setUsers] = React.useState<User[]>([]);
+
+  // Fetch users with react-query
+  const { data, error, isLoading } = useQuery("users", async () => {
+    const response = await fetch("/api/user/getAll");
+    if (!response.ok) {
+      throw new Error("Failed to fetch users");
+    }
+    const data: User[] = await response.json();
+    return data;
+  });
+
+  React.useEffect(() => {
+    if (data && !isLoading && !error) {
+      // Sort users: fully filled users will come first
+      const sortedUsers = data.sort((a: User, b: User) => {
+        const aFullyFilled = isFullyFilled(a);
+        const bFullyFilled = isFullyFilled(b);
+
+        // Sort fully filled users before less filled users
+        return (bFullyFilled ? 1 : 0) - (aFullyFilled ? 1 : 0);
+      });
+
+      setUsers(sortedUsers);
+    }
+  }, [data, isLoading, error]);
 
   // Function to check if the entry is "fully filled"
   const isFullyFilled = (entry: User) => {
