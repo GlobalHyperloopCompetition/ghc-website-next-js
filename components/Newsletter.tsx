@@ -12,7 +12,7 @@ import {
   createIcon,
 } from '@chakra-ui/react'
 
-export default function NewsLetter() {
+export default function CardWithIllustration() {
   return (
     <Flex
       
@@ -149,3 +149,4 @@ const NotificationIcon = createIcon({
     </g>
   ),
 })
+
