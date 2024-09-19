@@ -17,6 +17,7 @@
     "@protobufjs/base64": "^1.1.2",
     "bcrpyt": "^2.0.0",
     "firebase": "^10.12.3",
+    "formidable": "^3.5.1",
     "formik": "^2.4.6",
     "framer-motion": "^11.3.2",
     "gsap": "^3.12.5",
