@@ -30,46 +30,45 @@ export default function HomeHero() {
       <Stack
         align={"center"}
         spacing={{ base: 8, md: 10 }}
-        py={{ base: 12, md: 16, xl: 20 }}
+        py={{ base: 8, md: 10, xl: 20 }}
         direction={{ base: "column", md: "row" }}
       >
-        <Stack flex={1} spacing={{ base: 6 }}>
+        <Stack flex={1} spacing={{ base: 2 }}>
           <Heading
             lineHeight={1.1}
             fontWeight={600}
             fontSize={{ base: "3xl", sm: "4xl", lg: "6xl" }}
+            color={"red.400"}
           >
-            <br />
-            <Text as={"span"} color={"red.400"}>
-              Global Hyperloop Competition
-            </Text>
-            <br />
-            <Text
-              as={"span"}
-              fontSize={{ base: "2xl", sm: "3xl", lg: "4xl" }}
-              display="flex"
-              textDecoration={"quote"}
-              mt={2}
-            >
-              <CiCalendar />
-              Feb 2025,
-            </Text>
-            <Text
-              as={"span"}
-              fontSize={{ base: "2xl", sm: "3xl", lg: "4xl" }}
-              display="flex"
-              textDecoration={"quote"}
-              mt={2}
-            >
-              <FaLocationDot />
-              IIT Madras, Chennai
-            </Text>
-
-            <Text
-              fontSize={{ base: "2xl", sm: "3xl", lg: "4xl" }}
-              textShadow="2px 2px #FF0000"
-            ></Text>
+            Global Hyperloop Competition
           </Heading>
+
+          <Text
+            as={"span"}
+            fontSize={{ base: "2xl", sm: "3xl", lg: "4xl" }}
+            display="flex"
+            textDecoration={"quote"}
+            mt={1}
+          >
+            <CiCalendar className="mr-4" />
+            Feb 2025,
+          </Text>
+          <Text
+            as={"span"}
+            fontSize={{ base: "2xl", sm: "3xl", lg: "4xl" }}
+            display="flex"
+            textDecoration={"quote"}
+            mt={1}
+          >
+            <FaLocationDot className="mr-4" />
+            IIT Madras, Chennai
+          </Text>
+
+          <Text>
+            It's an event, where innovation knows no bounds! Unleash your
+            creativity, accelerate breakthroughs, and be a part of the
+            revolution!
+          </Text>
         </Stack>
 
         <Flex
@@ -109,7 +108,6 @@ export default function HomeHero() {
       </Stack>
 
       <Box
-        py={{ base: 10, md: 14 }}
         mt={10}
         mx="auto"
         bg={useColorModeValue("gray.50", "gray.700")}
@@ -120,6 +118,7 @@ export default function HomeHero() {
           spacing={{ base: 8, md: 10 }}
           textAlign={"center"}
           align={"center"}
+          py={{ base: 8, md: 16 , xl: 8 }}
         >
           {/* Heading and Subheading */}
           <Heading
@@ -134,7 +133,6 @@ export default function HomeHero() {
             transportation!
           </Text>
 
-          
           <Text
             fontSize={"xl"}
             color={useColorModeValue("gray.700", "gray.300")}
@@ -152,21 +150,21 @@ export default function HomeHero() {
               </ListItem>
             </motion.div>
             <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.2 }}>
-            <ListItem height={10} fontSize={"xl"}  borderRadius={10}>
-            <ListIcon as={CheckCircleIcon} color="green.400" />
-               Regular Updates to cutting-edge Hyperloop research
+              <ListItem height={10} fontSize={"xl"} borderRadius={10}>
+                <ListIcon as={CheckCircleIcon} color="green.400" />
+                Regular Updates to cutting-edge Hyperloop research
               </ListItem>
             </motion.div>
             <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.2 }}>
-            <ListItem height={10} fontSize={"xl"}  borderRadius={10}>
-            <ListIcon as={CheckCircleIcon} color="green.400" />
-                Exclusive acess To GHC Wiki 
+              <ListItem height={10} fontSize={"xl"} borderRadius={10}>
+                <ListIcon as={CheckCircleIcon} color="green.400" />
+                Exclusive acess To GHC Wiki
               </ListItem>
             </motion.div>
           </List>
 
           {/* Divider */}
-          <Box borderBottom="2px solid" borderColor="gray.200" w="40%"  />
+          <Box borderBottom="2px solid" borderColor="gray.200" w="40%" />
 
           {/* Register Button */}
           <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.05 }}>
@@ -185,7 +183,6 @@ export default function HomeHero() {
             </Link>
           </motion.div>
 
-         
           <Text fontSize={"lg"} color={"gray.500"} maxW={"3xl"}>
             "The Global Hyperloop Competition is the future of transportation
             innovation. Join us and be a part of this revolution!"
