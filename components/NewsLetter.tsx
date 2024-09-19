@@ -149,4 +149,3 @@ const NotificationIcon = createIcon({
     </g>
   ),
 })
-
