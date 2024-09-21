@@ -12,7 +12,7 @@ import {
   createIcon,
 } from '@chakra-ui/react'
 
-export default function CardWithIllustration() {
+export default function NewsLetter() {
   return (
     <Flex
       
