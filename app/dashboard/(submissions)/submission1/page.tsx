@@ -237,6 +237,7 @@ const Submissions = () => {
         </Heading>
         <HStack spacing={8} justifyContent="space-around" w="full" flexDirection={{ base: "column", md: "row" }}>
           {/* Card 1 */}
+          
           <Box w="full" bg={useColorModeValue("white", "gray.800")} p={4} maxW="500px" borderRadius="md" shadow="md">
             <Heading size="md" mb={4}>Demonstration Proposal Document (DPD)</Heading>
             <Input
