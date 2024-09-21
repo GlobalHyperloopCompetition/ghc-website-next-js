@@ -215,7 +215,7 @@ const Submissions = () => {
   const { onClose } = useDisclosure();
   const [team] = useGetTeam();
   const { data: session } = useSession();
-  const [file1, setFile1] = useState<File | null>(null);
+  const [demonstrationFile, setDemonstrationFile] = useState<File | null>(null);
 
   const handleFileChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -225,6 +225,39 @@ const Submissions = () => {
       setFile(event.target.files[0]);
     }
   };
+
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+  const formData = new FormData();
+  formData.append("email", session?.user?.email || ""); // Handle undefined/null email
+
+  formData.append("demonstration", demonstrationFile || "");
+ 
+
+  try {
+    const response = await fetch('/api/filesubmission', { // Replace with your actual API endpoint
+      method: 'POST',
+      body: formData,
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      alert("Files uploaded successfully!");
+      // Optionally reset the file inputs
+      setDemonstrationFile(null);
+     
+    } else {
+      alert(data.message);
+    }
+  } catch (error) {
+    console.error("Error uploading files:", error);
+    alert("An error occurred while uploading the files.");
+  }
+};
+
+
 
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
@@ -238,22 +271,22 @@ const Submissions = () => {
         <HStack spacing={8} justifyContent="space-around" w="full" flexDirection={{ base: "column", md: "row" }}>
           {/* Card 1 */}
           
-          <Box w="full" bg={useColorModeValue("white", "gray.800")} p={4} maxW="500px" borderRadius="md" shadow="md">
+          <Box w="full" bg={"teal.600"} boxShadow={"2xl"} p={4} maxW="500px" borderRadius="md" shadow="md">
             <Heading size="md" mb={4}>Demonstration Proposal Document (DPD)</Heading>
             <Input
               type="file"
               id="file-input-1"
               display="none"
-              onChange={(e) => handleFileChange(e, setFile1)}
+              onChange={(e) => handleFileChange(e, setDemonstrationFile)}
             />
             <Button as="label" htmlFor="file-input-1" colorScheme="teal">
-              {file1 ? file1.name : "Upload File"}
+              {demonstrationFile ? demonstrationFile.name : "Upload File"}
             </Button>
           </Box>
         </HStack>
       </VStack>
     </Box>
   );
-};
+}
 
 export default Submissions;
