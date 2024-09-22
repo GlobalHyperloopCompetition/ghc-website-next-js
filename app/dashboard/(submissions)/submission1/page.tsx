@@ -235,9 +235,6 @@ const Submissions = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     // Prevent submission if no file is selected
-
-   
-
     const formData = new FormData();
     formData.append("email", session?.user.email || ""); // Get email from session
     formData.append("demonstration", demonstrationFile);
@@ -307,6 +304,7 @@ const Submissions = () => {
                 type="file"
                 name="demonstrationFile"
                 onChange={handleFileChange}
+                required
               />
             </Box>
           </HStack>

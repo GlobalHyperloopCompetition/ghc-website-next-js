@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { db ,app} from "../../../firebase/config";
+import { db, app } from "../../../firebase/config";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL,getStorage } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
 
 
 const uploaddate = () => {
@@ -15,43 +15,44 @@ const uploaddate = () => {
 };
 
 // Helper function to handle file upload to Firebase Storage
-const uploadFile = async (teamname, file) => {  
+const uploadFile = async (teamname, file) => {
   const date = uploaddate();
   const storage = getStorage(app);
   const filename = `${file.name}-${Date.now()}`;
-  
+
   const fileRef = ref(storage, `${teamname}/${filename}`);
-  const uploadResult = await uploadBytes(fileRef, file);  
+  const uploadResult = await uploadBytes(fileRef, file);
   return getDownloadURL(uploadResult.ref);
 };
 
+// post request function
 
 export async function POST(req, res) {
   const formData = await req.formData();
-  const email=formData.get("email")
-  const demonstration=formData.get("demonstration")
-  const design=formData.get("design")
+  const email = formData.get("email")
+  const demonstration = formData.get("demonstration")
+  const design = formData.get("design")
   try {
     // Query Firestore to find the user
     const user_db = collection(db, "users");
     const check_user = query(user_db, where("email", "==", email));
     const get_user = await getDocs(check_user);
     const user_details = get_user.docs.map((doc) => doc.data())[0];
-    
-
 
     // Extract team details from user
     const teamname = user_details.teamname;
-    const uid = user_details.uid;     
-        const promises = [];
-        if (demonstration && demonstration.size > 0) {
-          promises.push(uploadFile(teamname, demonstration));
-        }
-        if (design && design.size > 0) {
-          promises.push(uploadFile(teamname, design));
-        }
-    
-        const [demonstration_file_url, design_file_url] = await Promise.all(promises);
+    const uid = user_details.uid;
+
+    let demonstration_file_url = null; // Declare variables in the outer scope
+    let design_file_url = null;
+
+    if (demonstration && demonstration.size > 0) {
+       demonstration_file_url = await uploadFile(teamname, demonstration);       
+    }
+
+    if (design && design.size > 0) {
+       design_file_url = await uploadFile(teamname, design);  
+    }
     // Save file URLs in Firestore
     const user_file_db = collection(db, "userfiles");
     const data = {
@@ -59,7 +60,7 @@ export async function POST(req, res) {
       teamname: teamname,
       uid: uid,
     };
-    
+
     if (demonstration_file_url) {
       data.demonstrationfile = demonstration_file_url;
     }
@@ -67,12 +68,6 @@ export async function POST(req, res) {
       data.designfile = design_file_url;
     }
     await addDoc(user_file_db, data);
-
-    console.log(data);
-    
-
-    
-
     return NextResponse.json({ success: true, message: "Files uploaded successfully" });
   } catch (error) {
     console.warn(error);
