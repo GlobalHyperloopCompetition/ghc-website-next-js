@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState  } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -30,7 +30,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react"; // Import signOut
 import useGetTeam from "../../../../utils/useGetTeam"; // Assuming this hook is correct
 import { useRouter } from "next/router"; // Import useRouter
-import { MoonIcon,SunIcon } from "@chakra-ui/icons";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 interface LinkItemProps {
   name: string;
@@ -180,9 +180,14 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
             <>...</>
           ) : (
             <Menu>
-              <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: "none" }}>
+              <MenuButton
+                py={2}
+                transition="all 0.3s"
+                _focus={{ boxShadow: "none" }}
+              >
                 <HStack>
-                  <Avatar size={"sm"} src={team?.profilePictureUrl || ""} /> {/* Handled undefined or null profile picture */}
+                  <Avatar size={"sm"} src={team?.profilePictureUrl || ""} />{" "}
+                  {/* Handled undefined or null profile picture */}
                   <VStack
                     display={{ base: "none", md: "flex" }}
                     alignItems="flex-start"
@@ -213,80 +218,100 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
 
 const Submissions = () => {
   const { onClose } = useDisclosure();
-  const [team] = useGetTeam();
   const { data: session } = useSession();
   const [demonstrationFile, setDemonstrationFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false); // Loading state
 
-  const handleFileChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    setFile: React.Dispatch<React.SetStateAction<File | null>>
-  ) => {
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      setFile(event.target.files[0]);
+      setDemonstrationFile(event.target.files[0]);
     }
+    // setDemonstrationFile(event.target.files[0]);
   };
-
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-  const formData = new FormData();
-  formData.append("email", session?.user?.email || ""); // Handle undefined/null email
+    if (!demonstrationFile) return; // Prevent submission if no file is selected
 
-  formData.append("demonstration", demonstrationFile || "");
- 
+    const formData = new FormData();
+    formData.append("email", session?.user?.email || ""); // Handle undefined/null email
+    formData.append("demonstration", demonstrationFile);
 
-  try {
-    const response = await fetch('/api/filesubmission', { // Replace with your actual API endpoint
-      method: 'POST',
-      body: formData,
-    });
+    setLoading(true); // Set loading to true
 
-    const data = await response.json();
+    try {
+      const response = await fetch( `/api/filesubmission`, {
+        method: 'POST',
+        body: formData,
+      });
 
-    if (data.success) {
-      alert("Files uploaded successfully!");
-      // Optionally reset the file inputs
-      setDemonstrationFile(null);
-     
-    } else {
-      alert(data.message);
+        const data = await response.json();
+
+        if (data.success) {
+          alert("Files uploaded successfully!");
+          setDemonstrationFile(null); // Reset the file input
+        } else {
+          alert(data.message);
+        }
+      console.log(response);
+    } catch (error) {
+      console.error("Error uploading files:", error);
+      alert("An error occurred while uploading the files.");
+    } finally {
+      setLoading(false); // Reset loading state
     }
-  } catch (error) {
-    console.error("Error uploading files:", error);
-    alert("An error occurred while uploading the files.");
-  }
-};
 
-
+    
+  };
 
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
-      <SidebarContent onClose={onClose} />
-      <VStack spacing={6} ml={{ base: 0, md: 60 }} p="8">
-        <Heading as="h1" size="xl" mb={4}>Submission Dashboard</Heading>
+         <SidebarContent onClose={onClose} />
+      <VStack spacing={6} p="8">
+        <Heading as="h1" size="xl" mb={4}>
+          Submission Dashboard
+        </Heading>
         <Divider />
-        <Heading as="h2" size="lg" fontWeight="semibold" mb={4} color="teal.500">
+        <Heading
+          as="h2"
+          size="lg"
+          fontWeight="semibold"
+          mb={4}
+          color="teal.500"
+        >
           Demonstration
         </Heading>
-        <HStack spacing={8} justifyContent="space-around" w="full" flexDirection={{ base: "column", md: "row" }}>
-          {/* Card 1 */}
-          
-          <Box w="full" bg={"teal.600"} boxShadow={"2xl"} p={4} maxW="500px" borderRadius="md" shadow="md">
-            <Heading size="md" mb={4}>Demonstration Proposal Document (DPD)</Heading>
-            <Input
-              type="file"
-              id="file-input-1"
-              display="none"
-              onChange={(e) => handleFileChange(e, setDemonstrationFile)}
-            />
-            <Button as="label" htmlFor="file-input-1" colorScheme="teal">
-              {demonstrationFile ? demonstrationFile.name : "Upload File"}
-            </Button>
-          </Box>
-        </HStack>
+        <form onSubmit={handleSubmit}>
+          <HStack spacing={8} justifyContent="space-around" w="full">
+            <Box
+              w="full"
+              bg={"teal.600"}
+              boxShadow={"2xl"}
+              p={4}
+              maxW="500px"
+              borderRadius="md"
+            >
+              <Heading size="md" mb={4}>
+                Demonstration Proposal Document (DPD)
+              </Heading>
+              <Input
+                type="file"
+                id="file-input-1"
+                display="none"
+                onChange={handleFileChange}
+              />
+              <Button as="label" htmlFor="file-input-1" colorScheme="teal">
+                {demonstrationFile ? demonstrationFile.name : "Upload File"}
+              </Button>
+            </Box>
+          </HStack>
+          <Button type="submit" colorScheme="teal" isLoading={loading} mt={4}>
+            Submit
+          </Button>
+        </form>
       </VStack>
     </Box>
   );
-}
+};
 
 export default Submissions;

@@ -16,7 +16,7 @@ import { ReactElement } from "react";
 // import { Link } from "react-router-dom";
 import Link from "next/link";
 import { RiFlashlightLine } from "react-icons/ri";
-import NewsLetter from "./NewsLetter";
+import NewsLetter from "../components/NewsLetter";
 
 interface FeatureProps {
   text: string;

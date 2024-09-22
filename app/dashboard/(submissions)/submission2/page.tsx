@@ -1,12 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
   Input,
   Text,
   Flex,
+  FlexProps,
   VStack,
   useDisclosure,
   CloseButton,
@@ -19,34 +20,42 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  DrawerContent,
-  Drawer,
+  IconButton,
+  Avatar,
+  MenuDivider,
+  useColorMode,
 } from "@chakra-ui/react";
-import { FiHome, FiUser, FiChevronDown } from "react-icons/fi";
+import { FiHome, FiUser, FiChevronDown, FiMenu, FiBell } from "react-icons/fi"; // Imported required icons
 import Link from "next/link";
-import { useSession } from "next-auth/react";
-import useGetTeam from "../../../../utils/useGetTeam";
+import { useSession, signOut } from "next-auth/react"; // Import signOut
+import useGetTeam from "../../../../utils/useGetTeam"; // Assuming this hook is correct
+import { useRouter } from "next/router"; // Import useRouter
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 interface LinkItemProps {
   name: string;
   icon: React.ComponentType;
   url?: string;
-  hasDropdown?: boolean; // Added flag for dropdown items
+  hasDropdown?: boolean;
+}
+
+interface NavItemProps extends FlexProps {
+  icon: React.ComponentType;
+  children: React.ReactNode;
+}
+
+interface MobileProps extends FlexProps {
+  headName: string;
+  onOpen: () => void;
 }
 
 const LinkItems: LinkItemProps[] = [
   { name: "Home", icon: FiHome, url: "/" },
   { name: "Team Details", icon: FiUser, url: "/dashboard" },
-  { name: "Submissions", icon: FiUser, hasDropdown: true }, // Dropdown enabled
+  { name: "Submissions", icon: FiUser, hasDropdown: true },
 ];
 
-const SidebarContent = ({
-  onClose,
-  isOpen,
-}: {
-  onClose: () => void;
-  isOpen: boolean;
-}) => (
+const SidebarContent = ({ onClose }: { onClose: () => void }) => (
   <Box
     bg={useColorModeValue("white", "gray.900")}
     borderRight="1px"
@@ -54,7 +63,6 @@ const SidebarContent = ({
     w={{ base: "full", md: 60 }}
     pos="fixed"
     h="full"
-    display={{ base: isOpen ? "block" : "none", md: "block" }} // Hide on mobile when closed
   >
     <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
       <Link href="/">
@@ -115,174 +123,193 @@ const NavItem = ({
   </Flex>
 );
 
-const Submissions = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [team] = useGetTeam();
-  const { data: session } = useSession();
-  const [file1, setFile1] = useState<File | null>(null);
-  const [file2, setFile2] = useState<File | null>(null);
-  const [file3, setFile3] = useState<File | null>(null);
+const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
+  const navigate = useRouter(); // Added useRouter hook for navigation
+  const { colorMode, toggleColorMode } = useColorMode();
+  const [team, isLoading] = useGetTeam();
 
-  const handleFileChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    setFile: React.Dispatch<React.SetStateAction<File | null>>
-  ) => {
+  function handleLogout() {
+    signOut({ redirect: false });
+    navigate.push("/");
+  }
+
+  return (
+    <Flex
+      ml={{ base: 0, md: 60 }}
+      px={{ base: 4, md: 4 }}
+      height="20"
+      alignItems="center"
+      bg={useColorModeValue("white", "gray.900")}
+      borderBottomWidth="1px"
+      borderBottomColor={useColorModeValue("gray.200", "gray.700")}
+      justifyContent={{ base: "space-between", md: "flex-end" }}
+      {...rest}
+    >
+      <IconButton
+        display={{ base: "flex", md: "none" }}
+        onClick={onOpen}
+        variant="outline"
+        aria-label="open menu"
+        icon={<FiMenu />}
+      />
+      <Link href="/">
+        <Image
+          display={{ base: "flex", md: "none" }}
+          src={useColorModeValue("/GHC-LOGO-BLACK.png", "/GHC-logo.png")}
+          h={6}
+          alt="GHC_Logo"
+        />
+      </Link>
+
+      <HStack spacing={{ base: "0", md: "6" }}>
+        <IconButton
+          size="lg"
+          variant="ghost"
+          aria-label="open menu"
+          icon={<FiBell />}
+        />
+        <IconButton
+          size="lg"
+          variant="ghost"
+          aria-label="open menu"
+          onClick={toggleColorMode}
+          icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
+        />
+        <Flex alignItems={"center"}>
+          {isLoading ? (
+            <>...</>
+          ) : (
+            <Menu>
+              <MenuButton
+                py={2}
+                transition="all 0.3s"
+                _focus={{ boxShadow: "none" }}
+              >
+                <HStack>
+                  <Avatar size={"sm"} src={team?.profilePictureUrl || ""} />{" "}
+                  {/* Handled undefined or null profile picture */}
+                  <VStack
+                    display={{ base: "none", md: "flex" }}
+                    alignItems="flex-start"
+                    spacing="1px"
+                    ml="2"
+                  >
+                    <Text fontSize="sm">{headName}</Text>
+                    <Text fontSize="xs" color="gray.600">
+                      Team Rep
+                    </Text>
+                  </VStack>
+                  <Box display={{ base: "none", md: "flex" }}>
+                    <FiChevronDown />
+                  </Box>
+                </HStack>
+              </MenuButton>
+              <MenuList>
+                <MenuDivider />
+                <MenuItem onClick={handleLogout}>Sign out</MenuItem>
+              </MenuList>
+            </Menu>
+          )}
+        </Flex>
+      </HStack>
+    </Flex>
+  );
+};
+
+const Submissions = () => {
+  const { onClose } = useDisclosure();
+  const { data: session } = useSession();
+  const [designFile, setDesignFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false); // Loading state
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
-      setFile(event.target.files[0]);
+      setDesignFile(event.target.files[0]);
     }
+
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!designFile) return; // Prevent submission if no file is selected
+
+    const formData = new FormData();
+    formData.append("email", session?.user?.email || ""); // Handle undefined/null email
+    formData.append("demonstration", designFile );
+
+    setLoading(true); // Set loading to true
+
+    try {
+      const response = await fetch( `/api/filesubmission`, {
+        method: 'POST',
+        body: formData,
+      });
+
+        const data = await response.json();
+
+        if (data.success) {
+          alert("Files uploaded successfully!");
+          setDesignFile(null); // Reset the file input
+        } else {
+          alert(data.message);
+        }
+      console.log(response);
+    } catch (error) {
+      console.error("Error uploading files:", error);
+      alert("An error occurred while uploading the files.");
+    } finally {
+      setLoading(false); // Reset loading state
+    }
+
+    
   };
 
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
-      <SidebarContent onClose={onClose} display={{ base: "none", md: "block" }} />
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose} size="full">
-        <DrawerContent>
-          <SidebarContent onClose={onClose} />
-        </DrawerContent>
-      </Drawer>
-      {/* <MobileNav onOpen={onOpen} /> */}
-      <VStack spacing={6} ml={{ base: 0, md: 60 }} p="8">
+         <SidebarContent onClose={onClose} />
+      <VStack spacing={6} p="8">
         <Heading as="h1" size="xl" mb={4}>
           Submission Dashboard
         </Heading>
         <Divider />
-
         <Heading
           as="h2"
           size="lg"
-          mx="auto"
-         
-          textAlign="center"
           fontWeight="semibold"
           mb={4}
           color="teal.500"
         >
-          DesignX Blueprint
+          DesignX
         </Heading>
-
-        <HStack
-          spacing={8}
-          justifyContent="space-around"
-          w="full"
-          flexDirection={{ base: "column", md: "row" }} // Adjust flexDirection for mobile responsiveness
-        >
-         
-
-          {/* Card 1 */}
-          <Box
-            w="full"
-            bg={useColorModeValue("white", "gray.800")}
-            p={4}
-            borderRadius="md"
-            shadow="md"
-          >
-            <Heading size="md" mb={4}>
-              Upload Option 1
-            </Heading>
-            <Input
-              type="file"
-              id="file-input-1"
-              display="none"
-              onChange={(e) => handleFileChange(e, setFile1)}
-            />
-            <Button
-              as="label"
-              htmlFor="file-input-1"
-              colorScheme="teal"
-              _hover={{ bg: "teal.600" }}
+        <form onSubmit={handleSubmit}>
+          <HStack spacing={8} justifyContent="space-around" w="full">
+            <Box
+              w="full"
+              bg={"teal.600"}
+              boxShadow={"2xl"}
+              p={4}
+              maxW="500px"
+              borderRadius="md"
             >
-              Upload File 1
-            </Button>
-            {file1 && (
-              <Text
-                mt={2}
-                fontSize="sm"
-                color={useColorModeValue("gray.500", "gray.300")}
-              >
-                File: {file1.name}
-              </Text>
-            )}
-          </Box>
+              <Heading size="md" mb={4}>
+              Registration Design Submission (RDS)
 
-          {/* Card 2 */}
-          <Box
-            w="full"
-            bg={useColorModeValue("white", "gray.800")}
-            p={4}
-            borderRadius="md"
-            shadow="md"
-          >
-            <Heading size="md" mb={4}>
-              Upload Option 2
-            </Heading>
-            <Input
-              type="file"
-              id="file-input-2"
-              display="none"
-              onChange={(e) => handleFileChange(e, setFile2)}
-            />
-            <Button
-              as="label"
-              htmlFor="file-input-2"
-              colorScheme="teal"
-              _hover={{ bg: "teal.600" }}
-            >
-              Upload File 2
-            </Button>
-            {file2 && (
-              <Text
-                mt={2}
-                fontSize="sm"
-                color={useColorModeValue("gray.500", "gray.300")}
-              >
-                File: {file2.name}
-              </Text>
-            )}
-          </Box>
-
-          {/* Card 3 */}
-          <Box
-            w="full"
-            bg={useColorModeValue("white", "gray.800")}
-            p={4}
-            borderRadius="md"
-            shadow="md"
-          >
-            <Heading size="md" mb={4}>
-              Upload Option 3
-            </Heading>
-            <Input
-              type="file"
-              id="file-input-3"
-              display="none"
-              onChange={(e) => handleFileChange(e, setFile3)}
-            />
-            <Button
-              as="label"
-              htmlFor="file-input-3"
-              colorScheme="teal"
-              _hover={{ bg: "teal.600" }}
-            >
-              Upload File 3
-            </Button>
-            {file3 && (
-              <Text
-                mt={2}
-                fontSize="sm"
-                color={useColorModeValue("gray.500", "gray.300")}
-              >
-                File: {file3.name}
-              </Text>
-            )}
-          </Box>
-        </HStack>
-
-        {/* Placeholder when no submissions are uploaded */}
-        {!file1 && !file2 && !file3 && (
-          <Text color={useColorModeValue("gray.600", "gray.400")} mt={4}>
-            No submissions uploaded yet. Please upload files to get started.
-          </Text>
-        )}
+              </Heading>
+              <Input
+                type="file"
+                id="file-input-1"
+                display="none"
+                onChange={handleFileChange}
+              />
+              <Button as="label" htmlFor="file-input-1" colorScheme="teal">
+                {designFile ? designFile.name : "Upload File"}
+              </Button>
+            </Box>
+          </HStack>
+          <Button type="submit" colorScheme="teal" isLoading={loading} mt={4}>
+            Submit
+          </Button>
+        </form>
       </VStack>
     </Box>
   );
