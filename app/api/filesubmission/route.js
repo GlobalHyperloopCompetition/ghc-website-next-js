@@ -19,7 +19,6 @@ const uploadFile = async (teamname, file) => {
   const date = uploaddate();
   const storage = getStorage(app);
   const filename = `${file.name}-${Date.now()}`;
-  console.log(file,filename);
   
   const fileRef = ref(storage, `${teamname}/${filename}`);
   const uploadResult = await uploadBytes(fileRef, file);  
@@ -31,6 +30,7 @@ const uploadFile = async (teamname, file) => {
 export async function POST(req, res) {
   const formData = await req.formData();
   const email=formData.get("email")
+  
   const demonstration=formData.get("demonstration")
   const design=formData.get("design")
 
@@ -45,9 +45,7 @@ export async function POST(req, res) {
 
     // Extract team details from user
     const teamname = user_details.teamname;
-    const uid = user_details.uid;
-
-    
+    const uid = user_details.uid;    
         // Upload files to Firebase Storage and get URLs  
         const [demonstration_file_url, design_file_url] = await Promise.all([
           uploadFile(teamname, demonstration),
