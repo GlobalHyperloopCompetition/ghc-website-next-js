@@ -33,6 +33,7 @@ import {
   // FiStar,
   FiSettings,
   FiMenu,
+  FiUpload,
   FiBell,
   FiChevronDown,
   FiUser,
@@ -74,7 +75,8 @@ const LinkItems: Array<LinkItemProps> = [
   { name: "Team Details", icon: TbListDetails, url: "/dashboard" },
   // { name: "Explore", icon: FiCompass, url: "/about/activity" },
   // { name: "Settings", icon: FiSettings, url: "/dashboard/settings" },
-  { name: "Profile", icon: FiUser, url: "/dashboard/profile" },
+  // { name: "Profile", icon: FiUser, url: "/dashboard/profile" },
+  {name:"Submissions", icon:FiUpload, url:"/dashboard/submission1"},
 ];
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -231,9 +233,9 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
               // bg={useColorModeValue('white', 'gray.900')}
               // borderColor={useColorModeValue('gray.200', 'gray.700')}
               >
-                <Link href={"/dashboard/profile"}>
+                {/* <Link href={"/dashboard/profile"}>
                   <MenuItem>Profile</MenuItem>
-                </Link>
+                </Link> */}
                 {/* <Link href={"/dashboard/settings"}>
                   <MenuItem>Settings</MenuItem>
                 </Link> */}
