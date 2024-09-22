@@ -52,8 +52,10 @@ interface MobileProps extends FlexProps {
 const LinkItems: LinkItemProps[] = [
   { name: "Home", icon: FiHome, url: "/" },
   { name: "Team Details", icon: FiUser, url: "/dashboard" },
-  { name: "Submissions", icon: FiUser, hasDropdown: true },
+  { name: "Submissions", icon: FiUser,hasDropdown: true },
 ];
+
+// 
 
 const SidebarContent = ({ onClose }: { onClose: () => void }) => (
   <Box
@@ -83,7 +85,7 @@ const SidebarContent = ({ onClose }: { onClose: () => void }) => (
           </MenuButton>
           <MenuList>
             <Link href="/dashboard/submission1">
-              <MenuItem>Demonstration</MenuItem>
+              <MenuItem> Pod Demonstration</MenuItem>
             </Link>
             <Link href="/dashboard/submission2">
               <MenuItem>DesignX Blueprint</MenuItem>
@@ -222,37 +224,44 @@ const Submissions = () => {
   const [designFile, setDesignFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false); // Loading state
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      setDesignFile(event.target.files[0]);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = e.target.files?.[0];
+    if (selectedFile) {
+      setDesignFile(selectedFile);
     }
-
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!designFile) return; // Prevent submission if no file is selected
+    // Prevent submission if no file is selected
+
+   
 
     const formData = new FormData();
-    formData.append("email", session?.user?.email || ""); // Handle undefined/null email
-    formData.append("demonstration", designFile );
+    formData.append("email", session?.user.email || ""); // Get email from session
+    formData.append("design", designFile);
 
     setLoading(true); // Set loading to true
 
+    for (const entry of formData.entries()) {
+      const [key, value] = entry;
+      console.log(`${key}:`, value instanceof File ? value.name : value);
+    }
+
     try {
-      const response = await fetch( `/api/filesubmission`, {
-        method: 'POST',
+      const response = await fetch(`/api/filesubmission`, {
+        method: "POST",
         body: formData,
       });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (data.success) {
-          alert("Files uploaded successfully!");
-          setDesignFile(null); // Reset the file input
-        } else {
-          alert(data.message);
-        }
+      if (data.success) {
+        alert("Files uploaded successfully!");
+        setDesignFile(null); // Reset the file input
+      } else {
+        alert(data.message);
+      }
       console.log(response);
     } catch (error) {
       console.error("Error uploading files:", error);
@@ -260,28 +269,28 @@ const Submissions = () => {
     } finally {
       setLoading(false); // Reset loading state
     }
-
-    
   };
 
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
-         <SidebarContent onClose={onClose} />
+      <SidebarContent onClose={onClose} />
       <VStack spacing={6} p="8">
         <Heading as="h1" size="xl" mb={4}>
           Submission Dashboard
         </Heading>
         <Divider />
-        <Heading
-          as="h2"
-          size="lg"
-          fontWeight="semibold"
-          mb={4}
-          color="teal.500"
-        >
-          DesignX
-        </Heading>
         <form onSubmit={handleSubmit}>
+         
+          <Heading
+            as="h2"
+            size="lg"
+            fontWeight="semibold"
+            mt={4}
+            mb={4}
+            color="teal.500"
+          >
+            DesignX BluePrint
+          </Heading>
           <HStack spacing={8} justifyContent="space-around" w="full">
             <Box
               w="full"
@@ -292,18 +301,13 @@ const Submissions = () => {
               borderRadius="md"
             >
               <Heading size="md" mb={4}>
-              Registration Design Submission (RDS)
-
+                Registration Design Submission (RDS){" "}
               </Heading>
               <Input
                 type="file"
-                id="file-input-1"
-                display="none"
+                name="designFile" // Change this to match the correct state variable
                 onChange={handleFileChange}
               />
-              <Button as="label" htmlFor="file-input-1" colorScheme="teal">
-                {designFile ? designFile.name : "Upload File"}
-              </Button>
             </Box>
           </HStack>
           <Button type="submit" colorScheme="teal" isLoading={loading} mt={4}>
