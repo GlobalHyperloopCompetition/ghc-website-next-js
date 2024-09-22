@@ -165,7 +165,7 @@ interface User {
 }
 
 const AdminViewUsers = () => {
-  const [users, setUsers] = React.useState<User[]>([]);
+  const [entries, setentries] = React.useState<User[]>([]);
 
   // Fetch users with react-query
   const { data, error, isLoading } = useQuery("users", async () => {
@@ -188,7 +188,7 @@ const AdminViewUsers = () => {
         return (bFullyFilled ? 1 : 0) - (aFullyFilled ? 1 : 0);
       });
 
-      setUsers(sortedUsers);
+      setentries(sortedUsers);
     }
   }, [data, isLoading, error]);
 
