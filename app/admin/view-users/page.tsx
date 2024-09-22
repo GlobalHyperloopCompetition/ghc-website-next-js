@@ -144,7 +144,6 @@
 import React, { useEffect, useState } from "react";
 
 import { collection, onSnapshot } from "firebase/firestore";
-// import { db } from "@/firebase/config"; // Adjust the import based on your project structure
 import {db} from '../../../firebase/config'
 import { useQuery } from "react-query";
 
