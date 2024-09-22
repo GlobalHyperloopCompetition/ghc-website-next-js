@@ -22,7 +22,6 @@ const uploadFile = async (teamname, file) => {
   
   const fileRef = ref(storage, `${teamname}/${filename}`);
   const uploadResult = await uploadBytes(fileRef, file);  
-
   return getDownloadURL(uploadResult.ref);
 };
 
@@ -30,10 +29,8 @@ const uploadFile = async (teamname, file) => {
 export async function POST(req, res) {
   const formData = await req.formData();
   const email=formData.get("email")
-  
   const demonstration=formData.get("demonstration")
   const design=formData.get("design")
-
   try {
     // Query Firestore to find the user
     const user_db = collection(db, "users");
@@ -45,26 +42,36 @@ export async function POST(req, res) {
 
     // Extract team details from user
     const teamname = user_details.teamname;
-    const uid = user_details.uid;    
-        // Upload files to Firebase Storage and get URLs  
-        const [demonstration_file_url, design_file_url] = await Promise.all([
-          uploadFile(teamname, demonstration),
-          uploadFile(teamname, design),
-        ]);
-        
-
+    const uid = user_details.uid;     
+        const promises = [];
+        if (demonstration && demonstration.size > 0) {
+          promises.push(uploadFile(teamname, demonstration));
+        }
+        if (design && design.size > 0) {
+          promises.push(uploadFile(teamname, design));
+        }
     
-    
-
+        const [demonstration_file_url, design_file_url] = await Promise.all(promises);
     // Save file URLs in Firestore
     const user_file_db = collection(db, "userfiles");
-    await addDoc(user_file_db, {
+    const data = {
       email: email,
       teamname: teamname,
       uid: uid,
-      demonstrationfile: demonstration_file_url,
-      designfile: design_file_url,
-    });
+    };
+    
+    if (demonstration_file_url) {
+      data.demonstrationfile = demonstration_file_url;
+    }
+    if (design_file_url) {
+      data.designfile = design_file_url;
+    }
+    await addDoc(user_file_db, data);
+
+    console.log(data);
+    
+
+    
 
     return NextResponse.json({ success: true, message: "Files uploaded successfully" });
   } catch (error) {

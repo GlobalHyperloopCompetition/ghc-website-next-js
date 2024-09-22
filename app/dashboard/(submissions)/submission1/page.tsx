@@ -238,10 +238,10 @@ const Submissions = () => {
     event.preventDefault();
     // Prevent submission if no file is selected
 
-    if (!demonstrationFile || !designFile) {
-      alert("Please select a demonstration and design file.");
-      return;
-    }
+    // if (!demonstrationFile || !designFile) {
+    //   alert("Please select a demonstration and design file.");
+    //   return;
+    // }
 
     const formData = new FormData();
     formData.append("email", session?.user.email || ""); // Get email from session
