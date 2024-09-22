@@ -70,12 +70,6 @@ export async function POST(req, res) {
     await addDoc(user_file_db, data);
     return NextResponse.json({ success: true, message: "Files uploaded successfully" });
   } catch (error) {
-    console.warn(error);
-    reject(
-      NextResponse.json(
-        { success: false, message: "Internal Server Error" },
-        { status: 500 }
-      )
-    );
+    console.error("Error fetching documents: ", error);
   }
 }
