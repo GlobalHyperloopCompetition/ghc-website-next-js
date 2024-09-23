@@ -307,6 +307,7 @@ const Submissions = () => {
                 type="file"
                 name="designFile" // Change this to match the correct state variable
                 onChange={handleFileChange}
+                required 
               />
             </Box>
           </HStack>

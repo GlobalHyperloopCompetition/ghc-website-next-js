@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import {
   Box,
   Button,
@@ -31,6 +33,9 @@ import { useSession, signOut } from "next-auth/react"; // Import signOut
 import useGetTeam from "../../../../utils/useGetTeam"; // Assuming this hook is correct
 import { useRouter } from "next/router"; // Import useRouter
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// import { app } from "../firebase/config";
+import { app } from "../../../../firebase/config";
 
 interface LinkItemProps {
   name: string;
@@ -52,10 +57,8 @@ interface MobileProps extends FlexProps {
 const LinkItems: LinkItemProps[] = [
   { name: "Home", icon: FiHome, url: "/" },
   { name: "Team Details", icon: FiUser, url: "/dashboard" },
-  { name: "Submissions", icon: FiUser,hasDropdown: true },
+  { name: "Submissions", icon: FiUser, hasDropdown: true },
 ];
-
-// 
 
 const SidebarContent = ({ onClose }: { onClose: () => void }) => (
   <Box
@@ -221,54 +224,66 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
 const Submissions = () => {
   const { onClose } = useDisclosure();
   const { data: session } = useSession();
+  const [email, setEmail] = useState("");
+  const storage = getStorage(app);
   const [demonstrationFile, setDemonstrationFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false); // Loading state
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]; // Get the first file from the file input
+  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
     if (file) {
-      setDemonstrationFile(file); // Set the selected file
+      console.log(`Uploading file: ${file.name}`);
+      const fileId = uuidv4(); // Generate a unique ID for the file
+
+      try {
+        // 1. Upload file to Firebase Storage
+        const fileRef = ref(storage, `files/${fileId}`); // Use fileId in the path to avoid name conflicts
+        const snapshot = await uploadBytes(fileRef, file); // Upload the file to the reference
+        console.log("File uploaded to Firebase Storage.");
+
+        // 2. Get the download URL
+        const downloadURL = await getDownloadURL(snapshot.ref);
+        console.log(`File available at: ${downloadURL}`);
+
+        setDemonstrationFile(file);
+      } catch (error) {
+        console.error("Error uploading file:", error);
+      }
     }
   };
-  
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    // Prevent submission if no file is selected
-
-   
-
-    const formData = new FormData();
-    formData.append("email", session?.user.email || ""); // Get email from session
-    formData.append("demonstration", demonstrationFile);
-
-    setLoading(true); // Set loading to true
-
-    for (const entry of formData.entries()) {
-      const [key, value] = entry;
-      console.log(`${key}:`, value instanceof File ? value.name : value);
-    }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
     try {
-      const response = await fetch(`/api/filesubmission`, {
+      let demonstrationFileUrl = null;
+
+      if (demonstrationFile) {
+        demonstrationFileUrl = await getDownloadURL(
+          ref(storage, `files/${demonstrationFile.name}`)
+        );
+      }
+
+      const response = await fetch("/api/fielssubmission", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          demonstrationFileUrl,
+        }),
       });
 
-      const data = await response.json();
-
-      if (data.success) {
-        alert("Files uploaded successfully!");
-        setDemonstrationFile(null); // Reset the file input
-      } else {
-        alert(data.message);
+      if (!response.ok) {
+        throw new Error("Failed to upload the demonstration file");
       }
-      console.log(response);
+
+      alert("Demonstration file uploaded successfully!");
     } catch (error) {
-      console.error("Error uploading files:", error);
-      alert("An error occurred while uploading the files.");
-    } finally {
-      setLoading(false); // Reset loading state
+      console.error("Error uploading demonstration file:", error);
+      alert("Failed to upload demonstration file");
     }
   };
 
@@ -303,14 +318,17 @@ const Submissions = () => {
               <Heading size="md" mb={4}>
                 Demonstration Proposal Document (DPD)
               </Heading>
-              <Input
+              <input
                 type="file"
-                name="demonstrationFile"
-                onChange={handleFileChange}
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setDemonstrationFile(e.target.files[0]);
+                  }
+                }}
               />
             </Box>
           </HStack>
-         
+
           <Button type="submit" colorScheme="teal" isLoading={loading} mt={4}>
             Submit
           </Button>

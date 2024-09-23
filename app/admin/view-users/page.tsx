@@ -1,7 +1,6 @@
 "use client";
 
 // import React from "react";
-// import { useQuery } from "react-query";
 
 // interface User {
 //   id: string;
@@ -21,7 +20,6 @@
 // }
 
 // const AdminViewUsers = () => {
-//   const [users, setUsers] = React.useState<User[]>([]);
 
 //   // Fetch users with react-query
 //   const { data, error, isLoading } = useQuery("users", async () => {
@@ -141,11 +139,12 @@
 // };
 
 // export default AdminViewUsers;
+import { useQuery } from "react-query";
+
 import React, { useEffect, useState } from "react";
 
 import { collection, onSnapshot } from "firebase/firestore";
 import {db} from '../../../firebase/config'
-import { useQuery } from "react-query";
 
 interface User {
   id: string;
@@ -165,7 +164,7 @@ interface User {
 }
 
 const AdminViewUsers = () => {
-  const [users, setUsers] = React.useState<User[]>([]);
+  const [entries, setentries] = React.useState<User[]>([]);
 
   // Fetch users with react-query
   const { data, error, isLoading } = useQuery("users", async () => {
@@ -188,7 +187,7 @@ const AdminViewUsers = () => {
         return (bFullyFilled ? 1 : 0) - (aFullyFilled ? 1 : 0);
       });
 
-      setUsers(sortedUsers);
+      setentries(sortedUsers);
     }
   }, [data, isLoading, error]);
 
