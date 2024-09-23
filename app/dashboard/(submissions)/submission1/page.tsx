@@ -242,7 +242,6 @@ const Submissions = () => {
         const snapshot = await uploadBytes(fileRef, file); // Upload the file to the reference
         console.log("File uploaded to Firebase Storage.");
 
-        // 2. Get the download URL
         const downloadURL = await getDownloadURL(snapshot.ref);
         console.log(`File available at: ${downloadURL}`);
 
