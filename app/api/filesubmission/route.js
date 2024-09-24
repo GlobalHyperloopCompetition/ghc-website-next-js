@@ -3,7 +3,6 @@
 // import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
 // import { ref, uploadBytes, getDownloadURL, getStorage } from 'firebase/storage';
 
-
 // const uploaddate = () => {
 //   const date = new Date();
 //   const day = date.getDate().toString().padStart(2, '0');
@@ -47,11 +46,11 @@
 //     let design_file_url = null;
 
 //     if (demonstration && demonstration.size > 0) {
-//        demonstration_file_url = await uploadFile(teamname, demonstration);       
+//        demonstration_file_url = await uploadFile(teamname, demonstration);
 //     }
 
 //     if (design && design.size > 0) {
-//        design_file_url = await uploadFile(teamname, design);  
+//        design_file_url = await uploadFile(teamname, design);
 //     }
 //     // Save file URLs in Firestore
 //     const user_file_db = collection(db, "userfiles");
@@ -74,12 +73,9 @@
 //   }
 // }
 
-
-
 import { NextResponse } from "next/server";
 import { db } from "../../../firebase/config";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore";
-
 
 // POST request handler
 export async function POST(req) {
@@ -99,23 +95,33 @@ export async function POST(req) {
     // Get the first user's data
     const userDetails = getUser.docs.map((doc) => doc.data())[0];
     const { teamname, uid } = userDetails;
+    console.log("User details:", userDetails);
+
+    const submissionType = demonstrationFileUrl ? "demonstration" : "design";
 
     // Save the file URLs in Firestore
-    const userFileDb = collection(db, "userfiles");
+    const userFileDb = collection(db, "submissions");
     const data = {
       email: email,
       teamname: teamname,
       uid: uid,
       ...(demonstrationFileUrl && { demonstrationfile: demonstrationFileUrl }),
       ...(designFileUrl && { designfile: designFileUrl }),
+      created_at: new Date().toISOString(),
     };
 
-    await addDoc(userFileDb, data);
+    const submittedDoc = await addDoc(userFileDb, data);
+    console.log("File URLs saved successfully:", submittedDoc.id);
 
-    return NextResponse.json({ success: true, message: "Files uploaded successfully" });
-
+    return NextResponse.json({
+      success: true,
+      message: "Files uploaded successfully",
+    });
   } catch (error) {
     console.error("Error saving file URLs:", error);
-    return NextResponse.json({ success: false, message: "Failed to save file URLs." });
+    return NextResponse.json({
+      success: false,
+      message: "Failed to save file URLs.",
+    });
   }
 }

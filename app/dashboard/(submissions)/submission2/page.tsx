@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
 import {
   Box,
   Button,
@@ -31,6 +33,9 @@ import { useSession, signOut } from "next-auth/react"; // Import signOut
 import useGetTeam from "../../../../utils/useGetTeam"; // Assuming this hook is correct
 import { useRouter } from "next/router"; // Import useRouter
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+// import { app } from "../firebase/config";
+import { app } from "../../../../firebase/config";
 
 interface LinkItemProps {
   name: string;
@@ -52,10 +57,8 @@ interface MobileProps extends FlexProps {
 const LinkItems: LinkItemProps[] = [
   { name: "Home", icon: FiHome, url: "/" },
   { name: "Team Details", icon: FiUser, url: "/dashboard" },
-  { name: "Submissions", icon: FiUser,hasDropdown: true },
+  { name: "Submissions", icon: FiUser, hasDropdown: true },
 ];
-
-// 
 
 const SidebarContent = ({ onClose }: { onClose: () => void }) => (
   <Box
@@ -85,7 +88,7 @@ const SidebarContent = ({ onClose }: { onClose: () => void }) => (
           </MenuButton>
           <MenuList>
             <Link href="/dashboard/submission1">
-              <MenuItem> Pod Demonstration</MenuItem>
+              <MenuItem>Pod Demonstration</MenuItem>
             </Link>
             <Link href="/dashboard/submission2">
               <MenuItem>DesignX Blueprint</MenuItem>
@@ -107,6 +110,7 @@ const SidebarContent = ({ onClose }: { onClose: () => void }) => (
 const NavItem = ({
   icon: Icon,
   children,
+  ...rest
 }: {
   icon: React.ComponentType;
   children: React.ReactNode;
@@ -119,8 +123,9 @@ const NavItem = ({
     cursor="pointer"
     _hover={{ bg: "teal.500", color: "white" }}
     transition="background-color 0.2s ease-in-out"
+    {...rest}
   >
-    {Icon && <Icon style={{ marginRight: "8px" }} />}
+    {Icon && <Icon />}
     {children}
   </Flex>
 );
@@ -220,54 +225,73 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
 
 const Submissions = () => {
   const { onClose } = useDisclosure();
-  const { data: session } = useSession();
-  const [designFile, setDesignFile] = useState<File | null>(null);
+  const storage = getStorage(app);
+  const [designFileUrl, setdesignFileUrl] = useState<File | null>(null);
+  const [team] = useGetTeam();
   const [loading, setLoading] = useState(false); // Loading state
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files?.[0];
-    if (selectedFile) {
-      setDesignFile(selectedFile);
+  const handleUpload = async () => {
+    const file = designFileUrl; // Get the file from the input element
+
+    if (file) {
+      console.log(`Uploading file: ${file.name}`);
+      const fileId = uuidv4(); // Generate a unique ID for the file
+
+      try {
+        // 1. Upload file to Firebase Storage
+        const fileRef = ref(
+          storage,
+          `submissions/design/${team?.uid}/${fileId}`
+        ); // Use fileId in the path to avoid name conflicts
+        const snapshot = await uploadBytes(fileRef, file); // Upload the file to the reference
+        console.log("File uploaded to Firebase Storage.");
+
+        const downloadURL = await getDownloadURL(snapshot.ref);
+        console.log(`File available at: ${downloadURL}`);
+
+        return downloadURL;
+      } catch (error) {
+        console.error("Error uploading file:", error);
+        alert("Failed to upload file");
+        return null;
+      }
     }
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    // Prevent submission if no file is selected
-
-   
-
-    const formData = new FormData();
-    formData.append("email", session?.user.email || ""); // Get email from session
-    formData.append("design", designFile);
-
-    setLoading(true); // Set loading to true
-
-    for (const entry of formData.entries()) {
-      const [key, value] = entry;
-      console.log(`${key}:`, value instanceof File ? value.name : value);
-    }
-
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const downloadURL = await handleUpload();
     try {
-      const response = await fetch(`/api/filesubmission`, {
+      setLoading(true); // Set loading state to true
+      const response = await fetch("/api/filesubmission", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: team?.email,
+          designFileUrl: downloadURL,
+        }),
       });
+
+      if (!response.ok) {
+        alert("Failed to upload design file");
+        throw new Error("Failed to upload the design file");
+      }
 
       const data = await response.json();
 
-      if (data.success) {
-        alert("Files uploaded successfully!");
-        setDesignFile(null); // Reset the file input
-      } else {
-        alert(data.message);
+      if (!data.success) {
+        alert("Failed to upload design file");
+        throw new Error("Failed to upload the design file");
       }
-      console.log(response);
+
+      alert("Design file uploaded successfully!");
     } catch (error) {
-      console.error("Error uploading files:", error);
-      alert("An error occurred while uploading the files.");
+      console.error("Error uploading design file:", error);
+      alert("Failed to upload design file");
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false); // Reset loading
     }
   };
 
@@ -275,12 +299,11 @@ const Submissions = () => {
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent onClose={onClose} />
       <VStack spacing={6} p="8">
-        <Heading as="h1" size="xl" mb={4}>
+        <Heading as="h1" size="lg">
           Submission Dashboard
         </Heading>
         <Divider />
         <form onSubmit={handleSubmit}>
-         
           <Heading
             as="h2"
             size="lg"
@@ -289,7 +312,7 @@ const Submissions = () => {
             mb={4}
             color="teal.500"
           >
-            DesignX BluePrint
+            DesignX Blueprint
           </Heading>
           <HStack spacing={8} justifyContent="space-around" w="full">
             <Box
@@ -301,16 +324,19 @@ const Submissions = () => {
               borderRadius="md"
             >
               <Heading size="md" mb={4}>
-                Registration Design Submission (RDS){" "}
+                Registration Design Submission (RDS)
               </Heading>
-              <Input
+              <input
                 type="file"
-                name="designFile" // Change this to match the correct state variable
-                onChange={handleFileChange}
-                required 
+                onChange={(e) => {
+                  if (e.target.files && e.target.files.length > 0) {
+                    setdesignFileUrl(e.target.files[0]);
+                  }
+                }}
               />
             </Box>
           </HStack>
+
           <Button type="submit" colorScheme="teal" isLoading={loading} mt={4}>
             Submit
           </Button>

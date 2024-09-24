@@ -19,11 +19,6 @@ const firebaseConfig = {
   measurementId: "G-GQGNHXP41R",
 };
 
-
-
-
-
-
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
@@ -31,12 +26,9 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const analytics = isSupported().then(yes => yes ? getAnalytics(app) : null);
 const db = getFirestore(app);
 const storage = getStorage(app);
-export { db,storage,app};
-
-
+export { db, storage, app };
 
 // # firebase
-
 
 // # Next auth jwt secret
 // NEXTAUTH_SECRET= ghc@india_iitm_2024

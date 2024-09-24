@@ -110,6 +110,7 @@ const SidebarContent = ({ onClose }: { onClose: () => void }) => (
 const NavItem = ({
   icon: Icon,
   children,
+  ...rest
 }: {
   icon: React.ComponentType;
   children: React.ReactNode;
@@ -122,8 +123,9 @@ const NavItem = ({
     cursor="pointer"
     _hover={{ bg: "teal.500", color: "white" }}
     transition="background-color 0.2s ease-in-out"
+    {...rest}
   >
-    {Icon && <Icon style={{ marginRight: "8px" }} />}
+    {Icon && <Icon />}
     {children}
   </Flex>
 );
@@ -223,14 +225,13 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
 
 const Submissions = () => {
   const { onClose } = useDisclosure();
-  const { data: session } = useSession();
-  const [email, setEmail] = useState("");
   const storage = getStorage(app);
   const [demonstrationFile, setDemonstrationFile] = useState<File | null>(null);
+  const [team] = useGetTeam();
   const [loading, setLoading] = useState(false); // Loading state
 
-  const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+  const handleUpload = async () => {
+    const file = demonstrationFile; // Get the file from the input element
 
     if (file) {
       console.log(`Uploading file: ${file.name}`);
@@ -238,44 +239,50 @@ const Submissions = () => {
 
       try {
         // 1. Upload file to Firebase Storage
-        const fileRef = ref(storage, `files/${fileId}`); // Use fileId in the path to avoid name conflicts
+        const fileRef = ref(
+          storage,
+          `submissions/demonstration/${team?.uid}/${fileId}`
+        ); // Use fileId in the path to avoid name conflicts
         const snapshot = await uploadBytes(fileRef, file); // Upload the file to the reference
         console.log("File uploaded to Firebase Storage.");
 
         const downloadURL = await getDownloadURL(snapshot.ref);
         console.log(`File available at: ${downloadURL}`);
 
-        setDemonstrationFile(file);
+        return downloadURL;
       } catch (error) {
         console.error("Error uploading file:", error);
+        alert("Failed to upload file");
+        return null;
       }
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    const downloadURL = await handleUpload();
     try {
-      let demonstrationFileUrl = null;
-
-      if (demonstrationFile) {
-        demonstrationFileUrl = await getDownloadURL(
-          ref(storage, `files/${demonstrationFile.name}`)
-        );
-      }
-
-      const response = await fetch("/api/fielssubmission", {
+      setLoading(true); // Set loading state to true
+      const response = await fetch("/api/filesubmission", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email,
-          demonstrationFileUrl,
+          email: team?.email,
+          demonstrationFileUrl: downloadURL,
         }),
       });
 
       if (!response.ok) {
+        alert("Failed to upload demonstration file");
+        throw new Error("Failed to upload the demonstration file");
+      }
+
+      const data = await response.json();
+
+      if (!data.success) {
+        alert("Failed to upload demonstration file");
         throw new Error("Failed to upload the demonstration file");
       }
 
@@ -283,6 +290,8 @@ const Submissions = () => {
     } catch (error) {
       console.error("Error uploading demonstration file:", error);
       alert("Failed to upload demonstration file");
+    } finally {
+      setLoading(false); // Reset loading
     }
   };
 
@@ -290,7 +299,7 @@ const Submissions = () => {
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
       <SidebarContent onClose={onClose} />
       <VStack spacing={6} p="8">
-        <Heading as="h1" size="xl" mb={4}>
+        <Heading as="h1" size="lg">
           Submission Dashboard
         </Heading>
         <Divider />
