@@ -20,7 +20,7 @@ import {
   MenuList,
   MenuItem,
 } from "@chakra-ui/react";
-import { FiHome, FiUser, FiChevronDown } from "react-icons/fi";
+import { FiHome, FiUser, FiChevronDown, FiBriefcase, FiDownload, FiBookOpen } from "react-icons/fi";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import useGetTeam from "../../../../utils/useGetTeam";
@@ -35,7 +35,9 @@ interface LinkItemProps {
 const LinkItems: LinkItemProps[] = [
   { name: "Home", icon: FiHome, url: "/" },
   { name: "Team Details", icon: FiUser, url: "/dashboard" },
-  { name: "Submissions", icon: FiUser, hasDropdown: true }, // Dropdown enabled
+  { name: "Demonstration", icon: FiDownload, url: "/dashboard/submission1" },
+  { name: "DesignX Blueprint", icon: FiBriefcase, url: "/dashboard/submission2" },
+  { name: "Hyperloop Innoquest", icon: FiBookOpen, url: "/dashboard/submission3" },
 ];
 
 const SidebarContent = ({ onClose }: { onClose: () => void }) => (

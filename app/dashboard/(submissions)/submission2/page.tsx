@@ -27,7 +27,7 @@ import {
   MenuDivider,
   useColorMode,
 } from "@chakra-ui/react";
-import { FiHome, FiUser, FiChevronDown, FiMenu, FiBell } from "react-icons/fi"; // Imported required icons
+import { FiHome, FiUser, FiChevronDown, FiMenu, FiBell, FiDownload, FiBookOpen, FiBriefcase } from "react-icons/fi"; // Imported required icons
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react"; // Import signOut
 import useGetTeam from "../../../../utils/useGetTeam"; // Assuming this hook is correct
@@ -57,7 +57,9 @@ interface MobileProps extends FlexProps {
 const LinkItems: LinkItemProps[] = [
   { name: "Home", icon: FiHome, url: "/" },
   { name: "Team Details", icon: FiUser, url: "/dashboard" },
-  { name: "Submissions", icon: FiUser, hasDropdown: true },
+  { name: "Demonstration", icon: FiDownload, url: "/dashboard/submission1" },
+  { name: "DesignX Blueprint", icon: FiBriefcase, url: "/dashboard/submission2" },
+  { name: "Hyperloop Innoquest", icon: FiBookOpen, url: "/dashboard/submission3" },
 ];
 
 const SidebarContent = ({ onClose }: { onClose: () => void }) => (
