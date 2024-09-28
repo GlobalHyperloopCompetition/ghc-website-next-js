@@ -90,7 +90,7 @@ const Documents = () => {
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
                 >
-                 Hyperloop Innoquest Problem Statements
+                Innoquest Problem Statements
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>

@@ -85,7 +85,6 @@ const AdminViewUsers = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>; // Show loading while fetching
 
   return (
     <>
