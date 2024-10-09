@@ -337,7 +337,9 @@ const Submissions = () => {
               />
             </Box>
           </HStack>
-
+                <Text fontSize="sm" color="gray.600">
+                Note - Please upload in pdf format only
+                < /Text>
           <Button type="submit" colorScheme="teal" isLoading={loading} mt={4}>
             Submit
           </Button>
