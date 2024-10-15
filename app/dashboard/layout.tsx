@@ -26,29 +26,26 @@ import {
   Heading,
   Stack,
 } from "@chakra-ui/react";
-import {
-
-  // FiTrendingUp,
-  FiCompass,
-  // FiStar,
-  FiSettings,
- 
-  FiUpload,
-
-} from "react-icons/fi";
 import { IconType } from "react-icons";
-import { FiHome, FiUser, FiChevronDown, FiMenu, FiBell, FiDownload, FiBriefcase, FiBookOpen } from "react-icons/fi"; // Imported required icons
+import {
+  FiHome,
+  FiUser,
+  FiChevronDown,
+  FiMenu,
+  FiBell,
+  FiDownload,
+  FiBriefcase,
+  FiBookOpen,
+} from "react-icons/fi"; // Imported required icons
 
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import useGetTeam from "../../utils/useGetTeam";
-// import { useNavigate, Link } from 'react-router-dom'
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { usePresence, motion } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import gsap from "gsap";
-import { TbListDetails } from "react-icons/tb";
 
 interface LinkItemProps {
   name: string;
@@ -74,8 +71,16 @@ const LinkItems: LinkItemProps[] = [
   { name: "Home", icon: FiHome, url: "/" },
   { name: "Team Details", icon: FiUser, url: "/dashboard" },
   { name: "Demonstration", icon: FiDownload, url: "/dashboard/submission1" },
-  { name: "DesignX Blueprint", icon: FiBriefcase, url: "/dashboard/submission2" },
-  { name: "Hyperloop Innoquest", icon: FiBookOpen, url: "/dashboard/submission3" },
+  {
+    name: "DesignX Blueprint",
+    icon: FiBriefcase,
+    url: "/dashboard/submission2",
+  },
+  {
+    name: "Hyperloop Innoquest",
+    icon: FiBookOpen,
+    url: "/dashboard/submission3",
+  },
 ];
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
@@ -173,12 +178,12 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
       />
       <Link href="/">
         {/* <Text
-                    display={{ base: 'flex', md: 'none' }}
-                    fontSize="2xl"
-                    fontFamily="monospace"
-                    fontWeight="bold">
-                    GHC
-                </Text> */}
+                      display={{ base: 'flex', md: 'none' }}
+                      fontSize="2xl"
+                      fontFamily="monospace"
+                      fontWeight="bold">
+                      GHC
+                  </Text> */}
         <Image
           display={{ base: "flex", md: "none" }}
           src={useColorModeValue("/GHC-LOGO-BLACK.png", "/GHC-logo.png")}
@@ -234,11 +239,11 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
               // borderColor={useColorModeValue('gray.200', 'gray.700')}
               >
                 {/* <Link href={"/dashboard/profile"}>
-                  <MenuItem>Profile</MenuItem>
-                </Link> */}
+                    <MenuItem>Profile</MenuItem>
+                  </Link> */}
                 {/* <Link href={"/dashboard/settings"}>
-                  <MenuItem>Settings</MenuItem>
-                </Link> */}
+                    <MenuItem>Settings</MenuItem>
+                  </Link> */}
 
                 <MenuDivider />
                 <MenuItem onClick={handleLogout}>Sign out</MenuItem>
@@ -306,26 +311,7 @@ export const Loading: React.FC<any> = (props: any) => {
   );
 };
 
-const Detail = ({ label, value }: { label: string; value: string }) => {
-  return (
-    <HStack
-      borderColor={useColorModeValue("gray.300", "gray.700")}
-      borderBottomWidth={"1px"}
-      w={"full"}
-      py={4}
-      px={8}
-    >
-      <Text fontWeight={600} color={useColorModeValue("gray.900", "gray.100")}>
-        {label}:{" "}
-      </Text>
-      <Text fontSize={"xl"} color={useColorModeValue("gray.600", "gray.500")}>
-        {value}
-      </Text>
-    </HStack>
-  );
-};
-
-const SidebarWithHeader = () => {
+const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [team, isLoading] = useGetTeam();
   const [loading, setLoading] = useState<boolean>(true);
@@ -336,45 +322,41 @@ const SidebarWithHeader = () => {
   }, [isLoading]);
 
   return (
-    <Box  bg={useColorModeValue("gray.100", "gray.900")}>
-     
-            {/* Content */}
-            <VStack
-              spacing={8}
-              py={8}
-              px={16}
-              
-              w={"fit-content"}
-              borderRadius={"lg"}
-              textAlign={"left"}
-            >
-              <Heading fontSize={{ base: "2xl", md: "5xl" }}>
-                {team?.teamname}
-              </Heading>
-
-              <VStack textAlign={"left"} w={"full"} alignItems={"baseline"}>
-                <Detail label="University" value={team?.homeUniversity} />
-                <Detail label="Active members" value={team?.activemembers} />
-                <Detail
-                  label="Members attending event"
-                  value={team?.attendeventmembers}
-                />
-                <Detail
-                  label="Representative"
-                  value={team?.teamrepresentetive}
-                />
-                <Detail
-                  label="Representative Email"
-                  value={team?.emailrepresentetive}
-                />
-                <Detail label="WhatsApp Number" value={team?.phone} />
-                <Detail label="Country" value={team?.country} />
-                <Detail label="Postal Code" value={team?.postalcode} />
-              </VStack>
-            </VStack>
-   
+    <Box minH="100vh">
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <SidebarContent
+            onClose={onClose}
+            display={{ base: "none", md: "block" }}
+          />
+          <Drawer
+            isOpen={isOpen}
+            placement="left"
+            onClose={onClose}
+            returnFocusOnClose={false}
+            onOverlayClick={onClose}
+            size="full"
+          >
+            <DrawerContent>
+              <SidebarContent onClose={onClose} />
+            </DrawerContent>
+          </Drawer>
+          {/* mobilenav */}
+          <MobileNav headName={team?.teamrepresentative} onOpen={onOpen} />
+          <Stack
+            ml={{ base: 0, md: 60 }}
+            p="8"
+            justify={"center"}
+            align={"center"}
+          >
+            {children}
+          </Stack>
+        </>
+      )}
     </Box>
   );
 };
 
-export default SidebarWithHeader;
+export default DashboardLayout;
