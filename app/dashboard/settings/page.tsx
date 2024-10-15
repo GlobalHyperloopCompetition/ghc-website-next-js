@@ -352,7 +352,7 @@ const FormElement = ({
 const SettingsPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [team, isLoading, isError] = useGetTeam();
-  console.log(isError);
+  // console.log(isError);
 
   const [input, setInput] = useState({
     email: "",
@@ -379,28 +379,29 @@ const SettingsPage = () => {
     setInput(team);
   }, [team]);
 
-useEffect(() => {
-  if (!toastShown.current) {
-    toast({
-      title: "Website Under Development",
-      description:
-        "This website is currently under development. Features may be incomplete.",
-      status: "info",
-      duration: 2500,
-      isClosable: true,
-    });
-    toastShown.current = true;
-  }
-}, [toast]);
+  useEffect(() => {
+    if (!toastShown.current) {
+      toast({
+        title: "Website Under Development",
+        description:
+          "This website is currently under development. Features may be incomplete.",
+        status: "info",
+        duration: 2500,
+        isClosable: true,
+      });
+      toastShown.current = true;
+    }
+  }, [toast]);
 
   function handleChange(e: any) {
     const { name, value } = e.target;
     // setError(undefined);
-    // setLoading(false);
+    // isLoading(false);
     setInput((prevFormData) => ({
       ...prevFormData,
       [name]: value,
     }));
+    console.log(input);
   }
 
   return (
