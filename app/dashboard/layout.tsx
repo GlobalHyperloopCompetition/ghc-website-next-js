@@ -152,7 +152,7 @@ const MobileNav = ({ onOpen, headName, ...rest }: MobileProps) => {
   const navigate = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
   const [team, isLoading] = useGetTeam();
-  console.log(team);
+
 
   function handleLogout() {
     signOut({ redirect: false });

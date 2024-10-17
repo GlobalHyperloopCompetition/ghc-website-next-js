@@ -47,6 +47,9 @@ import { useRouter } from "next/navigation";
 import { usePresence, motion } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { doc, updateDoc, onSnapshot,getDoc,setDoc } from "firebase/firestore";
+import {db}from "../../../firebase/config"
+
 
 const Loading = () => {
   const ref = useRef(null);
@@ -140,7 +143,7 @@ const FormElement = ({
 
 const SettingsPage = () => {
   const [team, isLoading, isError] = useGetTeam();
-  console.log(isError);
+  
 
   const [input, setInput] = useState({
     teamname: "",
@@ -167,14 +170,46 @@ const SettingsPage = () => {
       [name]: value,
     }));
   }
-  const handleSubmit = () => {
-    console.log("Form Submitted", input);
-    toast({
-      title: "Form Submitted",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
-    });
+  const handleSubmit = async () => {
+    // console.log("Form Submitted", input);
+
+    try {
+
+      const editdoc=doc(db,"users",team.id)
+
+      const docshap=await getDoc(editdoc)
+      console.log(docshap.data());
+      
+
+      await setDoc(editdoc,{
+        teamname: input.teamname,
+        teamrepresentetive: input.teamrepresentetive,
+        homeUniversity: input.homeUniversity,
+        activemembers: input.activemembers,
+        teamaddress: input.teamaddress!==undefined?input.teamaddress:null,
+        country: input.country,
+        postalcode: input.postalcode !==undefined?input.postalcode : null,
+      },{merge:true})
+
+      toast({
+        title: "Form Submitted",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error("Error updating document:", error);
+      toast({
+        title: "Error",
+        description: "There was an error updating your information.",
+        status: "error",
+        duration: 2000,
+        isClosable: true,
+      });
+
+    }
+
+
   };
 
   return (
