@@ -33,6 +33,7 @@ import {
   FiChevronDown,
   FiMenu,
   FiBell,
+  FiSettings,
   FiDownload,
   FiBriefcase,
   FiBookOpen,
@@ -81,6 +82,7 @@ const LinkItems: LinkItemProps[] = [
     icon: FiBookOpen,
     url: "/dashboard/submission3",
   },
+  { name: "Settings", icon: FiSettings, url: "/dashboard/settings" },
 ];
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
