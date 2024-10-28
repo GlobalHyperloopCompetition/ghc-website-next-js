@@ -90,7 +90,7 @@ const Documents = () => {
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
                 >
-                  PDS Guidelines (DesignX Blueprint)
+                  PDS Guidelines (DesignX)
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>
