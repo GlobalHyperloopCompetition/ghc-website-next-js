@@ -17,8 +17,18 @@ import useGetTeam from "../../../../utils/useGetTeam";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { app } from "../../../../firebase/config";
 
+
+
+interface User {
+  id: string;
+  email: string;
+  uid: string;
+  teamname?: string;
+  designfile?: string;
+  demonstrationfile?: string;
+}
+
 const Submissions = () => {
-  const { onClose } = useDisclosure();
   const storage = getStorage(app);
   const [demonstrationFile, setDemonstrationFile] = useState<File | null>(null);
   const [team] = useGetTeam();

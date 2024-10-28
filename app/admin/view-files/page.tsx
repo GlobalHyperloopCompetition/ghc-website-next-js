@@ -4,14 +4,14 @@ import React, { useEffect, useState } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
-interface User {
-    id: string;
-    email: string;
-    uid: string;
-    teamname?: string;
-    designfile?: string;
-    demonstrationfile?: string;
-}
+    interface User {
+        id: string;
+        email: string;
+        uid: string;
+        teamname?: string;
+        designfile?: string;
+        demonstrationfile?: string;
+    }
 
 const AdminViewUsers = () => {
     const [entries, setEntries] = useState<User[]>([]);
