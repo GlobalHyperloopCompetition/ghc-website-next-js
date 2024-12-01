@@ -60,7 +60,7 @@ const Submissions = () => {
         uploadFile(pdsFileUrl, "pds"),
       ]);
 
-      if (!designUrl || !pdsUrl) {
+      if (!pdsUrl) {
         throw new Error("File upload failed");
       }
 
@@ -110,7 +110,7 @@ const Submissions = () => {
       >
         <form onSubmit={handleSubmit}>
           <VStack spacing={6}>
-            <FormControl isRequired>
+            <FormControl>
               <FormLabel>Registration Design Submission (RDS)</FormLabel>
               <Input
                 type="file"

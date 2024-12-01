@@ -132,7 +132,6 @@ const Submissions = () => {
             <FormControl>
               <FormLabel>Technical </FormLabel>
               <Input
-              required
                 type="file"
                 accept=".pdf"
                 onChange={(e) => setFile1(e.target.files?.[0] || null)}
@@ -142,7 +141,6 @@ const Submissions = () => {
             <FormControl>
               <FormLabel>Hyperloop Network</FormLabel>
               <Input
-              required
                 type="file"
                 accept=".pdf"
                 onChange={(e) => setFile2(e.target.files?.[0] || null)}
@@ -152,7 +150,6 @@ const Submissions = () => {
             <FormControl>
               <FormLabel>Business & Social Impact</FormLabel>
               <Input
-              required
                 type="file"
                 accept=".pdf"
                 onChange={(e) => setFile3(e.target.files?.[0] || null)}

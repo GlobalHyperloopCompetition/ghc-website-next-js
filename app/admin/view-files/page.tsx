@@ -54,6 +54,9 @@ const AdminViewUsers = () => {
 
             const groupedUsers = groupUsers(fetchedUsers);
             setEntries(groupedUsers);
+            console.log(groupedUsers);
+            
+            
         });
 
         return () => unsubscribe();
