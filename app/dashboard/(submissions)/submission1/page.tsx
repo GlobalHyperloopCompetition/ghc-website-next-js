@@ -109,7 +109,7 @@ const Submissions = () => {
       </Heading>
       <Divider />
       <Heading as="h1" size="lg" fontWeight="semibold" color="teal.500">
-        DesignX Blueprint
+        Demonstration
       </Heading>
       <Box
         w="full"
