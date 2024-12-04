@@ -11,6 +11,11 @@ import { db } from "../../../firebase/config";
         teamname?: string;
         designfile?: string;
         demonstrationfile?: string;
+        pdsfile?: string;
+        cdrfile?: string;
+        technicalfile?: string;
+        businessfile?: string;
+        networkfile?: string;
     }
 
 const AdminViewUsers = () => {
@@ -35,6 +40,11 @@ const AdminViewUsers = () => {
                     ...groupedUsers[user.uid],
                     designfile: user.designfile || groupedUsers[user.uid].designfile,
                     demonstrationfile: user.demonstrationfile || groupedUsers[user.uid].demonstrationfile,
+                    pdsfile: user.pdsfile || groupedUsers[user.uid].pdsfile,
+                    cdrfile: user.cdrfile || groupedUsers[user.uid].cdrfile,
+                    technicalfile: user.technicalfile || groupedUsers[user.uid].technicalfile,
+                    businessfile: user.businessfile || groupedUsers[user.uid].businessfile,
+                    networkfile: user.networkfile || groupedUsers[user.uid].networkfile
                 };
             }
         });
@@ -110,9 +120,15 @@ const AdminViewUsers = () => {
                             <tr>
                                 <th scope="col" className="px-3 py-3">Sl</th>
                                 <th scope="col" className="px-3 py-3">Team Name</th>
-                                <th scope="col" className="px-3 py-3">Email</th>
                                 <th scope="col" className="px-3 py-3">Design File</th>
                                 <th scope="col" className="px-3 py-3">Demonstration File</th>
+                                <th scope="col" className="px-3 py-3">PDS</th>
+                                <th scope="col" className="px-3 py-3">CDR</th>
+                                <th scope="col" className="px-3 py-3">Technical</th>
+                                <th scope="col" className="px-3 py-3">Buisness</th>
+                                <th scope="col" className="px-3 py-3">Network</th>
+
+
                             </tr>
                         </thead>
                         <tbody>
@@ -120,7 +136,6 @@ const AdminViewUsers = () => {
                                 <tr key={entry.id} className="text-white dark:border-gray-700">
                                     <td className="px-3 py-4">{index + 1}</td>
                                     <td className="px-3 py-4">{entry.teamname}</td>
-                                    <td className="px-3 py-4">{entry.email}</td>
                                     <td className="px-3 py-4">
                                         {entry.designfile ? (
                                             <a
@@ -144,6 +159,76 @@ const AdminViewUsers = () => {
                                                 className="text-blue-600 underline hover:text-blue-800"
                                             >
                                                 View Demonstration File
+                                            </a>
+                                        ) : (
+                                            <span className="text-red-500">not uploaded yet</span>
+                                        )}
+                                    </td>
+                                    <td className="px-3 py-4">
+                                        {entry.pdsfile ? (
+                                            <a
+                                                href={entry.pdsfile}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 underline hover:text-blue-800"
+                                            >
+                                                View PDS File
+                                            </a>
+                                        ) : (
+                                            <span className="text-red-500">not uploaded yet</span>
+                                        )}
+                                    </td>
+                                    <td className="px-3 py-4">
+                                        {entry.cdrfile ? (
+                                            <a
+                                                href={entry.cdrfile}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 underline hover:text-blue-800"
+                                            >
+                                                View CDR File
+                                            </a>
+                                        ) : (
+                                            <span className="text-red-500">not uploaded yet</span>
+                                        )}
+                                    </td>
+                                    <td className="px-3 py-4">
+                                        {entry.technicalfile ? (
+                                            <a
+                                                href={entry.technicalfile}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 underline hover:text-blue-800"
+                                            >
+                                                View Technical File
+                                            </a>
+                                        ) : (
+                                            <span className="text-red-500">not uploaded yet</span>
+                                        )}
+                                    </td>
+                                    <td className="px-3 py-4">
+                                        {entry.businessfile ? (
+                                            <a
+                                                href={entry.businessfile}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 underline hover:text-blue-800"
+                                            >
+                                                View Business File
+                                            </a>
+                                        ) : (
+                                            <span className="text-red-500">not uploaded yet</span>
+                                        )}
+                                    </td>
+                                    <td className="px-3 py-4">
+                                        {entry.networkfile ? (
+                                            <a
+                                                href={entry.networkfile}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-600 underline hover:text-blue-800"
+                                            >
+                                                View Network File
                                             </a>
                                         ) : (
                                             <span className="text-red-500">not uploaded yet</span>
