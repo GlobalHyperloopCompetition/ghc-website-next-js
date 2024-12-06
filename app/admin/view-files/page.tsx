@@ -11,8 +11,8 @@ import { db } from "../../../firebase/config";
         teamname?: string;
         designfile?: string;
         demonstrationfile?: string;
-        pdsfile?: string;
-        cdrfile?: string;
+        pds?: string;
+        cdr?: string;
         technology?: string;
         business?: string;
         network?: string;
@@ -40,8 +40,8 @@ const AdminViewUsers = () => {
                     ...groupedUsers[user.uid],
                     designfile: user.designfile || groupedUsers[user.uid].designfile,
                     demonstrationfile: user.demonstrationfile || groupedUsers[user.uid].demonstrationfile,
-                    pdsfile: user.pdsfile || groupedUsers[user.uid].pdsfile,
-                    cdrfile: user.cdrfile || groupedUsers[user.uid].cdrfile,
+                    pds: user.pds || groupedUsers[user.uid].pds,
+                    cdr: user.cdr || groupedUsers[user.uid].cdr,
                     technology: user.technology || groupedUsers[user.uid].technology,
                     business: user.business || groupedUsers[user.uid].business,
                     network: user.network || groupedUsers[user.uid].network
@@ -165,9 +165,9 @@ const AdminViewUsers = () => {
                                         )}
                                     </td>
                                     <td className="px-3 py-4">
-                                        {entry.pdsfile ? (
+                                        {entry.pds ? (
                                             <a
-                                                href={entry.pdsfile}
+                                                href={entry.pds}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-blue-600 underline hover:text-blue-800"
@@ -179,9 +179,9 @@ const AdminViewUsers = () => {
                                         )}
                                     </td>
                                     <td className="px-3 py-4">
-                                        {entry.cdrfile ? (
+                                        {entry.cdr ? (
                                             <a
-                                                href={entry.cdrfile}
+                                                href={entry.cdr}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-blue-600 underline hover:text-blue-800"
