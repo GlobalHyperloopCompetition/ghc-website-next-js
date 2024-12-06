@@ -58,48 +58,101 @@ const Submissions = () => {
     if (!cdrFile) {
       alert("Please Upload CDR File");
     }
+    setLoading(true); // Set loading state to true
+    let uploadedFiles = [];  // Track which files were uploaded successfully
+    let failedfiles=[]
+
 
     e.preventDefault();
-    const [downloadURL, cdrUrl] = await Promise.all([
+    const [demurl, cdrUrl] = await Promise.all([
       uploadFile(demonstrationFile, "demonstration"),
       uploadFile(cdrFile, "cdr"),
     ]);
-    try {
-      setLoading(true); // Set loading state to true
-      const response = await fetch("/api/filesubmission", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: team?.email,
-          // demonstrationFileUrl: downloadURL,
-          files: {
-            demonstrationFile: downloadURL,
-            cdr: cdrUrl,
+    if (cdrFile && cdrUrl) {
+      
+      try {
+        // Assuming cdrUrl is already available from the upload function
+        const response = await fetch("/api/filesubmission", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        }),
-      });
+          body: JSON.stringify({
+            email: team?.email,
+            files: {
+              cdr: cdrUrl,  // Pass the CDR file URL here
+            },
+          }),
+        });
+    
+        // Check if the response is successful
+        if (!response.ok) {
+          throw new Error(`Failed to upload CDR file. Status: ${response.status}`);
+        }
+    
+        const data = await response.json();
+    
+        // Check if the server returned a success flag
+        if (!data.success) {
+          throw new Error(`Server failed to upload CDR file. Message: ${data.message || 'Unknown error'}`);
+        }
 
-      if (!response.ok) {
-        alert("Failed to upload  file");
-        throw new Error("Failed to upload the  file");
+        uploadedFiles.push("CDR file");
+
+        // alert("CDR file uploaded successfully!");
+      } catch (error) {
+        console.error("Error uploading CDR file:", error);
+        // alert(`Failed to upload CDR file. Error`);
+        failedfiles.push("CDR file")
+      } finally {
+        setLoading(false); // Always reset loading state
       }
-
-      const data = await response.json();
-
-      if (!data.success) {
-        alert("Failed to upload ");
-        throw new Error("Failed to upload the ");
-      }
-
-      alert("File uploaded successfully!");
-    } catch (error) {
-      console.error("Error uploading ", error);
-      alert("Failed to upload  file");
-    } finally {
-      setLoading(false); // Reset loading
     }
+    
+    if (demonstrationFile) {
+      try {
+        // Assuming cdrUrl is already available from the upload function
+        const response = await fetch("/api/filesubmission", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: team?.email,
+            files: {
+              demonstrationFile: demurl,  // Pass the CDR file URL here
+            },
+          }),
+        });
+    
+        // Check if the response is successful
+        if (!response.ok) {
+          throw new Error(`Failed to upload demonstration file. Status: ${response.status}`);
+        }
+    
+        const data = await response.json();
+    
+        // Check if the server returned a success flag
+        if (!data.success) {
+          throw new Error(`Server failed to upload demonstration file. Message: ${data.message || 'Unknown error'}`);
+        }
+    
+        // alert("demonstration file uploaded successfully!");
+        uploadedFiles.push("Demonstration file");
+    
+      } catch (error) {
+        console.error("Error uploading demonstration file:", error);
+        failedfiles.push("CDR file")
+      } finally {
+        setLoading(false); // Always reset loading state
+      }
+
+    }
+    if (uploadedFiles.length === 2) {
+      alert("Both files uploaded successfully!");
+    } else if (uploadedFiles.length === 1) {
+      alert(`${uploadedFiles[0]} uploaded successfully!`);
+    }    
   };
 
   return (

@@ -13,9 +13,9 @@ import { db } from "../../../firebase/config";
         demonstrationfile?: string;
         pdsfile?: string;
         cdrfile?: string;
-        technicalfile?: string;
-        businessfile?: string;
-        networkfile?: string;
+        technology?: string;
+        business?: string;
+        network?: string;
     }
 
 const AdminViewUsers = () => {
@@ -42,9 +42,9 @@ const AdminViewUsers = () => {
                     demonstrationfile: user.demonstrationfile || groupedUsers[user.uid].demonstrationfile,
                     pdsfile: user.pdsfile || groupedUsers[user.uid].pdsfile,
                     cdrfile: user.cdrfile || groupedUsers[user.uid].cdrfile,
-                    technicalfile: user.technicalfile || groupedUsers[user.uid].technicalfile,
-                    businessfile: user.businessfile || groupedUsers[user.uid].businessfile,
-                    networkfile: user.networkfile || groupedUsers[user.uid].networkfile
+                    technology: user.technology || groupedUsers[user.uid].technology,
+                    business: user.business || groupedUsers[user.uid].business,
+                    network: user.network || groupedUsers[user.uid].network
                 };
             }
         });
@@ -193,9 +193,9 @@ const AdminViewUsers = () => {
                                         )}
                                     </td>
                                     <td className="px-3 py-4">
-                                        {entry.technicalfile ? (
+                                        {entry.technology ? (
                                             <a
-                                                href={entry.technicalfile}
+                                                href={entry.technology}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-blue-600 underline hover:text-blue-800"
@@ -207,9 +207,9 @@ const AdminViewUsers = () => {
                                         )}
                                     </td>
                                     <td className="px-3 py-4">
-                                        {entry.businessfile ? (
+                                        {entry.business ? (
                                             <a
-                                                href={entry.businessfile}
+                                                href={entry.business}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-blue-600 underline hover:text-blue-800"
@@ -221,9 +221,9 @@ const AdminViewUsers = () => {
                                         )}
                                     </td>
                                     <td className="px-3 py-4">
-                                        {entry.networkfile ? (
+                                        {entry.network ? (
                                             <a
-                                                href={entry.networkfile}
+                                                href={entry.network}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="text-blue-600 underline hover:text-blue-800"

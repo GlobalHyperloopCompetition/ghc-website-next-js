@@ -54,42 +54,129 @@ const Submissions = () => {
     }
 
     setLoading(true);
-    try {
+    let uploadedFiles = [];  // Track which files were uploaded successfully
+
+
       const [designUrl, pdsUrl] = await Promise.all([
         uploadFile(designFileUrl, "design"),
         uploadFile(pdsFileUrl, "pds"),
       ]);
 
+
+
       if (!pdsUrl) {
         throw new Error("File upload failed");
       }
 
-      const response = await fetch("/api/filesubmission", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: team?.email,
-          files: {
-            design: designUrl,
-            pds: pdsUrl,
-          },
-        }),
-      });
 
-      if (!response.ok) {
-        alert("Submission failed");
-        throw new Error("Submission failed");
+      //   const response = await fetch("/api/filesubmission", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({
+      //       email: team?.email,
+      //       files: {
+      //         design: designUrl,
+      //         pds: pdsUrl,
+      //       },
+      //     }),
+      //   });
+
+      //   if (!response.ok) {
+      //     alert("Submission failed");
+      //     throw new Error("Submission failed");
+      //   }
+      // } catch (error) {
+      //   alert("Submission failed");
+      //   console.error("Submission Error:", error);
+      // } finally {
+      //   alert("Submission successful");
+      //   setLoading(false);
+      // }
+
+      if (designFileUrl) {
+        try {
+
+          const response = await fetch("/api/filesubmission", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: team?.email,
+              files: {
+                design: designUrl,  // Pass the CDR file URL here
+              },
+            }),
+          });
+
+          // Check if the response is successful
+          if (!response.ok) {
+            throw new Error(`Failed to upload design file. Status: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          // Check if the server returned a success flag
+          if (!data.success) {
+            throw new Error(`Server failed to upload design file. Message: ${data.message || 'Unknown error'}`);
+          }
+
+          uploadedFiles.push("design file");
+
+        } catch (error) {
+          console.error("Error uploading design file:", error);
+          alert(`Failed to upload design file. Error`);
+        } finally {
+          setLoading(false); // Always reset loading state
+        }
       }
-    } catch (error) {
-      alert("Submission failed");
-      console.error("Submission Error:", error);
-    } finally {
-      alert("Submission successful");
-      setLoading(false);
-    }
-  };
+
+      if (pdsFileUrl) {
+        try {
+          const response = await fetch("/api/filesubmission", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: team?.email,
+              files: {
+                pds: pdsUrl,  // Pass the CDR file URL here
+              },
+            }),
+          });
+
+          // Check if the response is successful
+          if (!response.ok) {
+            throw new Error(`Failed to upload pds file. Status: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          // Check if the server returned a success flag
+          if (!data.success) {
+            throw new Error(`Server failed to upload pds file. Message: ${data.message || 'Unknown error'}`);
+          }
+
+          // alert("demonstration file uploaded successfully!");
+          uploadedFiles.push("pds file");
+
+        } catch (error) {
+          console.error("Error uploading pds file:", error);
+          alert(`Failed to upload pds file. Error`);
+        } finally {
+          setLoading(false); // Always reset loading state
+        }
+
+      }
+      if (uploadedFiles.length === 2) {
+        alert("Both files uploaded successfully!");
+      } else if (uploadedFiles.length === 1) {
+        alert(`${uploadedFiles[0]} uploaded successfully!`);
+      }
+  }
 
   return (
     <VStack spacing={8} p={8}>
