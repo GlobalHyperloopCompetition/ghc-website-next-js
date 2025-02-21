@@ -161,7 +161,7 @@ export default function WithSubnavigation() {
                       whileTap={{ scale: 0.95 }}
                       whileHover={{ scale: 1.05 }}
                     >
-                      <Button
+                      {/* <Button
                         fontSize={"sm"}
                         rounded={"full"}
                         // display={{ base: 'none', md: 'inline-flex' }}
@@ -174,7 +174,7 @@ export default function WithSubnavigation() {
                         rightIcon={<FaUser />}
                       >
                         Register
-                      </Button>
+                      </Button> */}
                     </motion.div>
                   </Link>
                 )}
