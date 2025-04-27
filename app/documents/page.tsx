@@ -29,6 +29,8 @@ const Documents = () => {
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     if (days < 5) {
       return `New`;
+    } else if (days > 60) {
+      return `${Math.floor(days / 30)} months ago`;
     } else {
       return `${days} days ago`;
     }
@@ -296,7 +298,7 @@ const Documents = () => {
               </Text>
             </LinkBox>
 
-            <LinkBox
+            {/* <LinkBox
               as="article"
               maxW="sm"
               p={5}
@@ -327,7 +329,7 @@ const Documents = () => {
               <Text color={useColorModeValue("gray.600", "gray.300")}>
                 GLOBAL HYPERLOOP COMPETITION 2025
               </Text>
-            </LinkBox>
+            </LinkBox> */}
           </Flex>
         </VStack>
       </Flex>
