@@ -51,7 +51,7 @@ export default function HomeHero() {
             mt={1}
           >
             <CiCalendar className="mr-4" />
-            Feb 2025,
+            Jan 2026,
           </Text>
           <Text
             as={"span"}
@@ -69,6 +69,25 @@ export default function HomeHero() {
             creativity, accelerate breakthroughs, and be a part of the
             revolution!
           </Text>
+          <Stack mt={6} direction={{ base: "column", sm: "row" }}>
+            <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.05 }}>
+              Take a look at {"   "}
+              <Link href="/gallery" passHref>
+                <Button
+                  rounded="xl"
+                  size="lg"
+                  fontWeight="bold"
+                  px={6}
+                  colorScheme="red"
+                  bg="red.400"
+                  _hover={{ bg: "red.500" }}
+                  mx={4}
+                >
+                  GHC 2025
+                </Button>
+              </Link>
+            </motion.div>
+          </Stack>
         </Stack>
 
         <Flex
