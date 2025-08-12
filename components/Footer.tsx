@@ -107,7 +107,7 @@ export default function LargeWithNewsletter() {
                 />
               </Link>
             </HStack>
-            <Text fontSize={"sm"}>© 2024 GHC . All rights reserved</Text>
+            <Text fontSize={"sm"}>© 2025 GHC . All rights reserved</Text>
             <Stack direction={"row"} spacing={6}>
               <SocialButton
                 label={"Instagram"}
