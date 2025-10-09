@@ -156,7 +156,7 @@ export default function WithSubnavigation() {
                     </motion.div>
                   </>
                 ) : (
-                  <Link href={"https://drive.google.com/file/d/1JqdF2sRRrBUIB11fFEkhHMLb8VppM6pR/view?usp=sharing"}>
+                  <Link href={""}>
                     <motion.div
                       whileTap={{ scale: 0.95 }}
                       whileHover={{ scale: 1.05 }}
