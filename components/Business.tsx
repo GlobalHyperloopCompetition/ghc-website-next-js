@@ -114,17 +114,10 @@ export default function SplitWithImage() {
             </Text>
             <Heading>What is Global Hyperloop Competition ?</Heading>
             <Text color={"gray.500"} fontSize={"lg"}>
-              The Global Hyperloop Competition 2025, hosted by the Indian
-              Institute of Technology, Madras, introduces the Hyperloop to
-              India, providing a global platform for innovative teams. It aims
-              to showcase and propagate hyperloop concepts worldwide, fostering
-              a transformative spirit among young minds in the field of
-              transportation.
+              The Global Hyperloop Competition 2.0, hosted by the Indian Institute of Technology Madras, marks the next leap in bringing the Hyperloop revolution to India. Building on the success of our 2025 edition, GHC 2.0 returns this January 2026 with a renewed vision — to push boundaries of innovation, collaboration, and technology on a truly global scale
             </Text>
             <Text color={"gray.500"} fontSize={"lg"}>
-              With a 400m tube on the edge we have a vision to conduct a global
-              competition to foster innovation, collaboration, and technological
-              advancement on a worldwide scale.{" "}
+              With an upgraded 422m test track and exciting new challenges, this edition promises an even more engaging, competitive, and fun experience for teams worldwide. Our mission is to inspire the next generation of innovators, engineers, and dreamers to accelerate the future of transportation and redefine what’s possible.{" "}
             </Text>
             {/* <Stack
             spacing={4}
