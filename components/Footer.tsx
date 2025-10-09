@@ -107,8 +107,8 @@ export default function LargeWithNewsletter() {
                 />
               </Link>
             </HStack>
-            <Text fontSize={"sm"}>© 2024 GHC . All rights reserved</Text>
-            <Stack direction={"row"} spacing={6}>
+            <Text fontSize={"sm"}>© 2025 GHC . All rights reserved</Text>
+            <Stack direction={"row"} spacing={56}>
               <SocialButton
                 label={"Instagram"}
                 href="https://www.instagram.com/ghc_india/"
