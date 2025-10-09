@@ -95,7 +95,7 @@ const Page = () => {
             fontWeight={"bold"}
           >
             <Text as={"span"} color={"red.400"}>
-              GHC 2025{" "}
+              GHC 2026{" "}
             </Text>
             <Text as={"span"}>| Competition Categories</Text>
           </Heading>
@@ -128,6 +128,16 @@ const Page = () => {
               }
               description={
                 " Understand the real-life problems in implementing new technologies at a large scale Bridge the implementation gap between industry and academia"
+              }
+              href={"#"}
+            />
+            <Card
+              heading={"Cabin Design"}
+              icon={
+                <Image src={"/demo_comp.jpg"} alt="caseStudy" w={10} h={10} />
+              }
+              description={
+                " Show how space is optimised for passenger comfort, accessibility, and safety .The presenting model from the design team will be a 3D real pod."
               }
               href={"#"}
             />
