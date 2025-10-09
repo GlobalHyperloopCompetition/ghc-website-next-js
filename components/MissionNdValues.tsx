@@ -124,7 +124,7 @@ export default function MissionNdvalues() {
               Synergic Research
             </Heading>
             <Text color={"gray.500"} fontSize={"lg"} textAlign={"justify"}>
-              The Global Hyperloop Competition 2025 will essentially serve as a
+              The Global Hyperloop Competition 2026 will essentially serve as a
               platform for forging innovation among transportation researchers
               around the world to pave the way for the development of the
               Hyperloop technology. This is not only a competition, but a
