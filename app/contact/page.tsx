@@ -228,89 +228,14 @@ function ContactFormWithSocialButtons() {
                 </CardFooter>
               </Card>
 
-              <Card maxW="sm" mx="auto" px={2}>
-                <CardBody>
-                  <Image
-                    mx="auto"
-                    height="200px"
-                    width="200px"
-                    objectFit="cover"
-                    src="/fake.jpeg"
-                    alt="Sayan"
-                    borderRadius="lg"
-                  />
+             
 
-                  <Stack mt="6" spacing="3" textAlign="center" align="center">
-                    <Heading size="lg" fontWeight="bold">
-                      Prem Mukkannavar
-                    </Heading>
-                    <Text fontWeight="medium" color="gray.600">
-                      GHC Head, IIT Madras
-                    </Text>
-                    <Text color="blue.500" fontSize="xl">
-                      Contact - +91 73378 73507
-                    </Text>
-                  </Stack>
-                </CardBody>
-                <Divider />
-                <CardFooter>
-                  <ButtonGroup spacing="2">
-                    <Link
-                      href="https://www.linkedin.com/in/prem-mukkannavar-2bb038257/"
-                      target="_blank"
-                    >
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <Button colorScheme="teal">LinkedIn</Button>
-                      </motion.div>
-                    </Link>
-                  </ButtonGroup>
-                </CardFooter>
-              </Card>
+               
+                 
 
-              <Card maxW="sm" mx="auto">
-                <CardBody>
-                  <Image
-                    mx="auto"
-                    height="200px"
-                    width="200px"
-                    objectFit="cover"
-                    src="/fake.jpeg"
-                    alt="Pranav"
-                    borderRadius="lg"
-                  />
+         
 
-                  <Stack mt="6" spacing="3" textAlign="center" align="center">
-                    <Heading size="lg" fontWeight="bold">
-                      Shubhankit Tewari
-                    </Heading>
-                    <Text fontWeight="medium" color="gray.600">
-                      GHC Head, IIT Madras
-                    </Text>
-                    <Text color="blue.500" fontSize="xl">
-                      Contact - +91 88517 88470
-                    </Text>
-                  </Stack>
-                </CardBody>
-                <Divider />
-                <CardFooter>
-                  <ButtonGroup spacing="2">
-                    <Link
-                      href="https://www.linkedin.com/in/shubhankit-tewari-4599202a0/"
-                      target="_blank"
-                    >
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                      >
-                        <Button colorScheme="teal">LinkedIn</Button>
-                      </motion.div>
-                    </Link>
-                  </ButtonGroup>
-                </CardFooter>
-              </Card>
+          
             </Stack>
             <Stack
               spacing={{ base: 4, md: 8, lg: 20 }}
