@@ -50,7 +50,7 @@ export default function OurTeam() {
         <Image
           rounded={"lg"}
           alt={"feature image"}
-          src={"/pic_with_diro.jpg"}
+          src={"/our_team.jpeg"}
           objectFit={"contain"}
         />
         {/* </Flex> */}
