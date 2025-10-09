@@ -51,7 +51,7 @@ export default function HomeHero() {
             mt={1}
           >
             <CiCalendar className="mr-4" />
-            Jan 2026,
+            Jan 22th-25th 2026,
           </Text>
           <Text
             as={"span"}
@@ -117,7 +117,7 @@ export default function HomeHero() {
             <AspectRatio h={"100%"} w={"100%"} ratio={1}>
               <iframe
                 title="GHC Introduction"
-                src="https://www.youtube.com/embed/tzBII1qi8yY?autoplay=1"
+                src="https://www.youtube.com/embed/osvB0QDUzH0?si=gfihsySIrCoFVhTj?autoplay=1"
                 allowFullScreen
                 allow="autoplay; encrypted-media"
               />
