@@ -96,7 +96,7 @@ const Documents = () => {
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>
-                GLOBAL HYPERLOOP COMPETITION 2025
+                GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
             </LinkBox>
 
@@ -129,7 +129,7 @@ const Documents = () => {
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>
-                GLOBAL HYPERLOOP COMPETITION 2025
+                GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
             </LinkBox>
 
@@ -162,7 +162,7 @@ const Documents = () => {
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>
-                GLOBAL HYPERLOOP COMPETITION 2025
+                GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
             </LinkBox>
 
@@ -195,7 +195,7 @@ const Documents = () => {
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>
-                GLOBAL HYPERLOOP COMPETITION 2025
+                GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
             </LinkBox>
 
@@ -228,7 +228,7 @@ const Documents = () => {
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>
-                GLOBAL HYPERLOOP COMPETITION 2025
+                GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
             </LinkBox>
 
@@ -261,7 +261,7 @@ const Documents = () => {
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>
-                GLOBAL HYPERLOOP COMPETITION 2025
+                GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
             </LinkBox>
 
@@ -285,7 +285,7 @@ const Documents = () => {
               </Box>
               <Heading size="md" my={2}>
                 <LinkOverlay
-                  href="https://ghc-document.s3.ap-south-1.amazonaws.com/GHC+2025+Competition+Framework+v1.0.pdf"
+                  href="https://drive.google.com/file/d/1MjrvPXmSPSBmUxmAdK10CH_gnobO1GMC/view"
                   target="_blank"
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
@@ -294,7 +294,7 @@ const Documents = () => {
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>
-                GLOBAL HYPERLOOP COMPETITION 2025
+                GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
             </LinkBox>
 
