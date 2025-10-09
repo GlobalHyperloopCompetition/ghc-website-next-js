@@ -191,11 +191,7 @@ const Organisors = [
     name: "IITM Pravartak",
     link: "https://iitmpravartak.org.in",
   },
-  {
-    imgUrl: "/saeindia.jpg",
-    name: "SAEINDIA",
-    link: "https://saeindia.org",
-  },
+
   
 ];
 
