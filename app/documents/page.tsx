@@ -87,7 +87,7 @@ const Documents = () => {
               </Box>
               <Heading size="md" my={2}>
                 <LinkOverlay
-                  href="https://drive.google.com/drive/folders/1tXQ-hAwotbY4eYlPNcVglS0bZhJayhbc"
+                  href="https://drive.google.com/file/d/1FS4FXYkboV0-Y15xXLf76idML1r3YZNi/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
@@ -120,7 +120,7 @@ const Documents = () => {
               </Box>
               <Heading size="md" my={2}>
                 <LinkOverlay
-                  href="https://drive.google.com/drive/folders/1tXQ-hAwotbY4eYlPNcVglS0bZhJayhbc"
+                  href="https://drive.google.com/file/d/1mOi8ZaSU4cCeYDngHvckLTogxOFkAxvJ/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
@@ -153,7 +153,7 @@ const Documents = () => {
               </Box>
               <Heading size="md" my={2}>
                 <LinkOverlay
-                  href="https://drive.google.com/drive/folders/1tXQ-hAwotbY4eYlPNcVglS0bZhJayhbc "
+                  href="https://drive.google.com/file/d/1CPO2V6Qxkee3iWZFWxIHrcjAaKa26RtA/view?usp=sharing "
                   target="_blank"
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
