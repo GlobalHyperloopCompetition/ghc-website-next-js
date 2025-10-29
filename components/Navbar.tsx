@@ -156,7 +156,7 @@ export default function WithSubnavigation() {
                     </motion.div>
                   </>
                 ) : (
-                  <Link href={"https://drive.google.com/file/d/1r0FueeTb0TAoBeNUBSzViHbUBH-L0I9v/view"}>
+                  <Link href={"https://forms.gle/ENnNUHNLrJNDdLuB7"}> {/* Link of File   */}
                     <motion.div
                       whileTap={{ scale: 0.95 }}
                       whileHover={{ scale: 1.05 }}
@@ -173,7 +173,7 @@ export default function WithSubnavigation() {
                         }}
                         rightIcon={<FaFileAlt />}
                       >
-                        Event Guide
+                       Register Now {/* Event Guide Text Content Header  */}
                       </Button>
                     </motion.div>
                   </Link>
