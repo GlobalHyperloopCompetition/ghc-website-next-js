@@ -252,7 +252,7 @@ const Documents = () => {
               </Box>
               <Heading size="md" my={2}>
                 <LinkOverlay
-                  href="https://drive.google.com/drive/folders/1tXQ-hAwotbY4eYlPNcVglS0bZhJayhbc"
+                  href="https://drive.google.com/file/d/1er6znhix7hlQo8C8ScNMLhKx4cRVJhd_/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
