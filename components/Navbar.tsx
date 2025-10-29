@@ -171,7 +171,7 @@ export default function WithSubnavigation() {
                         _hover={{
                           bg: "red.500",
                         }}
-                        rightIcon={<FaFileAlt />}
+                        rightIcon={<FaRocket />}  {/* iCON  */}
                       >
                        Register Now {/* Event Guide Text Content Header  */}
                       </Button>
