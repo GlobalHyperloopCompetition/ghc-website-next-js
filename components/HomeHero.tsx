@@ -71,7 +71,7 @@ export default function HomeHero() {
           </Text>
           <Stack mt={6} direction={{ base: "column", sm: "row" }}>
             <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.05 }}>
-              Be part of the innovation {"   "}
+             {/* Button Left text */} {"   "}
               <Link href="https://forms.gle/ENnNUHNLrJNDdLuB7" passHref>
                 <Button
                   rounded="xl"
