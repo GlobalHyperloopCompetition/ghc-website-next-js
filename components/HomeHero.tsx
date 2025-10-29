@@ -83,7 +83,7 @@ export default function HomeHero() {
                   _hover={{ bg: "red.500" }}
                   mx={4}
                 >
-                  GHC 2025
+                  Register Now 
                 </Button>
               </Link>
             </motion.div>
