@@ -83,11 +83,11 @@ const Documents = () => {
                 dateTime="2024-11-10T12:22:00Z"
                 color={useColorModeValue("gray.500", "gray.400")}
               >
-                {timeDifference("2024-11-09T12:22:00Z")}
+                {timeDifference("2025-10-29T12:22:00Z")}
               </Box>
               <Heading size="md" my={2}>
                 <LinkOverlay
-                  href="https://ghc-document.s3.ap-south-1.amazonaws.com/GHC+CDR+Guidelines.pdf"
+                  href="https://drive.google.com/drive/folders/1tXQ-hAwotbY4eYlPNcVglS0bZhJayhbc"
                   target="_blank"
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
@@ -116,11 +116,11 @@ const Documents = () => {
                 dateTime="2024-09-22T12:22:00Z"
                 color={useColorModeValue("gray.500", "gray.400")}
               >
-                {timeDifference("2024-10-28T12:22:00Z")}
+                {timeDifference("2025-10-29T12:22:00Z")}
               </Box>
               <Heading size="md" my={2}>
                 <LinkOverlay
-                  href="https://ghc-document.s3.ap-south-1.amazonaws.com/PDS_Guidelines.pdf"
+                  href="https://drive.google.com/drive/folders/1tXQ-hAwotbY4eYlPNcVglS0bZhJayhbc"
                   target="_blank"
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
