@@ -149,16 +149,16 @@ const Documents = () => {
                 dateTime="2024-09-22T12:22:00Z"
                 color={useColorModeValue("gray.500", "gray.400")}
               >
-                {timeDifference("2024-10-28T12:22:00Z")}
+                {timeDifference("2025-10-29T12:22:00Z")}
               </Box>
               <Heading size="md" my={2}>
                 <LinkOverlay
-                  href="https://ghc-document.s3.ap-south-1.amazonaws.com/SPD_Guidelines(Innoquest).pdf "
+                  href="https://drive.google.com/drive/folders/1tXQ-hAwotbY4eYlPNcVglS0bZhJayhbc "
                   target="_blank"
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
                 >
-                  SPD Guidelines (Innoquest)
+                  RPD Guidelines (Innoquest)
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>
@@ -245,19 +245,19 @@ const Documents = () => {
             >
               <Box
                 as="time"
-                dateTime="2024-09-17T12:22:00Z"
+                dateTime="2025-10-29T12:22:00Z"
                 color={useColorModeValue("gray.500", "gray.400")}
               >
                 {timeDifference("2024-09-17T12:22:00Z")}
               </Box>
               <Heading size="md" my={2}>
                 <LinkOverlay
-                  href="https://ghc-document.s3.ap-south-1.amazonaws.com/GHC+2025+DPS+v1.0.pdf"
+                  href="https://drive.google.com/drive/folders/1tXQ-hAwotbY4eYlPNcVglS0bZhJayhbc"
                   target="_blank"
                   rel="noopener noreferrer"
                   color={useColorModeValue("teal.500", "teal.300")}
                 >
-                  DPS V1.0
+                  DPS Template
                 </LinkOverlay>
               </Heading>
               <Text color={useColorModeValue("gray.600", "gray.300")}>
