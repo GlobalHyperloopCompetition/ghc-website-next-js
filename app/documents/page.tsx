@@ -166,7 +166,7 @@ const Documents = () => {
               </Text>
             </LinkBox>
 
-            <LinkBox
+           {/* <LinkBox
               as="article"
               maxW="sm"
               p={5}
@@ -197,9 +197,9 @@ const Documents = () => {
               <Text color={useColorModeValue("gray.600", "gray.300")}>
                 GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
-            </LinkBox>
+            </LinkBox>  */}
 
-            <LinkBox
+            {/* <LinkBox
               as="article"
               maxW="sm"
               p={5}
@@ -230,7 +230,7 @@ const Documents = () => {
               <Text color={useColorModeValue("gray.600", "gray.300")}>
                 GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
-            </LinkBox>
+            </LinkBox>  */}
 
             <LinkBox
               as="article"
