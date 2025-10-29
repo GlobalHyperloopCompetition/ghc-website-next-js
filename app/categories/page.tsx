@@ -214,7 +214,7 @@ const Page = () => {
 
             {/* Register Button */}
             <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.05 }}>
-              <Link href={"/signup"}>
+              <Link href={"https://forms.gle/ENnNUHNLrJNDdLuB7"}> {/* Register Link  */}
                 <Button
                   rounded={"full"}
                   size={"lg"}
