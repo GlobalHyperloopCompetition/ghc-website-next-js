@@ -3,16 +3,16 @@ import Image from "next/image";
 import React from "react";
 
 const supporterLogos = [
-  "/Supporter_logo_1.png",
-  "/Supporter_logo_2.png",
-  "/Supporter_logo_3.png",
-  "/Supporter_logo_4.webp",
-  "/Supporter_logo_5.png",
-  "/Supporter_logo_6.avif",
-  "/Supporter_logo_7.png",
-  "/Supporter_logo_8.webp",
-  "/Supporter_logo_9.png",
-  "/Supporter_logo_10.png",
+  "/Supporter_Logo_1.png",
+  "/Supporter_Logo_2.png",
+  "/Supporter_Logo_3.png",
+  "/Supporter_Logo_4.webp",
+  "/Supporter_Logo_5.png",
+  "/Supporter_Logo_6.avif",
+  "/Supporter_Logo_7.png",
+  "/Supporter_Logo_8.webp",
+  "/Supporter_Logo_9.png",
+  "/Supporter_Logo_10.png",
 ];
 
 export default function SupportersSection() {
