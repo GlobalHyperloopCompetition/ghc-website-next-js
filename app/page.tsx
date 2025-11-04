@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Subscribe from "../components/Subscribe";
 import HeroSection from "../components/HomeHero";
 import Spons from "../components/spons";
+import SupportersSection from "@/components/supporters";
 import Footer from "../components/Footer";
 import Business from "../components/Business";
 import FAQ from "../components/FAQ";
@@ -19,6 +20,7 @@ const Home: React.FC<any> = () => {
         <Navbar />
         <HeroSection />
         <Spons />
+        <SupportersSection />
         <Business />
         {/* <SplitWithImage /> */}
        
