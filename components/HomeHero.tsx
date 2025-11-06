@@ -14,12 +14,8 @@ import {
   IconProps,
   useColorModeValue,
   AspectRatio,
-  List,
-  ListItem,
-  ListIcon,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
-import { CheckCircleIcon } from "@chakra-ui/icons";
 import { CiCalendar } from "react-icons/ci";
 import { FaLocationDot } from "react-icons/fa6";
 import Link from "next/link";
@@ -33,6 +29,7 @@ export default function HomeHero() {
         py={{ base: 8, md: 10, xl: 20 }}
         direction={{ base: "column", md: "row" }}
       >
+        {/* LEFT SECTION */}
         <Stack flex={1} spacing={{ base: 2 }}>
           <Heading
             lineHeight={1.1}
@@ -47,17 +44,15 @@ export default function HomeHero() {
             as={"span"}
             fontSize={{ base: "2xl", sm: "3xl", lg: "4xl" }}
             display="flex"
-            textDecoration={"quote"}
             mt={1}
           >
             <CiCalendar className="mr-4" />
-            Jan 22th-25th 2026,
+            Jan 22th–25th 2026,
           </Text>
           <Text
             as={"span"}
             fontSize={{ base: "2xl", sm: "3xl", lg: "4xl" }}
             display="flex"
-            textDecoration={"quote"}
             mt={1}
           >
             <FaLocationDot className="mr-4" />
@@ -69,27 +64,58 @@ export default function HomeHero() {
             creativity, accelerate breakthroughs, and be a part of the
             revolution!
           </Text>
+
+          {/* BUTTON SECTION */}
           <Stack mt={6} direction={{ base: "column", sm: "row" }}>
             <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.05 }}>
-             {/* Button Left text */} {"   "}
               <Link href="https://forms.gle/ENnNUHNLrJNDdLuB7" passHref>
-                <Button
+                <Box
+                  position="relative"
+                  display="inline-block"
                   rounded="xl"
-                  size="lg"
-                  fontWeight="bold"
-                  px={6}
-                  colorScheme="red"
-                  bg="red.400"
-                  _hover={{ bg: "red.500" }}
-                  mx={4}
+                  overflow="hidden"
+                  p="2px"
+                  bgGradient="linear(to-r, red.400, pink.400, purple.400, red.400)"
+                  bgSize="400%"
+                  animation="neonBorder 3s linear infinite"
+                  _before={{
+                    content: '""',
+                    position: "absolute",
+                    inset: 0,
+                    bgGradient:
+                      "linear(to-r, red.400, pink.400, purple.400, red.400)",
+                    bgSize: "400%",
+                    filter: "blur(8px)",
+                    opacity: 0.8,
+                    animation: "neonBorder 3s linear infinite",
+                    zIndex: -1,
+                  }}
+                  sx={{
+                    "@keyframes neonBorder": {
+                      "0%": { backgroundPosition: "0% 50%" },
+                      "50%": { backgroundPosition: "100% 50%" },
+                      "100%": { backgroundPosition: "0% 50%" },
+                    },
+                  }}
                 >
-                  Register Now 
-                </Button>
+                  <Button
+                    rounded="xl"
+                    size="lg"
+                    fontWeight="bold"
+                    px={6}
+                    color="white"
+                    bg="black"
+                    _hover={{ bg: "gray.900" }}
+                  >
+                    Register Now
+                  </Button>
+                </Box>
               </Link>
             </motion.div>
           </Stack>
         </Stack>
 
+        {/* RIGHT SECTION (VIDEO + BLOB) */}
         <Flex
           flex={1}
           justify={"center"}
@@ -117,7 +143,7 @@ export default function HomeHero() {
             <AspectRatio h={"100%"} w={"100%"} ratio={1}>
               <iframe
                 title="GHC Introduction"
-                src="https://www.youtube.com/embed/osvB0QDUzH0?si=gfihsySIrCoFVhTj?autoplay=1"
+                src="https://www.youtube.com/embed/osvB0QDUzH0?autoplay=1"
                 allowFullScreen
                 allow="autoplay; encrypted-media"
               />
@@ -153,66 +179,3 @@ const Blob = (props: IconProps) => {
     </Icon>
   );
 };
-
-//Comments
-
-{
-  /* <Text
-              as={"span"}
-              position={"relative"}
-              _after={{
-                content: "''",
-                width: "full",
-                height: "10%",
-                position: "absolute",
-                bottom: 1,
-                left: 0,
-                bg: "red.400",
-                zIndex: -1,
-              }}
-            >
-           Introducing,
-            </Text> */
-}
-
-{
-  /* <Text color={"gray.500"}>
-            It's an event, where innovation knows no bounds! Unleash your
-            creativity, accelerate breakthroughs, and be a part of the
-            revolution – the Hyperloop revolution starts here!
-          </Text>
-          <Stack
-            spacing={{ base: 4, sm: 6 }}
-            direction={{ base: "column", sm: "row" }}
-          >
-            <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.05 }}>
-              <Link href={"/signup"}>
-                <Button
-                  rounded={"full"}
-                  size={"lg"}
-                  fontWeight={"bold"}
-                  px={6}
-                  colorScheme={"red"}
-                  bg={"red.400"}
-                  _hover={{ bg: "red.500" }}
-                >
-                  Get started
-                </Button>
-              </Link>
-            </motion.div>
-
-            <motion.div whileTap={{ scale: 0.95 }} whileHover={{ scale: 1.05 }}>
-              <Link href={"/about/mission#what-is-hyperloop"}>
-                <Button
-                  rounded={"full"}
-                  size={"lg"}
-                  fontWeight={"normal"}
-                  px={6}
-                  leftIcon={<PlayIcon h={4} w={4} color={"gray.300"} />}
-                >
-                  How It Works
-                </Button>
-              </Link>
-            </motion.div>
-          </Stack>*/
-}

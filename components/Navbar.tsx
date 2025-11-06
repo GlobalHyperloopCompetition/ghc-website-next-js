@@ -1,10 +1,13 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
+  const [hoveredMenu, setHoveredMenu] = useState<string | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const routes = [
     {
@@ -43,12 +46,25 @@ const Navbar = () => {
       ],
     },
     { name: "Contact Us", path: "/contact" },
-    { name: "Register Now", path: "https://docs.google.com/forms/d/e/1FAIpQLSc-4zCoSoO9dz2pCwnB7gQ-HQbJhXYyj18DOgYVKfCYYTKiEw/viewform" },
-
+    {
+      name: "Register Now",
+      path: "https://docs.google.com/forms/d/e/1FAIpQLSc-4zCoSoO9dz2pCwnB7gQ-HQbJhXYyj18DOgYVKfCYYTKiEw/viewform",
+    },
     { name: "Documents", path: "/documents" },
     { name: "Categories", path: "/categories" },
     { name: "GHC 2025 Gallery", path: "/gallery" },
   ];
+
+  const handleMouseEnter = (name: string) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setHoveredMenu(name);
+  };
+
+  const handleMouseLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setHoveredMenu(null);
+    }, 200);
+  };
 
   return (
     <nav
@@ -60,7 +76,6 @@ const Navbar = () => {
         ${menuOpen ? "bg-transparent border-none" : ""}
       `}
     >
-      {/* === LOGO === */}
       <Link href="/" className="flex items-center gap-2 z-[3001]">
         <img
           src="/GHC-logo.png"
@@ -69,16 +84,26 @@ const Navbar = () => {
         />
       </Link>
 
-      {/* === DESKTOP NAV === */}
       <ul className="hidden lg:flex flex-wrap justify-center items-center gap-x-8 gap-y-2 text-white font-medium text-[1.05rem] w-full lg:w-auto">
         {routes.map((route) => (
-          <li key={route.name} className="relative group">
+          <li
+            key={route.name}
+            className="relative group"
+            onMouseEnter={() => handleMouseEnter(route.name)}
+            onMouseLeave={handleMouseLeave}
+          >
             {route.subRoutes ? (
               <>
                 <span className="cursor-pointer hover:text-cyan-400 transition-colors">
                   {route.name}
                 </span>
-                <ul className="absolute left-0 top-full mt-2 bg-[rgba(15,15,15,0.9)] backdrop-blur-xl border border-white/10 rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-xl min-w-[260px] p-2">
+                <ul
+                  className={`absolute left-0 top-full mt-2 bg-[rgba(15,15,15,0.9)] backdrop-blur-xl border border-white/10 rounded-xl transform transition-all duration-300 shadow-xl min-w-[260px] p-2 ${
+                    hoveredMenu === route.name
+                      ? "opacity-100 translate-y-0 pointer-events-auto"
+                      : "opacity-0 translate-y-2 pointer-events-none"
+                  }`}
+                >
                   {route.subRoutes.map((sub) => (
                     <li
                       key={sub.title}
@@ -106,7 +131,6 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* === HAMBURGER (Refined) === */}
       <button
         className="lg:hidden w-10 h-10 flex flex-col justify-center items-center relative z-[3001]"
         onClick={() => setMenuOpen(!menuOpen)}
@@ -129,78 +153,89 @@ const Navbar = () => {
         ></span>
       </button>
 
-      {/* === MOBILE FULLSCREEN PAGE === */}
-<AnimatePresence>
-  {menuOpen && (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: 10 }}
-      transition={{ duration: 0.5 }}
-      className="fixed inset-0 w-screen h-screen bg-[rgba(10,10,15,0.98)] backdrop-blur-xl z-[9999] 
-                 flex flex-col justify-start items-start px-8 pt-24 pb-16 overflow-y-auto"
-    >
-      {/* Close button (same hamburger toggles to X) */}
-      <button
-        className="absolute top-6 right-6 w-10 h-10 flex justify-center items-center"
-        onClick={() => setMenuOpen(false)}
-        aria-label="Close menu"
-      >
-        <span className="absolute block w-6 h-[2px] bg-white rotate-45 rounded"></span>
-        <span className="absolute block w-6 h-[2px] bg-white -rotate-45 rounded"></span>
-      </button>
-
-      {/* Logo centered on mobile page */}
-      <div className="w-full flex justify-center mb-12 mt-4">
-        <img
-          src="/GHC-logo.png"
-          alt="GHC"
-          className="w-20 h-auto drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]"
-        />
-      </div>
-
-      {routes.map((route, i) => (
-        <motion.div
-          key={route.name}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: i * 0.06 }}
-          className="w-full mb-6"
-        >
-          {route.subRoutes ? (
-            <>
-              <div className="text-3xl font-semibold mb-3 text-white">
-                {route.name}
-              </div>
-              <div className="flex flex-col gap-3 ml-4">
-                {route.subRoutes.map((sub) => (
-                  <Link
-                    key={sub.title}
-                    href={sub.path}
-                    onClick={() => setMenuOpen(false)}
-                    className="text-gray-400 text-lg hover:text-cyan-400 transition-colors"
-                  >
-                    <div>{sub.title}</div>
-                    <div className="text-sm">{sub.desc}</div>
-                  </Link>
-                ))}
-              </div>
-            </>
-          ) : (
-            <Link
-              href={route.path || "#"}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.5 }}
+            className="fixed inset-0 w-screen h-screen bg-[rgba(10,10,15,0.98)] backdrop-blur-xl z-[9999] 
+                       flex flex-col justify-start items-start px-8 pt-24 pb-16 overflow-y-auto"
+          >
+            <button
+              className="absolute top-6 right-6 w-10 h-10 flex justify-center items-center"
               onClick={() => setMenuOpen(false)}
-              className="text-3xl font-semibold text-white hover:text-cyan-400 transition-colors"
+              aria-label="Close menu"
             >
-              {route.name}
-            </Link>
-          )}
-        </motion.div>
-      ))}
-    </motion.div>
-  )}
-</AnimatePresence>
+              <span className="absolute block w-6 h-[2px] bg-white rotate-45 rounded"></span>
+              <span className="absolute block w-6 h-[2px] bg-white -rotate-45 rounded"></span>
+            </button>
 
+            <div className="w-full flex justify-center mb-12 mt-4">
+              <img
+                src="/GHC-logo.png"
+                alt="GHC"
+                className="w-20 h-auto drop-shadow-[0_0_12px_rgba(255,255,255,0.25)]"
+              />
+            </div>
+
+            {routes.map((route, i) => (
+              <motion.div
+                key={route.name}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.06 }}
+                className="w-full mb-6"
+              >
+                {route.subRoutes ? (
+                  <>
+                    <button
+                      onClick={() =>
+                        setOpenSubMenu(openSubMenu === route.name ? null : route.name)
+                      }
+                      className="text-3xl font-semibold mb-3 text-white w-full text-left hover:text-cyan-400 transition-colors"
+                    >
+                      {route.name}
+                    </button>
+                    <AnimatePresence>
+                      {openSubMenu === route.name && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0, y: -10 }}
+                          animate={{ opacity: 1, height: "auto", y: 0 }}
+                          exit={{ opacity: 0, height: 0, y: -10 }}
+                          transition={{ duration: 0.3 }}
+                          className="flex flex-col gap-3 ml-4 overflow-hidden"
+                        >
+                          {route.subRoutes.map((sub) => (
+                            <Link
+                              key={sub.title}
+                              href={sub.path}
+                              onClick={() => setMenuOpen(false)}
+                              className="text-gray-400 text-lg hover:text-cyan-400 transition-colors"
+                            >
+                              <div>{sub.title}</div>
+                              <div className="text-sm">{sub.desc}</div>
+                            </Link>
+                          ))}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </>
+                ) : (
+                  <Link
+                    href={route.path || "#"}
+                    onClick={() => setMenuOpen(false)}
+                    className="text-3xl font-semibold text-white hover:text-cyan-400 transition-colors"
+                  >
+                    {route.name}
+                  </Link>
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
