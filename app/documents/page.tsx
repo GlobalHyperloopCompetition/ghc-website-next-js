@@ -131,7 +131,7 @@ const Documents = () => {
                   _hover={{ bg: useColorModeValue("gray.100", "gray.700") }}
                   fontWeight="bold"
                 >
-                  Submit 
+                  Submit DPD
                 </Button>
               </Box>
             </LinkBox>
@@ -177,7 +177,7 @@ const Documents = () => {
                   _hover={{ bg: useColorModeValue("gray.100", "gray.700") }}
                   fontWeight="bold"
                 >
-                  Submit 
+                  Submit PDS
                 </Button>
               </Box>
             </LinkBox>
@@ -223,7 +223,7 @@ const Documents = () => {
                   _hover={{ bg: useColorModeValue("gray.100", "gray.700") }}
                   fontWeight="bold"
                 >
-                  Submit 
+                  Submit RPD
                 </Button>
               </Box>
             </LinkBox>
