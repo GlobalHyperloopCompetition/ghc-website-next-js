@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import React, { useRef, useEffect, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import { Box } from "@chakra-ui/react";
 
 import Navbar from "../components/Navbar";
@@ -12,10 +12,15 @@ import SupportersSection from "@/components/supporters";
 import Footer from "../components/Footer";
 import Business from "../components/Business";
 import FAQ from "../components/FAQ";
+import VideoLoader from "../components/VideoLoader";
 
+/* ---------- Blur Section ---------- */
 const BlurSection = ({ children }: { children: React.ReactNode }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-10% 0px -10% 0px" });
+  const ref = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(ref, {
+    once: false,
+    margin: "-10% 0px -10% 0px",
+  });
 
   return (
     <motion.div
@@ -32,10 +37,25 @@ const BlurSection = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-const Home: React.FC<any> = () => {
+/* ---------- Home ---------- */
+const Home: React.FC = () => {
+  const [showLoader, setShowLoader] = useState(false);
+
+  useEffect(() => {
+    const nav = performance.getEntriesByType("navigation")[0] as
+      | PerformanceNavigationTiming
+      | undefined;
+
+    // Show loader only on first load or reload
+    if (!nav || nav.type === "reload") {
+      setShowLoader(true);
+    }
+  }, []);
+
   return (
-    <AnimatePresence mode="wait">
-      <Box maxWidth={"full"}>
+    <>
+      {/* SITE CONTENT (always rendered underneath) */}
+      <Box maxWidth="full">
         <Navbar />
 
         <BlurSection>
@@ -64,7 +84,12 @@ const Home: React.FC<any> = () => {
 
         <Footer />
       </Box>
-    </AnimatePresence>
+
+      {/* LOADER OVERLAY (fades during last 300ms of video) */}
+      {showLoader && (
+        <VideoLoader onFinish={() => setShowLoader(false)} />
+      )}
+    </>
   );
 };
 
