@@ -118,22 +118,7 @@ const Documents = () => {
                 GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
 
-              {/* Submit button for Pod Demonstration (DPD) */}
-              <Box mt={4} style={animatedWrapperStyle}>
-                <Button
-                  as="a"
-                  href="https://forms.gle/5hLJUrrKY1YA6raX7"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  width="100%"
-                  rounded="full"
-                  bg={useColorModeValue("white", "gray.800")}
-                  _hover={{ bg: useColorModeValue("gray.100", "gray.700") }}
-                  fontWeight="bold"
-                >
-                  Submit DPD
-                </Button>
-              </Box>
+             
             </LinkBox>
 
             <LinkBox
@@ -164,22 +149,7 @@ const Documents = () => {
                 GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
 
-              {/* Submit button for PDS (DesignX) */}
-              <Box mt={4} style={animatedWrapperStyle}>
-                <Button
-                  as="a"
-                  href="https://forms.gle/hTzJ8Ne6qGfyW1ik8"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  width="100%"
-                  rounded="full"
-                  bg={useColorModeValue("white", "gray.800")}
-                  _hover={{ bg: useColorModeValue("gray.100", "gray.700") }}
-                  fontWeight="bold"
-                >
-                  Submit PDS
-                </Button>
-              </Box>
+           
             </LinkBox>
 
             <LinkBox
@@ -210,22 +180,7 @@ const Documents = () => {
                 GLOBAL HYPERLOOP COMPETITION 2026
               </Text>
 
-              {/* Submit button for RPD (Innoquest) */}
-              <Box mt={4} style={animatedWrapperStyle}>
-                <Button
-                  as="a"
-                  href="https://forms.gle/YMTCPWy98XE66XMc6"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  width="100%"
-                  rounded="full"
-                  bg={useColorModeValue("white", "gray.800")}
-                  _hover={{ bg: useColorModeValue("gray.100", "gray.700") }}
-                  fontWeight="bold"
-                >
-                  Submit RPD
-                </Button>
-              </Box>
+            
             </LinkBox>
 
             <LinkBox
@@ -287,6 +242,88 @@ const Documents = () => {
             </LinkBox>
           </Flex>
         </VStack>
+        {/* ================= SUBMISSION SECTION ================= */}
+<VStack mt={16} spacing={6} textAlign="center">
+  <Heading size="lg" color={useColorModeValue("teal.600", "teal.300")}>
+    Submissions
+  </Heading>
+
+  <Flex wrap="wrap" gap={6} justify="center">
+    <Box style={animatedWrapperStyle}>
+      <Button
+        as="a"
+        href="https://forms.gle/5hLJUrrKY1YA6raX7"
+        target="_blank"
+        rel="noopener noreferrer"
+        px={10}
+        rounded="full"
+        bg={useColorModeValue("white", "gray.800")}
+        fontWeight="bold"
+      >
+        Submit DPD
+      </Button>
+    </Box>
+
+    <Box style={animatedWrapperStyle}>
+      <Button
+        as="a"
+        href="https://forms.gle/hTzJ8Ne6qGfyW1ik8"
+        target="_blank"
+        rel="noopener noreferrer"
+        px={10}
+        rounded="full"
+        bg={useColorModeValue("white", "gray.800")}
+        fontWeight="bold"
+      >
+        Submit PDS
+      </Button>
+    </Box>
+
+    <Box style={animatedWrapperStyle}>
+      <Button
+        as="a"
+        href="https://forms.gle/YMTCPWy98XE66XMc6"
+        target="_blank"
+        rel="noopener noreferrer"
+        px={10}
+        rounded="full"
+        bg={useColorModeValue("white", "gray.800")}
+        fontWeight="bold"
+      >
+        Submit RPD
+      </Button>
+    </Box>
+    <Box style={animatedWrapperStyle}>
+      <Button
+        as="a"
+        href="https://forms.gle/P9UFZyuEg1DSfTXZ8"
+        target="_blank"
+        rel="noopener noreferrer"
+        px={10}
+        rounded="full"
+        bg={useColorModeValue("white", "gray.800")}
+        fontWeight="bold"
+      >
+        Submit CDR
+      </Button>
+    </Box>
+    <Box style={animatedWrapperStyle}>
+      <Button
+        as="a"
+        href="https://forms.gle/Sq3wBWsgcLuqBXzm7"
+        target="_blank"
+        rel="noopener noreferrer"
+        px={10}
+        rounded="full"
+        bg={useColorModeValue("white", "gray.800")}
+        fontWeight="bold"
+      >
+        Submit FDS
+      </Button>
+    </Box>
+  </Flex>
+</VStack>
+
       </Flex>
 
       <Box width={"full"} mt={8}>

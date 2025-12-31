@@ -6,7 +6,7 @@ import { Box } from "@chakra-ui/react";
 
 import Navbar from "../components/Navbar";
 import Subscribe from "../components/Subscribe";
-import HeroSection from "../components/HomeHero";
+import HomeHero from "../components/HomeHero";
 import Spons from "../components/spons";
 import SupportersSection from "@/components/supporters";
 import Footer from "../components/Footer";
@@ -59,7 +59,7 @@ const Home: React.FC = () => {
         <Navbar />
 
         <BlurSection>
-          <HeroSection />
+          <HomeHero />
         </BlurSection>
 
         <BlurSection>
