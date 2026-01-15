@@ -321,6 +321,34 @@ const Documents = () => {
         Submit FDS
       </Button>
     </Box>
+    <Box style={animatedWrapperStyle}>
+      <Button
+        as="a"
+        href="https://forms.gle/Tci2aAhR9RGDciXdA"
+        target="_blank"
+        rel="noopener noreferrer"
+        px={10}
+        rounded="full"
+        bg={useColorModeValue("white", "gray.800")}
+        fontWeight="bold"
+      >
+        Submit FRR
+      </Button>
+    </Box>
+    <Box style={animatedWrapperStyle}>
+      <Button
+        as="a"
+        href="https://forms.gle/7SwfNhUa4xEWbskZ7"
+        target="_blank"
+        rel="noopener noreferrer"
+        px={10}
+        rounded="full"
+        bg={useColorModeValue("white", "gray.800")}
+        fontWeight="bold"
+      >
+        Submit SBT
+      </Button>
+    </Box>
   </Flex>
 </VStack>
 
