@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.jpg",
   },
+  themeColor: "#0b0f17",
 };
 
 export default function RootLayout({
@@ -21,14 +22,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-[#0b0f17]">
       <body className={inter.className}>
         <SessionWraper>
           <Providers>
-            {/* Add top padding so navbar doesn't hide content */}
-            <main className="pt-[80px] md:pt-[90px]">
+
+            {/* Navbar overlays hero now */}
+            <main>
               {children}
             </main>
+
           </Providers>
         </SessionWraper>
       </body>

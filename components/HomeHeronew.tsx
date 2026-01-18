@@ -12,7 +12,8 @@ export default function HomeHero() {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   return (
-    <section className="relative min-h-screen flex items-center bg-[#0b0f17] text-white overflow-hidden">
+    <section className="relative min-h-[100svh] flex items-center bg-[#0b0f17] text-white overflow-hidden">
+
 
       {/* BACKDROP */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/80" />
@@ -22,7 +23,7 @@ export default function HomeHero() {
         href="https://www.youtube.com/watch?v=osvB0QDUzH0&t=1s"
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute top-3 right-3 sm:top-6 sm:right-6 z-20"
+        className="fixed sm:absolute top-20 sm:top-20 right-3 sm:right-6 z-30"
       >
         <button
           className="
@@ -43,7 +44,6 @@ export default function HomeHero() {
             overflow-hidden
           "
         >
-
           <span
             className="
               absolute inset-0
@@ -59,7 +59,6 @@ export default function HomeHero() {
 
           <span className="relative z-10 text-sm sm:text-lg">▶</span>
           <span className="relative z-10">Watch Trailer</span>
-
         </button>
       </a>
 
@@ -69,7 +68,7 @@ export default function HomeHero() {
           {/* HERO TITLE */}
           <div
             ref={containerRef}
-            className="pt-10 sm:pt-14 md:pt-20 text-center"
+            className="pt-24 sm:pt-28 md:pt-32 text-center"
           >
             <h1
               className="
@@ -97,12 +96,12 @@ export default function HomeHero() {
           </div>
 
           {/* GRID */}
-          <div className="mt-6 sm:mt-10 md:mt-15 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-12 lg:gap-20 items-center">
+          <div className="mt-6 sm:mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-12 lg:gap-20 items-center">
 
             {/* LEFT */}
             <div className="flex flex-col gap-4 sm:gap-7 text-center md:text-left">
 
-              {/* PURPLE SHINY TAGLINE */}
+              {/* SHINY TAGLINE */}
               <h2
                 className="
                   relative
@@ -135,7 +134,7 @@ export default function HomeHero() {
                 </span>
               </h2>
 
-              {/* ROTATING GLASS */}
+              {/* ROTATING TEXT */}
               <div className="flex justify-center md:justify-start">
                 <RotatingText
                   texts={[
@@ -171,14 +170,12 @@ export default function HomeHero() {
 
             </div>
 
-            {/* RIGHT GLASS CARD */}
+            {/* RIGHT */}
             <div className="flex justify-center md:justify-end">
 
-              <div
-              >
+              <div>
                 <div className="flex flex-col gap-5">
 
-                  {/* COUNTDOWN WITH SIDE PADDING */}
                   <div className="px-2 sm:px-0">
                     <Countdown targetDate="2026-01-22T00:00:00" />
                   </div>

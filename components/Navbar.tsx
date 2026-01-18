@@ -68,14 +68,15 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[1200px]
-        px-6 py-3 flex flex-wrap justify-between items-center 
+      className={`fixed top-0 left-1/2 -translate-x-1/2 w-[92%] max-w-[1200px]
+        px-6 py-4 flex flex-wrap justify-between items-center 
         rounded-2xl border border-white/15 backdrop-blur-2xl 
         bg-[rgba(15,15,20,0.35)] shadow-[0_4px_30px_rgba(0,0,0,0.3)]
         z-[1000] transition-all duration-500
-        ${menuOpen ? "bg-transparent border-none" : ""}
+        ${menuOpen ? "bg-black/80 border-none" : ""}
       `}
     >
+
       <Link href="/" className="flex items-center gap-2 z-[3001]">
         <img
           src="/GHC-logo.png"
