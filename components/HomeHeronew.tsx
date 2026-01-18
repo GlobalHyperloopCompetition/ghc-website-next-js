@@ -74,12 +74,11 @@ export default function HomeHero() {
             <h1
               className="
                 font-extrabold
-                leading-tight
-                text-[10.5vw]
-                sm:text-6xl
-                md:text-7xl
-                lg:text-8xl
-                xl:text-[7.5rem]
+                leading-[0.95]
+                break-words
+                text-[clamp(2.5rem,6vw,6rem)]
+                sm:text-[clamp(3rem,6vw,6.5rem)]
+                md:text-[clamp(3.5rem,6vw,7rem)]
                 max-w-6xl
                 mx-auto
                 drop-shadow-[0_8px_40px_rgba(0,0,0,0.9)]
@@ -98,7 +97,7 @@ export default function HomeHero() {
           </div>
 
           {/* GRID */}
-          <div className="mt-6 sm:mt-10 md:mt-20 grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-12 lg:gap-20 items-center">
+          <div className="mt-6 sm:mt-10 md:mt-15 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-12 lg:gap-20 items-center">
 
             {/* LEFT */}
             <div className="flex flex-col gap-4 sm:gap-7 text-center md:text-left">
@@ -176,15 +175,6 @@ export default function HomeHero() {
             <div className="flex justify-center md:justify-end">
 
               <div
-                className="
-                  w-full max-w-sm
-                  bg-white/10
-                  backdrop-blur-xl
-                  border border-white/20
-                  rounded-3xl
-                  p-5 sm:p-7 lg:p-9
-                  shadow-[0_0_60px_rgba(0,0,0,1)]
-                "
               >
                 <div className="flex flex-col gap-5">
 
