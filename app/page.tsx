@@ -12,12 +12,13 @@ import Footer from "../components/Footer";
 import Business from "../components/Business";
 import FAQ from "../components/FAQ";
 
-/* ---------- Home ---------- */
 const Home: React.FC = () => {
   return (
-    <Box maxWidth="full">
+    <Box w="100%" overflowX="hidden">
+
       <Navbar />
 
+      {/* HERO GOES UNDER NAVBAR */}
       <HomeHero />
 
       <Spons />
@@ -31,6 +32,7 @@ const Home: React.FC = () => {
       <FAQ />
 
       <Footer />
+
     </Box>
   );
 };
