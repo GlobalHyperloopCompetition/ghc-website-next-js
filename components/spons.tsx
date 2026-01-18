@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Container,
   Flex,
@@ -13,60 +14,7 @@ import {
 import React, { ReactNode } from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 
-const Card: React.FC<any> = ({ adv }: any) => {
-  const { imgUrl, name, link } = adv;
-  return (
-    <Stack
-      spacing={3}
-      direction={"column"}
-      width={"300px"}
-      justify={"center"}
-      align={"center"}
-      textAlign={"center"}
-    >
-      <Image
-        src={imgUrl}
-        borderRadius={"full"}
-        h={220}
-        w={220}
-        alt={name}
-        objectFit="cover"
-      />
-      <Text fontSize={"lg"} fontWeight={"bold"}>
-        {name}
-      </Text>
-      <SocialButton label={"External Link"} href={link}>
-        <FaExternalLinkAlt />
-      </SocialButton>
-    </Stack>
-  );
-};
-
-const Spons = () => {
-  return (
-    <Container maxW="6xl" id="sponsors" py={10}>
-      <Stack spacing={4} textAlign="center" mb={10}>
-        <Heading fontSize={{ base: "3xl", sm: "5xl" }} fontWeight="bold">
-          Organisors
-        </Heading>
-      </Stack>
-
-      <Flex
-        wrap="wrap"
-        gap={10}
-        align="center"
-        justify="center"
-        flexDirection="row"
-      >
-        {Organisors.map((organisor) => (
-          <Card key={organisor.name} adv={organisor} />
-        ))}
-      </Flex>
-    </Container>
-  );
-};
-
-export default Spons;
+/* ================= SOCIAL BUTTON ================= */
 
 const SocialButton = ({
   children,
@@ -78,15 +26,14 @@ const SocialButton = ({
   href: string;
 }) => {
   return (
-    <chakra.button
+    <chakra.a
       bg={useColorModeValue("blackAlpha.100", "whiteAlpha.100")}
       rounded="full"
       w={8}
       h={8}
       cursor="pointer"
-      as="a"
-      target="_blank"
       href={href}
+      target="_blank"
       display="inline-flex"
       alignItems="center"
       justifyContent="center"
@@ -97,11 +44,42 @@ const SocialButton = ({
     >
       <VisuallyHidden>{label}</VisuallyHidden>
       {children}
-    </chakra.button>
+    </chakra.a>
   );
 };
 
-// ✅ Only IITM and Indian Railways remain
+/* ================= CARD ================= */
+
+const Card = ({ adv }: { adv: any }) => {
+  const { imgUrl, name, link } = adv;
+
+  return (
+    <Stack
+      spacing={3}
+      width="300px"
+      align="center"
+      textAlign="center"
+    >
+      <Image
+        src={imgUrl}
+        borderRadius="full"
+        h={220}
+        w={220}
+        alt={name}
+        objectFit="cover"
+      />
+      <Text fontSize="lg" fontWeight="bold">
+        {name}
+      </Text>
+      <SocialButton label="External Link" href={link}>
+        <FaExternalLinkAlt />
+      </SocialButton>
+    </Stack>
+  );
+};
+
+/* ================= DATA ================= */
+
 const Organisors = [
   {
     imgUrl: "/iitm.png",
@@ -110,7 +88,36 @@ const Organisors = [
   },
   {
     imgUrl: "/indianrailways.png",
-    name: "Indian Railway",
+    name: "Indian Railways",
     link: "https://www.indianrail.gov.in",
   },
 ];
+
+/* ================= MAIN COMPONENT ================= */
+
+const Spons = () => {
+  return (
+    <section className="bg-[#0b0f17]">
+      <Container maxW="6xl" id="sponsors" py={16}>
+        <Stack spacing={6} textAlign="center" mb={12}>
+          <Heading fontSize={{ base: "3xl", sm: "5xl" }} fontWeight="bold" color="white">
+            Organisers
+          </Heading>
+        </Stack>
+
+        <Flex
+          wrap="wrap"
+          gap={10}
+          align="center"
+          justify="center"
+        >
+          {Organisors.map((organisor) => (
+            <Card key={organisor.name} adv={organisor} />
+          ))}
+        </Flex>
+      </Container>
+    </section>
+  );
+};
+
+export default Spons;

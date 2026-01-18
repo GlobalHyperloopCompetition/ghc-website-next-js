@@ -149,3 +149,29 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+.hero-bg-track {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  width: 200%;
+  height: 100%;
+  animation: heroBgMove 80s linear infinite;
+}
+
+.hero-bg-img {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* RIGHT → LEFT movement */
+@keyframes heroBgMove {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

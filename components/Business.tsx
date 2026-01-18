@@ -1,241 +1,161 @@
-// import { StarIcon } from '@chakra-ui/icons'
 "use client";
 
 import {
   Box,
   Container,
   SimpleGrid,
-  Image,
   Icon,
   Flex,
   Heading,
   Text,
   Stack,
-  useColorModeValue,
 } from "@chakra-ui/react";
 import { ReactElement } from "react";
 import {
-  FcApproval,
-  FcBullish,
-  FcCollaboration,
-  FcConferenceCall,
   FcElectronics,
+  FcCollaboration,
   FcWorkflow,
 } from "react-icons/fc";
-// import { IoAnalyticsSharp, IoLogoBitcoin, IoSearchSharp } from 'react-icons/io5'
-// import { ReactElement } from 'react'
-// import { BiMoney } from 'react-icons/bi'
-// import { FaBusinessTime, FaMapMarkedAlt, FaMoneyBill } from 'react-icons/fa'
 
-// interface FeatureProps {
-//   text: string
-//   iconBg: string
-//   icon?: ReactElement
-// }
+import ElectricBorder from "../components/ElectricBorder";
 
-// const Feature = ({ text, icon, iconBg }: FeatureProps) => {
-//   return (
-//     <Stack direction={'row'} align={'center'}>
-//       <Flex w={8} h={8} align={'center'} justify={'center'} rounded={'full'} bg={iconBg}>
-//         {icon}
-//       </Flex>
-//       <Text fontWeight={600}>{text}</Text>
-//     </Stack>
-//   )
-// }
+/* ================= CARD ================= */
 
 interface CardProps {
   heading: string;
   description?: string;
   icon?: ReactElement;
-  href: string;
 }
 
-const Card = ({ heading, description, icon, href }: CardProps) => {
+const Card = ({ heading, description, icon }: CardProps) => {
   return (
     <Box
-      maxW={{ base: "full", md: "300px" }}
-      w={"full"}
-      borderWidth="1px"
-      borderRadius="lg"
-      overflow="hidden"
+      bg="rgba(255,255,255,0.03)"
+      borderRadius="16px"
       p={8}
-      bg={useColorModeValue("gray.50", "gray.800")}
+      backdropFilter="blur(14px)"
     >
-      <Stack align={"start"} spacing={2}>
+      <Stack spacing={4} align="flex-start">
         {icon && (
           <Flex
-            w={16}
-            h={16}
-            align={"center"}
-            justify={"center"}
-            color={"white"}
-            rounded={"full"}
-            // bg={useColorModeValue("gray.200", "gray.700")}
+            w={14}
+            h={14}
+            align="center"
+            justify="center"
+            rounded="full"
           >
             {icon}
           </Flex>
         )}
-        <Box mt={2}>
-          <Heading size="md" mb={4}>
-            {heading}
-          </Heading>
-          {description && (
-            <Text mt={1} fontSize={"sm"}>
-              {description}
-            </Text>
-          )}
-        </Box>
-        {/* <Button variant={'link'} colorScheme={'red'} size={'sm'}>
-                    Learn more
-                </Button> */}
+
+        <Heading size="md" color="white">
+          {heading}
+        </Heading>
+
+        {description && (
+          <Text fontSize="sm" color="gray.300">
+            {description}
+          </Text>
+        )}
       </Stack>
     </Box>
   );
 };
 
+/* ================= MAIN SECTION ================= */
+
 export default function SplitWithImage() {
   return (
-    <>
-      <Container maxW={"7xl"} py={12}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-          <Stack spacing={4}>
+    <Box bg="#0b0f17" py={{ base: 20, md: 28 }}>
+      <Container maxW="7xl">
+        <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={16}>
+
+          {/* ================= LEFT (STICKY) ================= */}
+          <Stack
+            spacing={6}
+            position={{ base: "static", lg: "sticky" }}
+            top="120px"
+            alignSelf="flex-start"
+          >
             <Text
-              textTransform={"uppercase"}
-              color={"blue.400"}
+              textTransform="uppercase"
+              color="#7df9ff"
               fontWeight={600}
-              fontSize={"sm"}
-              bg={useColorModeValue("blue.50", "blue.900")}
-              p={2}
-              alignSelf={"flex-start"}
-              rounded={"md"}
+              fontSize="sm"
+              bg="rgba(125,249,255,0.12)"
+              px={3}
+              py={1}
+              rounded="md"
+              w="fit-content"
             >
               Our Vision
             </Text>
-            <Heading>What is Global Hyperloop Competition ?</Heading>
-            <Text color={"gray.500"} fontSize={"lg"}>
+
+            <Heading
+              color="white"
+              fontSize={{ base: "3xl", md: "4xl" }}
+              lineHeight="1.2"
+            >
+              What is Global Hyperloop Competition?
+            </Heading>
+
+            <Text color="gray.400" fontSize="lg">
               The Global Hyperloop Competition 2.0, hosted by the Indian Institute of Technology Madras, marks the next leap in bringing the Hyperloop revolution to India. Building on the success of our 2025 edition, GHC 2.0 returns this January 2026 with a renewed vision — to push boundaries of innovation, collaboration, and technology on a truly global scale
             </Text>
-            <Text color={"gray.500"} fontSize={"lg"}>
-              With an upgraded 422m test track and exciting new challenges, this edition promises an even more engaging, competitive, and fun experience for teams worldwide. Our mission is to inspire the next generation of innovators, engineers, and dreamers to accelerate the future of transportation and redefine what’s possible.{" "}
+
+            <Text color="gray.400" fontSize="lg">
+              With an upgraded 422m test track and exciting new challenges, this edition promises an even more engaging, competitive, and fun experience for teams worldwide. Our mission is to inspire the next generation of innovators, engineers, and dreamers to accelerate the future of transportation and redefine what’s possible.
             </Text>
-            {/* <Stack
-            spacing={4}
-            divider={
-              <StackDivider borderColor={useColorModeValue('gray.100', 'gray.700')} />
-            }>
-            <Feature
-              icon={<Icon as={FaBusinessTime} color={'yellow.500'} w={5} h={5} />}
-              iconBg={useColorModeValue('yellow.100', 'yellow.900')}
-              text={'Business Planning'}
-            />
-            <Feature
-              icon={<Icon as={FaMoneyBill} color={'green.500'} w={5} h={5} />}
-              iconBg={useColorModeValue('green.100', 'green.900')}
-              text={'Financial Planning'}
-            />
-            <Feature
-              icon={<Icon as={FaMapMarkedAlt} color={'purple.500'} w={5} h={5} />}
-              iconBg={useColorModeValue('purple.100', 'purple.900')}
-              text={'Market Analysis'}
-            />
-          </Stack> */}
           </Stack>
-          <Flex>
-            <Image
-              rounded={"md"}
-              alt={"feature image"}
-              src={"/ghcomp.jpg"}
-              objectFit={"cover"}
-            />
-          </Flex>
+
+          {/* ================= RIGHT (ELECTRIC CARDS) ================= */}
+          <Stack spacing={10}>
+
+            <ElectricBorder
+              color="#7df9ff"
+              speed={0.8}
+              chaos={0.1}
+              thickness={2}
+              style={{ borderRadius: 16 }}
+            >
+              <Card
+                heading="Innovation"
+                icon={<Icon as={FcElectronics} w={10} h={10} />}
+                description="Foster a culture of creativity and innovation in Hyperloop research and development. Encourage experimentation and prototyping of new ideas and technologies. Develop innovative solutions to real-world problems"
+              />
+            </ElectricBorder>
+
+            <ElectricBorder
+              color="#7df9ff"
+              speed={1}
+              chaos={0.1}
+              thickness={2}
+              style={{ borderRadius: 16 }}
+            >
+              <Card
+                heading="Inclusion"
+                icon={<Icon as={FcCollaboration} w={10} h={10} />}
+                description="Provide a platform for diverse stakeholders to share knowledge, resources, and expertise. Foster a community of students, professionals, and industries working together to advance Hyperloop technology."
+              />
+            </ElectricBorder>
+
+            <ElectricBorder
+              color="#7df9ff"
+              speed={1.2}
+              chaos={0.1}
+              thickness={2}
+              style={{ borderRadius: 16 }}
+            >
+              <Card
+                heading="Implementation"
+                icon={<Icon as={FcWorkflow} w={10} h={10} />}
+                description="Design, build, and test scalable and sustainable Hyperloop systems. Collaborate with industries, governments, and academia to accelerate adoption. Develop standards and regulations for safe and efficient Hyperloop operations"
+              />
+            </ElectricBorder>
+
+          </Stack>
         </SimpleGrid>
       </Container>
-
-      {/* <Stack
-        spacing={4}
-        as={Container}
-        maxW={"7xl"}
-        textAlign={"center"}
-        my={15}
-      >
-        <Heading fontSize={{ base: "2xl", sm: "5xl" }} fontWeight={"bold"}>
-          GHC’s Mission
-        </Heading>
-        <Text color={"gray.600"} fontSize={{ base: "sm", sm: "lg" }}>
-          Transcending borders in speed and innovation
-        </Text>
-      </Stack>
-
-      <Container maxW={"7xl"} my={16}>
-        <Flex flexWrap="wrap" gridGap={6} justify="space-evenly">
-          <Card
-            heading={"The Hyperloop Vision"}
-            icon={<Icon as={FcBullish} w={10} h={10} />}
-            description={
-              "By explaining the technologies involved in Hyperloop and its associated benefits - incredible speed, safety and sustainability - to people, GHC will ensure the development of a massive Hyperloop community over the years to revolutionalise the existing transport system."
-            }
-            href={"#"}
-          />
-          <Card
-            heading={"The Conference"}
-            icon={<Icon as={FcConferenceCall} w={10} h={10} />}
-            description={
-              "Serving as a stage for Hyperloop enthusiasts, the Conference gives an opportunity for networking and collaboration among students, academicians and industrialists in order to propel the research and development of the hyperloop technologies."
-            }
-            href={"#"}
-          />
-          <Card
-            heading={"The Competition"}
-            icon={<Icon as={FcApproval} w={10} h={10} />}
-            description={
-              "The Competetion aims to engage students and teams to ideate, innovate and develop. The competitive spirit will drive teams to showcase different perspectives on the hyperloop technology and assist its growth."
-            }
-            href={"#"}
-          />
-        </Flex>
-      </Container> */}
-
-      <Stack
-        spacing={4}
-        as={Container}
-        maxW={"7xl"}
-        textAlign={"center"}
-        my={15}
-      >
-        <Heading fontSize={{ base: "2xl", sm: "5xl" }} fontWeight={"bold"}>
-          GHC’s Vision
-        </Heading>
-      </Stack>
-
-      <Container maxW={"7xl"} my={16}>
-        <Flex flexWrap="wrap" gridGap={6} justify="space-evenly">
-          <Card
-            heading={"Innovation"}
-            icon={<Icon as={FcElectronics} w={10} h={10} />}
-            description={
-              "Foster a culture of creativity and innovation in Hyperloop research and development. Encourage experimentation and prototyping of new ideas and technologies. Develop innovative solutions to real-world problems"
-            }
-            href={"#"}
-          />
-          <Card
-            heading={"Inclusion"}
-            icon={<Icon as={FcCollaboration} w={10} h={10} />}
-            description={
-              "Provide a platform for diverse stakeholders to share knowledge, resources, and expertise. Foster a community of students, professionals, and industries working together to advance Hyperloop technology."
-            }
-            href={"#"}
-          />
-          <Card
-            heading={"Implementation"}
-            icon={<Icon as={FcWorkflow} w={10} h={10} />}
-            description={
-              "Design, build, and test scalable and sustainable Hyperloop systems. Collaborate with industries, governments, and academia to accelerate adoption. Develop standards and regulations for safe and efficient Hyperloop operations"
-            }
-            href={"#"}
-          />
-        </Flex>
-      </Container>
-    </>
+    </Box>
   );
 }
