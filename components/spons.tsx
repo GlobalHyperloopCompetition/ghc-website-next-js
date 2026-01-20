@@ -87,9 +87,9 @@ const Organisors = [
     link: "https://www.iitm.ac.in",
   },
   {
-    imgUrl: "/indianrailways.png",
-    name: "Indian Railways",
-    link: "https://www.indianrail.gov.in",
+    imgUrl: "iitmaa_logo.png",
+    name: "IIT Madras Alumni Association",
+    link: "https://iitmaa.org/",
   },
 ];
 
