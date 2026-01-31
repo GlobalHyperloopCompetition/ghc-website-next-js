@@ -6,7 +6,6 @@ import VariableProximity from './VariableProximity';
 import ShinyText from './ShinyText';
 import RotatingText from '../components/RotatingText';
 import TextType from './TextType';
-import Countdown from '../components/Countdown';
 
 export default function HomeHero() {
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -14,51 +13,47 @@ export default function HomeHero() {
   return (
     <section className="relative min-h-[100svh] flex items-center bg-[#0b0f17] text-white overflow-hidden">
 
+      {/* BACKGROUND GLOW LAYERS */}
+      <div className="absolute -top-40 -left-40 w-[520px] h-[520px] bg-purple-600/20 rounded-full blur-[160px] animate-pulse" />
+      <div className="absolute bottom-0 right-0 w-[480px] h-[480px] bg-indigo-500/20 rounded-full blur-[170px] animate-pulse" />
 
-      {/* BACKDROP */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/80" />
+      {/* DARK GRADIENT OVERLAY */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/90" />
 
       {/* WATCH TRAILER */}
       <a
         href="https://www.youtube.com/watch?v=osvB0QDUzH0&t=1s"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed sm:absolute top-20 sm:top-20 right-3 sm:right-6 z-30"
+        className="fixed sm:absolute top-20 right-3 sm:right-6 z-30"
       >
         <button
           className="
-            group
-            relative
-            flex items-center gap-2
+            group relative flex items-center gap-2
             px-3 py-2 sm:px-5 sm:py-3
             rounded-full
-            bg-white/10
-            backdrop-blur-xl
+            bg-white/10 backdrop-blur-xl
             border border-white/20
-            text-xs sm:text-base
-            font-medium
-            text-white
+            text-xs sm:text-base font-medium
             shadow-[0_0_25px_rgba(180,120,255,0.5)]
-            hover:shadow-[0_0_45px_rgba(180,120,255,0.9)]
+            hover:shadow-[0_0_55px_rgba(180,120,255,0.9)]
+            hover:scale-105
             transition-all duration-300
             overflow-hidden
           "
         >
           <span
             className="
-              absolute inset-0
-              bg-gradient-to-r
-              from-transparent
-              via-purple-400/40
-              to-transparent
+              absolute inset-0 bg-gradient-to-r
+              from-transparent via-purple-400/40 to-transparent
               translate-x-[-120%]
               group-hover:translate-x-[120%]
               transition-transform duration-700
             "
           />
 
-          <span className="relative z-10 text-sm sm:text-lg">▶</span>
-          <span className="relative z-10">Watch Trailer</span>
+          <span className="relative z-10">▶</span>
+          <span className="relative z-10">Watch Highlights</span>
         </button>
       </a>
 
@@ -72,15 +67,13 @@ export default function HomeHero() {
           >
             <h1
               className="
-                font-extrabold
-                leading-[0.95]
-                break-words
-                text-[clamp(2.5rem,6vw,6rem)]
+                font-extrabold leading-[0.95]
+                text-[clamp(2.3rem,6vw,6rem)]
                 sm:text-[clamp(3rem,6vw,6.5rem)]
-                md:text-[clamp(3.5rem,6vw,7rem)]
-                max-w-6xl
-                mx-auto
+                max-w-6xl mx-auto
                 drop-shadow-[0_8px_40px_rgba(0,0,0,0.9)]
+                transition-transform duration-500
+                hover:scale-[1.01]
               "
             >
               <VariableProximity
@@ -96,65 +89,41 @@ export default function HomeHero() {
           </div>
 
           {/* GRID */}
-          <div className="mt-6 sm:mt-10 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-12 lg:gap-20 items-center">
+          <div className="mt-10 sm:mt-14 grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-20 items-center">
 
-            {/* LEFT */}
-            <div className="flex flex-col gap-4 sm:gap-7 text-center md:text-left">
+            {/* LEFT CONTENT */}
+            <div className="flex flex-col gap-6 text-center md:text-left">
 
               {/* SHINY TAGLINE */}
-              <h2
-                className="
-                  relative
-                  font-bold
-                  text-base sm:text-lg lg:text-3xl
-                  text-white
-                  drop-shadow-[0_0_25px_rgba(180,120,255,0.7)]
-                "
-              >
+              <h2 className="relative font-bold text-base sm:text-lg lg:text-3xl drop-shadow-[0_0_30px_rgba(180,120,255,0.7)]">
+
                 <span className="relative z-10">
                   It's an event, where innovation knows no bounds!
                 </span>
 
-                <span
-                  className="
-                    absolute inset-0
-                    z-20
-                    pointer-events-none
-                    mix-blend-screen
-                    opacity-80
-                  "
-                >
-                  <ShinyText
-                    text="It's an event, where innovation knows no bounds!"
-                    speed={2}
-                    color="#ffffff"
-                    shineColor="#b37cff"
-                    spread={200}
-                  />
-                </span>
+
               </h2>
 
               {/* ROTATING TEXT */}
               <div className="flex justify-center md:justify-start">
                 <RotatingText
                   texts={[
-                    'Unleash Your Creativity',
-                    'Accelerate Breakthroughs',
-                    'Be a Part of the Revolution',
+                    'Be a Part of the Revolution.',
+                    'Unleash Your Imagination.',
+                    'Accelerate Breakthroughs.',
                   ]}
                   mainClassName="
-                    inline-flex
-                    items-center
-                    px-5 sm:px-6
-                    py-2.5 sm:py-3
+                    inline-flex items-center
+                    px-5 py-2.5
                     rounded-2xl
-                    bg-white/12
-                    backdrop-blur-xl
+                    bg-white/12 backdrop-blur-xl
                     border border-white/25
-                    text-white
                     text-sm sm:text-base lg:text-lg
                     shadow-[0_0_40px_rgba(0,0,0,1)]
                     whitespace-nowrap
+                    hover:shadow-[0_0_70px_rgba(180,120,255,0.4)]
+                    hover:scale-[1.02]
+                    transition-all duration-300
                   "
                   staggerFrom="last"
                   initial={{ y: '120%', opacity: 0 }}
@@ -170,41 +139,65 @@ export default function HomeHero() {
 
             </div>
 
-            {/* RIGHT */}
+            {/* RIGHT INFO CARD */}
             <div className="flex justify-center md:justify-end">
 
-              <div>
-                <div className="flex flex-col gap-5">
+              <div
+                className="
+                  w-full max-w-sm
+                  p-6 rounded-3xl
+                  bg-white/10 backdrop-blur-xl
+                  border border-white/20
+                  shadow-[0_0_40px_rgba(180,120,255,0.25)]
+                  hover:shadow-[0_0_80px_rgba(180,120,255,0.55)]
+                  hover:scale-[1.03]
+                  transition-all duration-400
+                  space-y-4
+                "
+              >
 
-                  <div className="px-2 sm:px-0">
-                    <Countdown targetDate="2026-01-22T00:00:00" />
-                  </div>
+                {/* STATUS BADGE */}
+                <div className="flex justify-center md:justify-start">
+                  <span
+                    className="
+                      flex items-center gap-2
+                      px-4 py-1.5
+                      rounded-full
+                      bg-purple-500/20
+                      border border-purple-400/40
+                      text-purple-300 font-semibold text-sm
+                      shadow-[0_0_30px_rgba(180,120,255,0.5)]
+                    "
+                  >
+                    GHC 3.0 Coming Soon
+                  </span>
+                </div>
 
-                  <div className="space-y-2 text-center md:text-left">
+                {/* EVENT DETAILS */}
+                <div className="space-y-2 text-center md:text-left">
 
-                    <h2 className="font-semibold text-sm sm:text-base lg:text-lg">
-                      <TextType 
-                        text={['Jan 22–25, 2026']}
-                        typingSpeed={75}
-                        pauseDuration={1500}
-                        showCursor
-                        cursorCharacter="_"
-                      />
-                    </h2>
+                  <h2 className="font-semibold text-sm sm:text-base lg:text-lg">
+                    <TextType
+                      text={['January 2027, 1st Week']}
+                      typingSpeed={65}
+                      pauseDuration={1200}
+                      showCursor
+                      cursorCharacter="_"
+                    />
+                  </h2>
 
-                    <h2 className="font-semibold text-sm sm:text-base lg:text-lg">
-                      <TextType 
-                        text={['IIT Madras, Chennai']}
-                        typingSpeed={75}
-                        pauseDuration={1500}
-                        showCursor
-                        cursorCharacter="_"
-                      />
-                    </h2>
-
-                  </div>
+                  <h2 className="font-semibold text-sm sm:text-base lg:text-lg">
+                    <TextType
+                      text={['IIT Madras, Chennai']}
+                      typingSpeed={65}
+                      pauseDuration={1200}
+                      showCursor
+                      cursorCharacter="_"
+                    />
+                  </h2>
 
                 </div>
+
               </div>
 
             </div>
