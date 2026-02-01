@@ -16,7 +16,7 @@ export default function HomeHero() {
       {/* BACKGROUND GLOW LAYERS */}
       <div className="absolute -top-40 -left-40 w-[520px] h-[520px] bg-purple-600/20 rounded-full blur-[160px] animate-pulse" />
       <div className="absolute bottom-0 right-0 w-[480px] h-[480px] bg-indigo-500/20 rounded-full blur-[170px] animate-pulse" />
-
+      
       {/* DARK GRADIENT OVERLAY */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-black/40 to-black/90" />
 
@@ -94,14 +94,11 @@ export default function HomeHero() {
             {/* LEFT CONTENT */}
             <div className="flex flex-col gap-6 text-center md:text-left">
 
-              {/* SHINY TAGLINE */}
+              {/* TAGLINE */}
               <h2 className="relative font-bold text-base sm:text-lg lg:text-3xl drop-shadow-[0_0_30px_rgba(180,120,255,0.7)]">
-
                 <span className="relative z-10">
                   It's an event, where innovation knows no bounds!
                 </span>
-
-
               </h2>
 
               {/* ROTATING TEXT */}
@@ -137,6 +134,39 @@ export default function HomeHero() {
                 />
               </div>
 
+              {/* ✅ GALLERY BUTTON */}
+              <div className="flex justify-center md:justify-start mt-4">
+                <a href="/gallery/ghc-2026">
+                  <button
+                    className="
+                      group relative
+                      px-6 py-3
+                      rounded-xl
+                      bg-gradient-to-r from-purple-600 to-indigo-600
+                      text-white font-semibold
+                      shadow-[0_0_35px_rgba(120,80,255,0.6)]
+                      hover:shadow-[0_0_70px_rgba(120,80,255,0.9)]
+                      hover:scale-105
+                      transition-all duration-300
+                      overflow-hidden
+                    "
+                  >
+                    <span
+                      className="
+                        absolute inset-0 bg-gradient-to-r
+                        from-transparent via-white/30 to-transparent
+                        translate-x-[-120%]
+                        group-hover:translate-x-[120%]
+                        transition-transform duration-700
+                      "
+                    />
+                    <span className="relative z-10">
+                      View GHC 2.0 Gallery
+                    </span>
+                  </button>
+                </a>
+              </div>
+
             </div>
 
             {/* RIGHT INFO CARD */}
@@ -145,7 +175,7 @@ export default function HomeHero() {
               <div
                 className="
                   w-full max-w-sm
-                  p-6 rounded-3xl
+                  p-6 rounded-5xl
                   bg-white/10 backdrop-blur-xl
                   border border-white/20
                   shadow-[0_0_40px_rgba(180,120,255,0.25)]

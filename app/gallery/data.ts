@@ -35,5 +35,6 @@ export const galleryImages = [
         src: '/gallery9.jpg',
       alt: 'Closing keynote',
     },
+    
   ]
   

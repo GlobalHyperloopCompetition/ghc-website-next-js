@@ -1,15 +1,20 @@
 "use client";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
-import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer"
-import { ParallaxScroll } from "../../components/ui/parallax-scroll";
+import Navbar from "../../../components/Navbar";
+import Footer from "../../../components/Footer"
+import { ParallaxScroll } from "../../../components/ui/parallax-scroll";
 import {motion} from 'framer-motion'
 
 export default function ParallaxScrollDemo() {
   return (
     <>
       <Navbar />
-      <Box px={{ base: 6, md: 12 }} py={10} textAlign="center">
+      <Box
+        px={{ base: 6, md: 12 }}
+        pt={{ base: 24, md: 28 }}   // Navbar spacing
+        pb={10}
+        textAlign="center"
+      >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

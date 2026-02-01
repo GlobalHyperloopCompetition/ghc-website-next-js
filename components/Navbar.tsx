@@ -45,6 +45,20 @@ const Navbar = () => {
         },
       ],
     },
+     { name: "Gallery",
+      subRoutes: [
+        {
+          title: "GHC 1.0",
+          desc: "Photos from GHC 2025",
+          path: "/gallery/ghc-2025",
+        },
+        {
+          title: "GHC 2.0",
+          desc: "Photos from GHC 2026",
+          path: "/gallery/ghc-2026",
+        },
+      ],
+    },
     { name: "Contact Us", path: "/contact" },
     {
       name: "Register Now",
@@ -52,7 +66,7 @@ const Navbar = () => {
     },
     { name: "Documents", path: "/documents" },
     { name: "Categories", path: "/categories" },
-    { name: "GHC 2025 Gallery", path: "/gallery" },
+
   ];
 
   const handleMouseEnter = (name: string) => {
